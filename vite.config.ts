@@ -1,7 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+/// <reference types="vite/client" />
 
-// https://vitejs.dev/config/
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import viteTsconfigPaths from 'vite-tsconfig-paths';
+
 export default defineConfig({
-  plugins: [react()],
-})
+  base: './',
+  plugins: [react(), viteTsconfigPaths()],
+  server: {
+    port: 3000,
+  },
+  optimizeDeps: { exclude: ['fsevents'] },
+});
