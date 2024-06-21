@@ -1,14 +1,52 @@
-/// <reference types="vite/client" />
-
-import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
+import mkcert from 'vite-plugin-mkcert';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
-export default defineConfig({
-  base: './',
-  plugins: [react(), viteTsconfigPaths()],
-  server: {
-    port: 3000,
-  },
-  optimizeDeps: { exclude: ['fsevents'] },
+// https://vitejs.dev/config/
+export default defineConfig(({ command, mode }) => {
+  if (command === 'serve') {
+    return {
+      build: {
+        commonjsOptions: {
+          include: [
+            'tailwind.config.js',
+            'node_modules/**',
+            '../node_modules/**',
+          ],
+        },
+      },
+      optimizeDeps: {
+        include: ['tailwind-config'],
+      },
+      plugins: [react(), mkcert()],
+      resolve: {
+        alias: {
+          'tailwind-config': path.resolve(__dirname, './tailwind.config.js'),
+          '@': path.resolve(__dirname, './src'),
+        },
+      },
+    };
+  }
+  return {
+    build: {
+      commonjsOptions: {
+        include: [
+          'tailwind.config.js',
+          'node_modules/**',
+          '../node_modules/**',
+        ],
+      },
+    },
+    optimizeDeps: {
+      include: ['tailwind-config'],
+    },
+    plugins: [react()],
+    resolve: {
+      alias: {
+        'tailwind-config': path.resolve(__dirname, './tailwind.config.js'),
+        '@': path.resolve(__dirname, './src'),
+      },
+    },
+  };
 });

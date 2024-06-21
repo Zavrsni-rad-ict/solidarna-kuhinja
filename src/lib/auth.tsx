@@ -9,8 +9,24 @@ import { axios } from './api-client';
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features
 
-const getUser = (): Promise<User> => {
-  return axios.get('/auth/me');
+const getUser = async (): Promise<User | null> => {
+  const token = localStorage.getItem('jwt'); // Adjust this based on where you store your token
+  if (!token) {
+    // User is not authenticated
+    return null;
+  }
+
+  try {
+    const response = await axios.get('/users/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    return null;
+  }
 };
 
 const logout = (): Promise<void> => {
@@ -76,6 +92,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useUser();
   const location = useLocation();
 
+  console.log('Zasticena ruta');
   if (!user.data) {
     return (
       <Navigate
