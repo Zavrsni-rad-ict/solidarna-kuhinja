@@ -1,6 +1,10 @@
 import { appConfig } from '@/config/appConfig';
 import storage from '@/utils/storage';
-import Axios, { InternalAxiosRequestConfig } from 'axios';
+import Axios, {
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
