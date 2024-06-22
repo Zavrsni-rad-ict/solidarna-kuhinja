@@ -1,10 +1,11 @@
 import { InputGroup } from '@/components/InputGroup/InputGroup';
 import { useTranslation } from 'react-i18next';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLogin } from '@/lib/auth';
 import { RHFFormProvider } from '@/components/RHFFormProvider';
+import { Button } from '@/components/Button';
 
 type Inputs = {
   email: string;
@@ -28,18 +29,21 @@ export const LoginForm = () => {
     shouldFocusError: false,
   });
 
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit, control } = methods;
 
   const { mutate: login } = useLogin();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => login(data);
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') return handleSubmit(onSubmit);
+  };
 
   return (
-    <RHFFormProvider onSubmit={onSubmit} methods={methods}>
+    <RHFFormProvider
+      onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={onKeyDown}
+      methods={methods}
+    >
       <InputGroup
         label="Email"
         placeholder="email..."
@@ -54,11 +58,7 @@ export const LoginForm = () => {
         name="password"
       />
       <div className="flex justify-end mt-5">
-        <input
-          type="submit"
-          value="SUBMIT"
-          className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-        />
+        <Button value="Submit" variant="red" type="submit" />
       </div>
     </RHFFormProvider>
   );

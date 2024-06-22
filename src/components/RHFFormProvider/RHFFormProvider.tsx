@@ -1,13 +1,13 @@
-import { ReactNode } from 'react';
+import { FormEventHandler, ReactNode } from 'react';
 // form
-import { FormProvider as Form, UseFormReturn } from 'react-hook-form';
+import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 // ----------------------------------------------------------------------
 
 type Props = {
   children: ReactNode;
   methods: UseFormReturn<any>;
-  onSubmit?: VoidFunction;
+  onSubmit?: FormEventHandler<HTMLFormElement>;
   onKeyDown?: (e: any) => void;
 };
 
@@ -18,10 +18,10 @@ export const RHFFormProvider = ({
   onKeyDown,
 }: Props) => {
   return (
-    <Form {...methods}>
+    <FormProvider {...methods}>
       <form onSubmit={onSubmit} onKeyDown={onKeyDown}>
         {children}
       </form>
-    </Form>
+    </FormProvider>
   );
 };
