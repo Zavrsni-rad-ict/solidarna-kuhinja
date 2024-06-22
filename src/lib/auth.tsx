@@ -33,8 +33,8 @@ const getUser = async (): Promise<User | null> => {
   }
 };
 
-const logout = (): Promise<void> => {
-  return axios.post('/auth/logout');
+const logout = (): any => {
+  return storage.removeStorage();
 };
 
 export const loginInputSchema = z.object({

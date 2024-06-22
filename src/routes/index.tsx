@@ -5,7 +5,7 @@ import { publicRoutes } from './public';
 import { useUser } from '@/lib/auth';
 
 export const AppRoutes = () => {
-  const { data: user } = useUser({});
+  const { data: user } = useUser();
 
   const routes = user ? protectedRoutes : publicRoutes;
 
