@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.6.0",
     "@tanstack/react-query": "^5.40.0",
     "@tanstack/react-query-devtools": "^5.40.0",
     "axios": "^1.7.2",
@@ -26,6 +27,7 @@
     "vite-plugin-mkcert": "^1.17.5",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0",
+    "yup": "^1.4.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

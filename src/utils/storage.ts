@@ -1,16 +1,14 @@
-const storagePrefix = 'zavrsni_rad-';
-
 const storage = {
   get: (key: any) => {
-    return localStorage.getItem(`${storagePrefix}${key}`);
+    return localStorage.getItem(`${key}`);
   },
   set: (key: any, value: string) => {
-    localStorage.setItem(`${storagePrefix}${key}`, value);
+    localStorage.setItem(`${key}`, value);
   },
-  clear: (key: any) => {
-    localStorage.removeItem(`${storagePrefix}${key}`);
+  removeItem: (key: any) => {
+    localStorage.removeItem(`${key}`);
   },
-  clearStorage: () => {
+  removeStorage: () => {
     localStorage.clear();
   },
 };
