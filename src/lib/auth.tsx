@@ -6,7 +6,7 @@ import { AuthResponse, User } from '@/types/api';
 import { axios } from './api-client';
 import storage from '@/utils/storage';
 import { JWT_TOKEN_LOCAL_STORAGE_KEY, QUERY_KEYS } from '@/constants';
-import { useQuery } from '@tanstack/react-query';
+import { LoginInput, loginWithEmailAndPassword, logout } from '@/features/auth';
 
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features
@@ -31,26 +31,6 @@ const getUser = async (): Promise<User | null> => {
     console.error('Error fetching user:', error);
     return null;
   }
-};
-
-const logout = (): any => {
-  return storage.removeStorage();
-};
-
-export const loginInputSchema = z.object({
-  email: z.string().min(1, 'Required').email('Invalid email'),
-  password: z.string().min(5, 'Required'),
-});
-
-export type LoginInput = z.infer<typeof loginInputSchema>;
-
-type Request = {
-  identifier: string;
-} & Pick<LoginInput, 'password'>;
-
-const loginWithEmailAndPassword = (data: LoginInput): Promise<AuthResponse> => {
-  const request: Request = { identifier: data.email, password: data.password };
-  return axios.post('/auth/local', request);
 };
 
 export const registerInputSchema = z

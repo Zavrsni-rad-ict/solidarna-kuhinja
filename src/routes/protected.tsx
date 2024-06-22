@@ -1,5 +1,6 @@
 import { MainLayout } from '@/components/Layout';
-import { Profile } from '@/features';
+import { Profile } from '@/features/profile';
+
 import { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
