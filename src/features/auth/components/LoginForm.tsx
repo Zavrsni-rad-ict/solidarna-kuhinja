@@ -4,6 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLogin } from '@/lib/auth';
+import { RHFFormProvider } from '@/components/RHFFormProvider';
 
 type Inputs = {
   email: string;
@@ -38,30 +39,28 @@ export const LoginForm = () => {
   const onSubmit: SubmitHandler<Inputs> = (data) => login(data);
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <InputGroup
-          label="Email"
-          placeholder="email..."
-          control={control}
-          name="email"
+    <RHFFormProvider onSubmit={onSubmit} methods={methods}>
+      <InputGroup
+        label="Email"
+        placeholder="email..."
+        control={control}
+        name="email"
+      />
+      <InputGroup
+        label="Password"
+        type="password"
+        placeholder="Password..."
+        control={control}
+        name="password"
+      />
+      <div className="flex justify-end mt-5">
+        <input
+          type="submit"
+          value="SUBMIT"
+          className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         />
-        <InputGroup
-          label="Password"
-          type="password"
-          placeholder="Password..."
-          control={control}
-          name="password"
-        />
-        <div className="flex justify-end mt-5">
-          <input
-            type="submit"
-            value="SUBMIT"
-            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-          />
-        </div>
-      </form>
-    </FormProvider>
+      </div>
+    </RHFFormProvider>
   );
 };
 
