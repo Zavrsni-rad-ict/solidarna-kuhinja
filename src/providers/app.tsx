@@ -5,10 +5,10 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { MainErrorFallback } from '@/components/errors/main';
 import { Spinner } from '@/components/ui/spinner';
 import { AuthLoader } from '@/lib/auth';
 import { queryClient } from '@/lib/react-query';
+import { MainErrorFallback } from '@/components/ErrorFallback/main';
 
 type AppProviderProps = {
   children: React.ReactNode;

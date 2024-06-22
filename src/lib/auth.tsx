@@ -1,30 +1,36 @@
 import { configureAuth } from 'react-query-auth';
-import { Navigate, useLocation } from 'react-router-dom';
 import { z } from 'zod';
 
 import { AuthResponse, User } from '@/types/api';
 
 import { axios } from './api-client';
+import storage from '@/utils/storage';
+import { JWT_TOKEN_LOCAL_STORAGE_KEY, QUERY_KEYS } from '@/constants';
+import { LoginInput, loginWithEmailAndPassword, logout } from '@/features/auth';
 
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features
 
-const getUser = (): Promise<User> => {
-  return axios.get('/auth/me');
-};
+const getUser = async (): Promise<User | null> => {
+  const token = storage.get(JWT_TOKEN_LOCAL_STORAGE_KEY); // Adjust this based on where you store your token
 
-const logout = (): Promise<void> => {
-  return axios.post('/auth/logout');
-};
+  if (!token) {
+    // User is not authenticated
+    return null;
+  }
 
-export const loginInputSchema = z.object({
-  email: z.string().min(1, 'Required').email('Invalid email'),
-  password: z.string().min(5, 'Required'),
-});
+  try {
+    const response = await axios.get<any, User>('/users/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-export type LoginInput = z.infer<typeof loginInputSchema>;
-const loginWithEmailAndPassword = (data: LoginInput): Promise<AuthResponse> => {
-  return axios.post('/auth/login', data);
+    return response;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    return null;
+  }
 };
 
 export const registerInputSchema = z
@@ -56,34 +62,27 @@ const registerWithEmailAndPassword = (
   return axios.post('/auth/register', data);
 };
 
+async function handleUserResponse(data: AuthResponse) {
+  const { jwt, user } = data;
+  storage.set(JWT_TOKEN_LOCAL_STORAGE_KEY, jwt);
+  return user;
+}
+
 const authConfig = {
   userFn: getUser,
   loginFn: async (data: LoginInput) => {
     const response = await loginWithEmailAndPassword(data);
-    return response.user;
+    const user = await handleUserResponse(response);
+
+    return user;
   },
   registerFn: async (data: RegisterInput) => {
     const response = await registerWithEmailAndPassword(data);
     return response.user;
   },
   logoutFn: logout,
+  userKey: [QUERY_KEYS.AUTHENTICATED_USER],
 };
 
 export const { useUser, useLogin, useLogout, useRegister, AuthLoader } =
   configureAuth(authConfig);
-
-export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const user = useUser();
-  const location = useLocation();
-
-  if (!user.data) {
-    return (
-      <Navigate
-        to={`/auth/login?redirectTo=${encodeURIComponent(location.pathname)}`}
-        replace
-      />
-    );
-  }
-
-  return children;
-};

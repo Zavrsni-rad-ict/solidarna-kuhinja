@@ -1,7 +1,13 @@
 import { AuthLayout } from '@/components/Layout';
 
+import { LoginForm } from '../components';
+
 export const Login = () => {
-  return <AuthLayout>Login</AuthLayout>;
+  return (
+    <AuthLayout>
+      <LoginForm />
+    </AuthLayout>
+  );
 };
 
 Login.displayName = 'Login';
