@@ -1,29 +1,10 @@
 import { appConfig } from '@/config/appConfig';
-import storage from '@/utils/storage';
-import Axios, {
-  AxiosRequestConfig,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import Axios, { InternalAxiosRequestConfig } from 'axios';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config.headers) {
     config.headers.Accept = 'application/json';
   }
-
-  // const token = localStorage.getItem('token');
-  // if (token) {
-  //   const decodedToken = jwtDecode(token);
-  //   const currentDate = new Date();
-  //   if (decodedToken && decodedToken.exp! * 1000 < currentDate.getTime()) {
-  //     localStorage.removeItem('token');
-  //     console.log('Token expired.');
-  //     return (window.location.href = '/');
-  //   } else {
-  //     config.headers.Authorization = `Bearer ${token}`;
-  //   }
-  // }
 
   return config;
 }
