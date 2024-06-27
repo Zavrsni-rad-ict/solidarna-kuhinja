@@ -2,13 +2,15 @@ import { parseColor } from 'tailwindcss/lib/util/color';
 import plugin from 'tailwindcss/plugin';
 import colors from 'tailwindcss/colors';
 
+import { HEADER_HEIGHT } from './src/constants';
 /** Converts HEX color to RGB */
 const toRGB = (value) => {
   return parseColor(value).color.join(' ');
 };
 
+const withMT = require('@material-tailwind/react/utils/withMT');
 /** @type {import("tailwindcss").Config} */
-module.exports = {
+module.exports = withMT({
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   safelist: [
     {
@@ -102,6 +104,9 @@ module.exports = {
           },
         },
       },
+      height: {
+        'screen-with-header': `calc(100vh - ${HEADER_HEIGHT}px)`,
+      },
     },
   },
   plugins: [
@@ -194,4 +199,4 @@ module.exports = {
     enabled: process.env.NODE_ENV === 'production',
     content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   },
-};
+});
