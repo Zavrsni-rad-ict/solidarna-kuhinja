@@ -222,19 +222,17 @@ export const Nav = () => {
           Material Tailwind
         </Typography>
         <div className="hidden lg:block">{/* <NavList /> */}</div>
-        <IconButton
+        {/* <IconButton
           size="sm"
           color="blue-gray"
           variant="text"
           onClick={toggleIsNavOpen}
-          className="ml-auto mr-2 lg:hidden"
-        >
-          <Bars2Icon className="h-6 w-6" />
-        </IconButton>
+          className="ml-auto mr-2 lg:hidden bg-black"
 
-        <Button size="sm" variant="text">
-          <span>Log In</span>
-        </Button>
+        >
+          <Bars2Icon />
+        </IconButton> */}
+
         <ProfileMenu />
       </div>
       {/* <MobileNav open={isNavOpen} className="overflow-scroll">
