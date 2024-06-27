@@ -1,5 +1,7 @@
 export const JWT_TOKEN_LOCAL_STORAGE_KEY = 'jwt';
 
+export const HEADER_HEIGHT = 82;
+
 export enum QUERY_KEYS {
   AUTHENTICATED_USER = 'AUTHENTICATED_USER',
 }

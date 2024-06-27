@@ -7,7 +7,7 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="logo__wrapper">
           <span>Logo</span>
         </div>
-        <div className="form__wrapper max-w-96 w-full bg-slate-200 p-5 w-full rounded-lg">
+        <div className="form__wrapper max-w-96 w-full bg-slate-200 p-5 rounded-lg">
           {children}
         </div>
       </div>
