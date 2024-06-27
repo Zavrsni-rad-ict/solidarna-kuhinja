@@ -1,0 +1,20 @@
+{
+  "Test": {
+    "hello_world": "Hello World"
+  },
+  "General": {
+    "sign_in": "Uloguj se"
+  },
+  "Login": {
+    "password": "Lozinka",
+    "errors": {
+      "validation": {
+        "email": "Email nije ispravan",
+        "password": "Lozinka nije ispravna"
+      }
+    }
+  },
+  "GlobalError": {
+    "required": "Polje je obavezno"
+  }
+}

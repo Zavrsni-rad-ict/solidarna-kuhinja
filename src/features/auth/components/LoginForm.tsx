@@ -1,11 +1,11 @@
 import { InputGroup } from '@/components/InputGroup/InputGroup';
-import { useTranslation } from 'react-i18next';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLogin } from '@/lib/auth';
 import { RHFFormProvider } from '@/components/RHFFormProvider';
 import { Button } from '@/components/Button';
+import { useTranslationsTyped } from '@/hooks';
 
 type Inputs = {
   email: string;
@@ -13,14 +13,16 @@ type Inputs = {
 };
 
 export const LoginForm = () => {
-  const { t } = useTranslation('');
+  const { t: tL } = useTranslationsTyped('Login');
+  const { t: tGE } = useTranslationsTyped('GlobalError');
+  const { t: tG } = useTranslationsTyped('General');
 
   const schema = yup.object().shape({
     email: yup
       .string()
-      .email('Email nije validan')
-      .required('Polje je obavezno'),
-    password: yup.string().required(),
+      .email(tL('errors.validation.email'))
+      .required(tGE('required')),
+    password: yup.string().required(tGE('required')),
   });
 
   const methods = useForm({
@@ -51,14 +53,14 @@ export const LoginForm = () => {
         name="email"
       />
       <InputGroup
-        label="Password"
+        label={tL('password')}
         type="password"
-        placeholder="Password..."
+        placeholder={`${tL('password')}...`}
         control={control}
         name="password"
       />
       <div className="flex justify-end mt-5">
-        <Button value="Submit" variant="red" type="submit" />
+        <Button value={tG('sign_in')} variant="red" type="submit" />
       </div>
     </RHFFormProvider>
   );
