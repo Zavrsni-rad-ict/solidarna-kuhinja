@@ -25,6 +25,8 @@ import {
   RocketLaunchIcon,
   Bars2Icon,
 } from '@heroicons/react/24/solid';
+import { useLogout } from '@/lib/auth';
+import { useNavigate } from 'react-router-dom';
 
 // profile menu component
 const profileMenuItems = [
@@ -37,14 +39,6 @@ const profileMenuItems = [
     icon: Cog6ToothIcon,
   },
   {
-    label: 'Inbox',
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: 'Help',
-    icon: LifebuoyIcon,
-  },
-  {
     label: 'Sign Out',
     icon: PowerIcon,
   },
@@ -54,6 +48,11 @@ function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  const { mutate: logout } = useLogout();
+  const navigate = useNavigate();
+
+  const handleNavigate = (path: string) => navigate(path);
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -81,7 +80,7 @@ function ProfileMenu() {
             <MenuItem
               key={label}
               onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
+              className={`flex items-center gap-2 rounded py-2 ${
                 isLastItem
                   ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
                   : ''
@@ -96,6 +95,12 @@ function ProfileMenu() {
                 variant="small"
                 className="font-normal"
                 color={isLastItem ? 'red' : 'inherit'}
+                onClick={
+                  isLastItem
+                    ? logout
+                    : () =>
+                        handleNavigate(label.replaceAll(' ', '-').toLowerCase())
+                }
               >
                 {label}
               </Typography>

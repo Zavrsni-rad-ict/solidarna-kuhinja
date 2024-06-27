@@ -8,9 +8,9 @@ const toRGB = (value) => {
   return parseColor(value).color.join(' ');
 };
 
-const withMT = require('@material-tailwind/react/utils/withMT');
+// const withMT = require('@material-tailwind/react/utils/withMT');
 /** @type {import("tailwindcss").Config} */
-module.exports = withMT({
+module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   safelist: [
     {
@@ -199,4 +199,4 @@ module.exports = withMT({
     enabled: process.env.NODE_ENV === 'production',
     content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   },
-});
+};
