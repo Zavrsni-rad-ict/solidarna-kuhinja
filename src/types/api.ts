@@ -3,42 +3,51 @@
 // with the backend instead of manually writing them out
 
 export type BaseEntity = {
-	id: string;
-	createdAt: number;
+  id: string;
+  createdAt: number;
 };
 
 export type Entity<T> = {
-	[K in keyof T]: T[K];
+  [K in keyof T]: T[K];
 } & BaseEntity;
 
 export type User = Entity<{
-	firstName: string;
-	lastName: string;
-	email: string;
-	role: 'ADMIN' | 'USER';
-	teamId: string;
-	bio: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: 'ADMIN' | 'USER';
+  teamId: string;
+  bio: string;
 }>;
 
 export type AuthResponse = {
-	jwt: string;
-	user: User;
+  jwt: string;
+  user: User;
 };
 
 export type Team = Entity<{
-	name: string;
-	description: string;
+  name: string;
+  description: string;
 }>;
 
 export type Discussion = Entity<{
-	title: string;
-	body: string;
-	teamId: string;
-	author: User;
+  title: string;
+  body: string;
+  teamId: string;
+  author: User;
 }>;
 
 export type Comment = Entity<{
-	body: string;
-	discussionId: string;
-	author: User;
+  body: string;
+  discussionId: string;
+  author: User;
 }>;
+
+export enum Role {
+  Authenticated = 1,
+  Public = 2,
+  Admin = 3,
+  Cook = 4,
+  Deliverer = 5,
+  FieldWorker = 6,
+}
