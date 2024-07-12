@@ -9,7 +9,7 @@ type UserUpdateRequest = {
   role: Role;
 };
 
-const updateUser = (user: UserUpdateRequest) => axios.put('/api/users', user);
+const updateUser = (user: UserUpdateRequest) => axios.put('/users', user);
 
 export const useUpdateUser = () => {
   return useMutation({

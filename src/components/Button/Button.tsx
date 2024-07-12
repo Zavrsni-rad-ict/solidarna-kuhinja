@@ -43,7 +43,7 @@ export const Button = (props: Props) => {
     <input
       type={type}
       value={shouldCapitalizeValue ? value.toUpperCase() : value}
-      className={`cursor-pointer ${selectedVariant ?? ''}${
+      className={`mb-0 cursor-pointer ${selectedVariant ?? ''}${
         inputProps.className ?? ''
       }`}
       {...inputProps}
