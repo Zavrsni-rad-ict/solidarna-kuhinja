@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useLogin } from '@/lib/auth';
 import { RHFFormProvider } from '@/components/RHFFormProvider';
 import { Button } from '@/components/Button';
-import { useTranslationsTyped } from '@/hooks';
+import { useTranslation } from 'react-i18next';
 
 type Inputs = {
   email: string;
@@ -13,9 +13,9 @@ type Inputs = {
 };
 
 export const LoginForm = () => {
-  const { t: tL } = useTranslationsTyped('Login');
-  const { t: tGE } = useTranslationsTyped('GlobalError');
-  const { t: tG } = useTranslationsTyped('General');
+  const { t: tL } = useTranslation('Login');
+  const { t: tGE } = useTranslation('GlobalError');
+  const { t: tG } = useTranslation('General');
 
   const schema = yup.object().shape({
     email: yup
