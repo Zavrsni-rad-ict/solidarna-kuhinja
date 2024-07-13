@@ -5,6 +5,7 @@ export const HEADER_HEIGHT = 106;
 export enum QUERY_KEYS {
   AUTHENTICATED_USER = 'AUTHENTICATED_USER',
   USERS = 'USERS',
+  ROLES = 'ROLES',
 }
 
 export enum MUTATION_KEYS {

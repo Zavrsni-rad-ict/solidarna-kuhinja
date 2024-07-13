@@ -1,13 +1,16 @@
 import { useMutation } from '@tanstack/react-query';
 import { axios } from '@/lib/api-client';
 import { MUTATION_KEYS } from '@/constants';
-import { Role } from '@/types/api';
+import { RoleEnum } from '@/types/api';
+import { toast } from 'react-toastify';
 
-type UserRequest = {
+export type UserRequest = {
   email: string;
   username: string;
   password: string;
-  role: Role;
+  role: RoleEnum;
+  firstName: string;
+  lastName: string;
 };
 
 const createUser = (user: UserRequest) => axios.post('/users', user);
@@ -16,5 +19,7 @@ export const useCreateUser = () => {
   return useMutation({
     mutationKey: [MUTATION_KEYS.CREATE_USER],
     mutationFn: createUser,
+    onSuccess: () => toast.success('Uspesno'),
+    onError: () => toast.error('DESILA SE GRESKA'),
   });
 };

@@ -15,7 +15,7 @@ export type User = Entity<{
   firstName: string;
   lastName: string;
   email: string;
-  role: 'ADMIN' | 'USER';
+  role: RoleName;
   teamId: string;
   bio: string;
 }>;
@@ -43,7 +43,29 @@ export type Comment = Entity<{
   author: User;
 }>;
 
-export enum Role {
+export type RoleResponse = {
+  roles: Role[];
+};
+
+export type Role = {
+  id: number;
+  name: RoleName;
+  description: string;
+  createdAt: string;
+  type: Lowercase<RoleName>;
+  updatedAt: string;
+  nb_users: number;
+};
+
+export type RoleName =
+  | 'Authenticated'
+  | 'Public'
+  | 'Admin'
+  | 'Cook'
+  | 'Deliverer'
+  | 'FieldWorker';
+
+export enum RoleEnum {
   Authenticated = 1,
   Public = 2,
   Admin = 3,

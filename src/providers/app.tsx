@@ -11,6 +11,7 @@ import { queryClient } from '@/lib/react-query';
 import { MainErrorFallback } from '@/components/ErrorFallback/main';
 import { I18nextProvider } from 'react-i18next';
 import i18next from '@/lib/i18n';
+import 'react-toastify/dist/ReactToastify.css';
 
 type AppProviderProps = {
   children: React.ReactNode;
