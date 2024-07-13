@@ -59,7 +59,7 @@ export const CreateUser = () => {
         </div>
 
         <div className="col-span-12">
-          <Dropdown label="Role">
+          <Dropdown label="Role" control={control} name="role">
             <option value="default" selected disabled>
               Choose a role
             </option>
