@@ -1,6 +1,6 @@
 import { MainLayout } from '@/components/Layout';
 import { Profile } from '@/features/profile';
-import { Users } from '@/features/user/components';
+import { UserList } from '@/features/user/components';
 
 import { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
@@ -21,7 +21,7 @@ export const protectedRoutes = [
     element: <App />,
     children: [
       { path: '/account', element: <Profile /> },
-      { path: '/users', element: <Users /> },
+      { path: '/users', element: <UserList /> },
       { path: '*', element: <Navigate to="/" /> },
     ],
   },

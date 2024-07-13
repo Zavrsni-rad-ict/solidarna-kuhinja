@@ -3,7 +3,11 @@
     "hello_world": "Hello World"
   },
   "General": {
-    "sign_in": "Uloguj se"
+    "sign_in": "Uloguj se",
+    "actions": "Akcije",
+    "edit": "Izmeni",
+    "delete": "Obriši",
+    "no_data_available": "Nema dostupnih podataka"
   },
   "Login": {
     "password": "Lozinka",
@@ -16,5 +20,11 @@
   },
   "GlobalError": {
     "required": "Polje je obavezno"
+  },
+  "UserList": {
+    "columns": {
+      "username": "Korisničko ime"
+    },
+    "createButton": "Kreiraj korisnika"
   }
 }

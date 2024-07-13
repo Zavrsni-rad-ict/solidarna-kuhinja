@@ -3,7 +3,11 @@
     "hello_world": "Hello World"
   },
   "General": {
-    "sign_in": "Sign In"
+    "sign_in": "Sign In",
+    "actions": "Acitons",
+    "edit": "Edit",
+    "delete": "Delete",
+    "no_data_available": "No data available"
   },
   "Login": {
     "password": "Password",
@@ -16,5 +20,11 @@
   },
   "GlobalError": {
     "required": "Field is required"
+  },
+  "UserList": {
+    "columns": {
+      "username": "Username"
+    },
+    "createButton": "Create User"
   }
 }

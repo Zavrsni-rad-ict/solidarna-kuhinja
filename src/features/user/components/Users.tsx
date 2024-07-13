@@ -5,10 +5,16 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { Button } from '@/components';
+import { Button, variants } from '@/components';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-export const Users = () => {
+const PADDING = 'p-5';
+
+export const UserList = () => {
   const { data: users, isLoading: isLoadingUsers } = useFetchAllUsers();
+  const { t: tG } = useTranslation('General');
+  const { t: tUL } = useTranslation('UserList');
 
   const table = useReactTable({
     columns: [
@@ -16,10 +22,11 @@ export const Users = () => {
         accessorKey: 'id',
         header: () => 'ID',
         accessorFn: (user) => user.id,
+        size: 50,
       },
       {
         accessorKey: 'username',
-        header: () => 'Username',
+        header: () => tUL('columns.username'),
         accessorFn: (user) => user.username,
       },
       {
@@ -29,13 +36,18 @@ export const Users = () => {
       },
       {
         accessorKey: 'actions',
-        header: () => 'Actions',
-        cell: () => (
-          <>
-            <Button type="button" value="Edit" variant="yellow" />
-            <Button type="button" value="Delete" variant="red" />
-          </>
-        ),
+        header: () => tG('actions'),
+        cell: (props) => {
+          const user = props.row.original;
+          return (
+            <div className="flex gap-2">
+              <Link to={`/users/edit/${user.id}`} className={variants.yellow}>
+                {tG('edit')}
+              </Link>
+              <Button type="button" value={tG('delete')} variant="red" />
+            </div>
+          );
+        },
       },
     ],
     data: users ?? [],
@@ -46,12 +58,16 @@ export const Users = () => {
 
   return (
     <div className="p-6">
-      <table className="max-w-[1024px] w-full m-auto">
+      <table className="w-full m-auto border-2 border-slate-300 rounded-lg">
         <thead className="bg-slate-100">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} className="py-3 gap-3 text-left">
+                <th
+                  key={header.id}
+                  className={`py-3 gap-3 text-left ${PADDING}`}
+                  style={{ width: header.getSize() }}
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -64,18 +80,26 @@ export const Users = () => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row, i) => (
-            <tr
-              key={row.id}
-              className={i % 2 === 0 ? 'bg-slate-200' : undefined}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="py-3">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+          {table.getRowModel().rows.length === 0 ? (
+            <tr>
+              <td colSpan={table.getAllColumns().length} className="p-10">
+                {tG('no_data_available')}
+              </td>
             </tr>
-          ))}
+          ) : (
+            table.getRowModel().rows.map((row, i) => (
+              <tr
+                key={row.id}
+                className={i % 2 === 0 ? 'bg-slate-200' : undefined}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id} className={` ${PADDING}`}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
         </tbody>
         <tfoot>
           {table.getFooterGroups().map((footerGroup) => (
@@ -94,8 +118,14 @@ export const Users = () => {
           ))}
         </tfoot>
       </table>
+
+      <div className="my-4 flex justify-end">
+        <Link to="/users/create" className={variants.primary}>
+          {tUL('createButton')}
+        </Link>
+      </div>
     </div>
   );
 };
 
-Users.displayName = 'Users';
+UserList.displayName = 'UserList';
