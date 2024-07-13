@@ -5,7 +5,7 @@ import { User } from '../types';
 
 const fetchUser = createFetchFn<number, User>({
   method: 'get',
-  getURL: (id) => `/api/users/${id}`,
+  getURL: (id) => `/users/${id}`,
 });
 
 export const useFetchUser = (

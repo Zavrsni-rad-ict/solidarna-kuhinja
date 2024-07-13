@@ -1,17 +1,15 @@
 import { QUERY_KEYS } from '@/constants';
-import { createFetchFn } from '@/utils';
+
 import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 import { User } from '../types';
+import { axios } from '@/lib/api-client';
 
-const fetchUsers = createFetchFn<void, User[]>({
-  method: 'get',
-  getURL: () => '/api/users',
-});
+const fetchUsers = async (): Promise<User[]> => await axios.get('/users');
 
 export const useFetchAllUsers = (queryConfig?: UseQueryOptions<User[]>) => {
   return useQuery({
     queryKey: [QUERY_KEYS.USERS],
-    queryFn: fetchUsers(),
+    queryFn: fetchUsers,
     ...queryConfig,
   });
 };

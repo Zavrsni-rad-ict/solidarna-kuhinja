@@ -10,7 +10,7 @@ type UserRequest = {
   role: Role;
 };
 
-const createUser = (user: UserRequest) => axios.post('/api/users', user);
+const createUser = (user: UserRequest) => axios.post('/users', user);
 
 export const useCreateUser = () => {
   return useMutation({

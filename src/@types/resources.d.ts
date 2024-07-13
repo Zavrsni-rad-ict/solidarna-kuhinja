@@ -4,6 +4,10 @@ interface Resources {
   };
   General: {
     sign_in: 'Sign In';
+    actions: 'Acitons';
+    edit: 'Edit';
+    delete: 'Delete';
+    no_data_available: 'No data available';
   };
   Login: {
     password: 'Password';
@@ -16,6 +20,12 @@ interface Resources {
   };
   GlobalError: {
     required: 'Field is required';
+  };
+  UserList: {
+    columns: {
+      username: 'Username';
+    };
+    createButton: 'Create User';
   };
 }
 
