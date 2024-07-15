@@ -8,7 +8,8 @@ import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import { MAXIMUM_CHARACTERS, MINIMUM_CHARACTERS } from '@/constants';
 
 export const CreateUser = () => {
   const { t: tGE } = useTranslation('GlobalError');
@@ -19,11 +20,27 @@ export const CreateUser = () => {
       .string()
       .email(tL('errors.validation.email'))
       .required(tGE('required')),
-    password: yup.string().required(tGE('required')),
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    username: yup.string().required(),
-    role: yup.number().required(),
+    password: yup
+      .string()
+      .required(tGE('required'))
+      .min(
+        MINIMUM_CHARACTERS,
+        tGE('minimumCharacters') + ` ${MINIMUM_CHARACTERS}`,
+      )
+      .max(
+        MAXIMUM_CHARACTERS,
+        tGE('maximumCharacters') + ` ${MAXIMUM_CHARACTERS}`,
+      ),
+    firstName: yup
+      .string()
+      .required(tGE('required'))
+      .matches(/^[A-Z].*$/, tGE('capitalLetter')),
+    lastName: yup
+      .string()
+      .required(tGE('required'))
+      .matches(/^[A-Z].*$/, tGE('capitalLetter')),
+    username: yup.string().required(tGE('required')),
+    role: yup.number().required(tGE('required')).typeError(tGE('required')),
   });
 
   const methods = useForm({

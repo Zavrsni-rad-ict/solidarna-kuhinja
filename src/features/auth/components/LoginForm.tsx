@@ -60,7 +60,9 @@ export const LoginForm = () => {
         name="password"
       />
       <div className="flex justify-end mt-5">
-        <Button value={tG('sign_in')} variant="red" type="submit" />
+        <Button variant="red" type="submit">
+          {tG('sign_in')}
+        </Button>
       </div>
     </RHFFormProvider>
   );

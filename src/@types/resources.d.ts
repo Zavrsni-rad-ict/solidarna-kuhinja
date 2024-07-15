@@ -20,6 +20,9 @@ interface Resources {
   };
   GlobalError: {
     required: 'Field is required';
+    minimumCharacters: 'Minimum character is';
+    maximumCharacters: 'Maximum character is';
+    capitalLetter: 'Field must begin with capital letter';
   };
   UserList: {
     columns: {

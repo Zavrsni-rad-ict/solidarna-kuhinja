@@ -44,7 +44,9 @@ export const UserList = () => {
               <Link to={`/users/edit/${user.id}`} className={variants.yellow}>
                 {tG('edit')}
               </Link>
-              <Button type="button" value={tG('delete')} variant="red" />
+              <Button type="button" variant="red">
+                {tG('delete')}
+              </Button>
             </div>
           );
         },

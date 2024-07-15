@@ -19,7 +19,10 @@
     }
   },
   "GlobalError": {
-    "required": "Field is required"
+    "required": "Field is required",
+    "minimum_characters": "Minimum character is",
+    "maximum_characters": "Maximum character is",
+    "capital_letter": "Field must begin with capital letter"
   },
   "UserList": {
     "columns": {
