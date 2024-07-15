@@ -12,6 +12,7 @@ import { MainErrorFallback } from '@/components/ErrorFallback/main';
 import { I18nextProvider } from 'react-i18next';
 import i18next from '@/lib/i18n';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -41,6 +42,11 @@ export const AppProvider = ({ children }: AppProviderProps) => {
                   )}
                 >
                   {children}
+                  <ToastContainer
+                    pauseOnFocusLoss={false}
+                    theme="light"
+                    hideProgressBar
+                  />
                 </AuthLoader>
               </HelmetProvider>
             </I18nextProvider>

@@ -25,7 +25,7 @@ export const useCreateUser = () => {
     onSuccess: () => {
       toast.success('Uspesno');
 
-      setTimeout(() => navigate('/users'), 2000);
+      setTimeout(() => navigate('/users'), 1000);
     },
     onError: (err: AxiosError) => {
       return toast.error(err.response?.data.error.message);

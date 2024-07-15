@@ -141,7 +141,6 @@ export const CreateUser = () => {
           <h1>Prostor za sliku</h1>
         </div>
       </div>
-      <ToastContainer pauseOnFocusLoss={false} theme="light" hideProgressBar />
     </RHFFormProvider>
   );
 };
