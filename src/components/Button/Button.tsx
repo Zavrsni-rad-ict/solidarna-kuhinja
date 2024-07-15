@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
 type Variant =
   | 'primary'
@@ -12,10 +12,10 @@ type Variant =
 
 type Props = {
   variant?: Variant;
-  value: string;
   shouldCapitalizeValue?: boolean;
   type: 'submit' | 'button';
-} & InputHTMLAttributes<HTMLInputElement>;
+  children: React.ReactNode;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const variants: Record<Variant, string> = {
   primary:
@@ -35,20 +35,34 @@ export const variants: Record<Variant, string> = {
 };
 
 export const Button = (props: Props) => {
-  const { variant, value, shouldCapitalizeValue, type, ...inputProps } = props;
+  const { variant, children, shouldCapitalizeValue, type, ...buttonProps } =
+    props;
 
   const selectedVariant = variant && variants[variant];
 
   return (
-    <input
+    <button
       type={type}
-      value={shouldCapitalizeValue ? value.toUpperCase() : value}
-      className={`cursor-pointer ${selectedVariant ?? ''}${
-        inputProps.className ?? ''
+      className={`cursor-pointer ${selectedVariant ?? ''} ${
+        buttonProps.className ?? ''
       }`}
-      {...inputProps}
-    />
+      {...buttonProps}
+    >
+      {shouldCapitalizeValue && typeof children === 'string'
+        ? children.toUpperCase()
+        : children}
+    </button>
   );
+  // return (
+  //   <input
+  //     type={type}
+  //     value={shouldCapitalizeValue ? value.toUpperCase() : value}
+  //     className={`cursor-pointer ${selectedVariant ?? ''}${
+  //       inputProps.className ?? ''
+  //     }`}
+  //     {...inputProps}
+  //   />
+  // );
 };
 
 Button.displayName = 'Button';

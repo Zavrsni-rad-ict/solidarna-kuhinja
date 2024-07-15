@@ -2,9 +2,13 @@ export const JWT_TOKEN_LOCAL_STORAGE_KEY = 'jwt';
 
 export const HEADER_HEIGHT = 106;
 
+export const MINIMUM_CHARACTERS = 5;
+export const MAXIMUM_CHARACTERS = 50;
+
 export enum QUERY_KEYS {
   AUTHENTICATED_USER = 'AUTHENTICATED_USER',
   USERS = 'USERS',
+  ROLES = 'ROLES',
 }
 
 export enum MUTATION_KEYS {

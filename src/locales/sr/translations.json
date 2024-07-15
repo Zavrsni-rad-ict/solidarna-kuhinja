@@ -19,7 +19,10 @@
     }
   },
   "GlobalError": {
-    "required": "Polje je obavezno"
+    "required": "Polje je obavezno",
+    "minimumCharacters": "Minimalan broj karaktera je",
+    "maximumCharacters": "Maksimalan broj karaktera je",
+    "capitalLetter": "Polje mora da počne sa velikim slovom"
   },
   "UserList": {
     "columns": {
