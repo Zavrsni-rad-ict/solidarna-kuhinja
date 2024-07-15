@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import mkcert from 'vite-plugin-mkcert';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -19,7 +20,7 @@ export default defineConfig(({ command, mode }) => {
       optimizeDeps: {
         include: ['tailwind-config'],
       },
-      plugins: [react(), mkcert()],
+      plugins: [react(), mkcert(), svgr()],
       resolve: {
         alias: {
           'tailwind-config': path.resolve(__dirname, './tailwind.config.js'),
@@ -41,7 +42,7 @@ export default defineConfig(({ command, mode }) => {
     optimizeDeps: {
       include: ['tailwind-config'],
     },
-    plugins: [react()],
+    plugins: [react(), svgr()],
     resolve: {
       alias: {
         'tailwind-config': path.resolve(__dirname, './tailwind.config.js'),

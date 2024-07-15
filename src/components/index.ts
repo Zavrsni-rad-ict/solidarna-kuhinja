@@ -5,3 +5,4 @@ export * from './Layout';
 export * from './Nav/Nav';
 export * from './Sidebar/Sidebar';
 export * from './Dropdown';
+export * from './Modal/Modal';
