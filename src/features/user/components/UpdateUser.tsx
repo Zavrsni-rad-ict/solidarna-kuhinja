@@ -3,7 +3,7 @@ import { UserForm } from './form/UserForm';
 import { UserRequest, useFetchUser, useUpdateUser } from '../api';
 import { useMemo } from 'react';
 
-export const EditUser = () => {
+export const UpdateUser = () => {
   const { id } = useParams<{ id: string }>();
 
   const { data: user } = useFetchUser(Number(id));
@@ -31,4 +31,4 @@ export const EditUser = () => {
   return formData && <UserForm user={formData} submitHandler={submitHandler} />;
 };
 
-EditUser.displayName = 'EditUser';
+UpdateUser.displayName = 'UpdateUser';
