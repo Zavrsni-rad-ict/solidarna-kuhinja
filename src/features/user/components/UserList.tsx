@@ -58,17 +58,21 @@ export const UserList = () => {
               </Link>
               <Button
                 type="button"
-                variant="red"
                 onClick={() => {
                   setIsOpenModal(true);
                   setSelectedUserId(user.id);
                 }}
                 className={`${
-                  user.username === 'admin'
-                    ? 'cursor-not-allowed disabled:bg-gray-500 text-white'
-                    : ''
+                  user.username === 'admin' || String(user.id) === '2'
+                    ? variants.disabled
+                    : variants.red
                 }`}
-                disabled={user.username === 'admin'}
+                disabled={user.username === 'admin' || String(user.id) === '2'}
+                title={
+                  user.username === 'admin' || String(user.id) === '2'
+                    ? 'Cannot delete admin'
+                    : undefined
+                }
               >
                 {tG('delete')}
               </Button>
