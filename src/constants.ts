@@ -5,6 +5,8 @@ export const HEADER_HEIGHT = 106;
 export const MINIMUM_CHARACTERS = 5;
 export const MAXIMUM_CHARACTERS = 50;
 
+export const REDIRECT_AFTER_3_SECONDS = 3000;
+
 export enum QUERY_KEYS {
   AUTHENTICATED_USER = 'AUTHENTICATED_USER',
   USERS = 'USERS',

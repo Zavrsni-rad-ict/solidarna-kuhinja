@@ -1,3 +1,5 @@
+import { Role } from '@/types/api';
+
 export type User = {
   id: number;
   username: string;
@@ -7,4 +9,8 @@ export type User = {
   blocked: boolean;
   createdAt: string;
   updatedAt: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  role: Role;
 };
