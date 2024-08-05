@@ -8,8 +8,7 @@ export const EditUser = () => {
 
   const { data: user } = useFetchUser(Number(id));
 
-  const { mutateAsync: updateUserAsync, status: updateStatus } =
-    useUpdateUser();
+  const { mutateAsync: updateUserAsync } = useUpdateUser();
 
   const submitHandler = async (data: UserRequest) => {
     await updateUserAsync({ ...data, id: user?.id! });

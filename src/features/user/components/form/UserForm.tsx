@@ -6,13 +6,13 @@ import { useFetchRoles } from '@/features/role';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import React from 'react';
-import { useForm, SubmitHandler, useFormState } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
-import { useCreateUser, UserRequest } from '../../api';
+import { UserRequest } from '../../api';
 
 type Props = {
-  user: UserRequest;
+  user?: UserRequest;
   submitHandler: (data: UserRequest) => Promise<void>;
 };
 
@@ -55,15 +55,12 @@ export const UserForm = ({ user, submitHandler }: Props) => {
     defaultValues: user,
   });
 
-  const { handleSubmit, control } = methods;
-
-  console.log({ korisnik: user });
+  const { handleSubmit } = methods;
 
   // TODO: Namestiti ako bude vremena
-  const { dirtyFields } = useFormState({ control });
+  // const { dirtyFields } = useFormState({ control });
 
   const { data, isLoading: isLoadingRoles } = useFetchRoles();
-  const { mutateAsync: createUserAsync, status } = useCreateUser();
 
   const onSubmit: SubmitHandler<UserRequest> = (data) => submitHandler(data);
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

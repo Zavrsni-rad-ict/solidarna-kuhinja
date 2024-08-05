@@ -33,7 +33,6 @@ export const useUpdateUser = () => {
 
       if (users) {
         queryClient.setQueryData<User[]>([QUERY_KEYS.USERS], () => {
-          console.log('Korisnik update', { users });
           if (!users) return [];
 
           const updatedUsers = users.map((user) =>
