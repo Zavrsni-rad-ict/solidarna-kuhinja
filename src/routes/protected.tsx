@@ -20,6 +20,7 @@ export const protectedRoutes = [
     path: '/',
     element: <App />,
     children: [
+      { path: '', element: <>Home</> },
       { path: '/account', element: <Profile /> },
       {
         path: '/users',
@@ -28,6 +29,10 @@ export const protectedRoutes = [
           { path: 'create', element: <CreateUser /> },
           { path: 'edit/:id', element: <UpdateUser /> },
         ],
+      },
+      {
+        path: '/roles',
+        children: [{ path: '', element: <>Roles</> }],
       },
       { path: '*', element: <Navigate to="/" /> },
     ],
