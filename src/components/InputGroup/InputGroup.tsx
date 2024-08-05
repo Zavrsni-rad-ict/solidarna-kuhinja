@@ -6,19 +6,20 @@ type Props = {
   /** @default type="text" */
   type?: HTMLInputTypeAttribute;
   placeholder?: string;
-  control: Control<any>;
+  control?: Control<any>;
   name: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export const InputGroup = (props: Props) => {
   const { label, placeholder, type = 'text', name, ...inputProps } = props;
-  const { control } = useFormContext();
+  // TODO ??
+  // const { control } = useFormContext();
 
   return (
     <div className="relative my-7">
       <Controller
         name={name}
-        control={control}
+        // control={control}
         defaultValue="" // This line solves warning ->  component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More ....
         render={({ field, fieldState: { error } }) => (
           <>

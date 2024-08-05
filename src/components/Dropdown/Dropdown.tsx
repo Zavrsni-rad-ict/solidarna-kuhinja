@@ -7,7 +7,7 @@ type Props = {
   selectProps?: Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'children'>;
   children: React.ReactNode;
   name: string;
-  control: Control<any>;
+  control?: Control<any>;
 };
 
 export const Dropdown = ({
