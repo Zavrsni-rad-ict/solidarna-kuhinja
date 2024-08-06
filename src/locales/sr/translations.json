@@ -26,7 +26,9 @@
   },
   "UserList": {
     "columns": {
-      "username": "Korisničko ime"
+      "username": "Korisničko ime",
+      "firstName": "Ime",
+      "lastName": "Prezime"
     },
     "createButton": "Kreiraj korisnika"
   }

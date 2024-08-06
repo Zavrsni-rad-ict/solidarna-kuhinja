@@ -6,3 +6,4 @@ export * from './Nav/Nav';
 export * from './Sidebar/Sidebar';
 export * from './Dropdown';
 export * from './Modal/Modal';
+export * from './Table/Table';

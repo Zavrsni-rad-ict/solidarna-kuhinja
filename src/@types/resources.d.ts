@@ -27,6 +27,8 @@ interface Resources {
   UserList: {
     columns: {
       username: 'Username';
+      firstName: 'First Name';
+      lastName: 'Last name';
     };
     createButton: 'Create User';
   };
