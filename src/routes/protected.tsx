@@ -1,5 +1,6 @@
 import { MainLayout } from '@/components/Layout';
 import { Profile } from '@/features/profile';
+import { RoleList } from '@/features/role';
 import { CreateUser, UserList, UpdateUser } from '@/features/user/components';
 
 import { Suspense } from 'react';
@@ -32,7 +33,7 @@ export const protectedRoutes = [
       },
       {
         path: '/roles',
-        children: [{ path: '', element: <>Roles</> }],
+        children: [{ path: '', element: <RoleList /> }],
       },
       { path: '*', element: <Navigate to="/" /> },
     ],
