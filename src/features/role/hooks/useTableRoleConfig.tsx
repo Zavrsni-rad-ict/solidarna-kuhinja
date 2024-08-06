@@ -11,6 +11,7 @@ export const useTableRoleConfig = () => {
   const roles = data?.roles;
 
   const { t: tG } = useTranslation('General');
+  // TODO - Kada budem brisao rolu koristicu selectedRoleId
   const [selectedRoleId, setSelectedRoleId] = useState(0);
 
   const { isOpenModal, setIsOpenModal } = useModal();
