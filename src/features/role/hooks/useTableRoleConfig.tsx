@@ -28,11 +28,12 @@ export const useTableRoleConfig = () => {
         accessorKey: 'name',
         header: () => 'Name',
         accessorFn: (role) => role.name,
-        size: 150,
+        size: 50,
       },
       {
         accessorKey: 'actions',
         header: () => tG('actions'),
+        size: 50,
         cell: (props) => {
           const role = props.row.original;
           return (
