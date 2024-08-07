@@ -1,93 +1,24 @@
 import { Spinner } from '@/components/ui/spinner';
 import { useDeleteUser, useFetchAllUsers } from '../api';
-import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { Button, Modal, Table, variants } from '@/components';
+import { Modal, Table, variants } from '@/components';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useModal } from '@/hooks/useModal';
-
 import IconInfo from '@/assets/info.svg?react';
-import { useState } from 'react';
+import { useTableUserConfig } from '@/features/role/hooks/useTableUserConfig';
 
 export const UserList = () => {
-  const { data: users, isLoading: isLoadingUsers } = useFetchAllUsers();
-  const { t: tG } = useTranslation('General');
+  const { isLoading: isLoadingUsers } = useFetchAllUsers();
+
   const { t: tUL } = useTranslation('UserList');
-  const { isOpenModal, setIsOpenModal } = useModal();
   const { mutate: deleteUser } = useDeleteUser();
-  const [selectedUserId, setSelectedUserId] = useState(0);
+
+  const { table, selectedUserId, isOpenModal, setIsOpenModal } =
+    useTableUserConfig();
 
   const handleDelete = () => {
     deleteUser(selectedUserId);
     setIsOpenModal(false);
   };
-
-  const table = useReactTable({
-    columns: [
-      {
-        accessorKey: 'id',
-        header: () => 'ID',
-        accessorFn: (user) => user.id,
-        size: 50,
-      },
-      {
-        accessorKey: 'firstName',
-        header: () => tUL('columns.firstName'),
-        accessorFn: (user) => user.firstName,
-      },
-      {
-        accessorKey: 'lastName',
-        header: () => tUL('columns.lastName'),
-        accessorFn: (user) => user.lastName,
-      },
-      {
-        accessorKey: 'username',
-        header: () => tUL('columns.username'),
-        accessorFn: (user) => user.username,
-      },
-      {
-        accessorKey: 'email',
-        header: () => 'Email',
-        accessorFn: (user) => user.email,
-      },
-      {
-        accessorKey: 'actions',
-        header: () => tG('actions'),
-        cell: (props) => {
-          const user = props.row.original;
-          return (
-            <div className="flex gap-2">
-              <Link to={`/users/edit/${user.id}`} className={variants.yellow}>
-                {tG('edit')}
-              </Link>
-              <Button
-                type="button"
-                onClick={() => {
-                  setIsOpenModal(true);
-                  setSelectedUserId(user.id);
-                }}
-                className={`${
-                  user.username === 'admin' || String(user.id) === '2'
-                    ? variants.disabled
-                    : variants.red
-                }`}
-                disabled={user.username === 'admin' || String(user.id) === '2'}
-                title={
-                  user.username === 'admin' || String(user.id) === '2'
-                    ? 'Cannot delete admin'
-                    : undefined
-                }
-              >
-                {tG('delete')}
-              </Button>
-            </div>
-          );
-        },
-      },
-    ],
-    data: users ?? [],
-    getCoreRowModel: getCoreRowModel(),
-  });
 
   if (isLoadingUsers) return <Spinner />;
 
