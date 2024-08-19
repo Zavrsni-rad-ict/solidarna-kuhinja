@@ -17,6 +17,10 @@ export const useTableRoleConfig = () => {
 
   const { isOpenModal, setIsOpenModal } = useModal();
 
+  const ascedentSortRoles = roles?.toSorted((a, b) =>
+    a.name.localeCompare(b.name),
+  );
+
   const table = useReactTable({
     columns: [
       {
@@ -63,7 +67,7 @@ export const useTableRoleConfig = () => {
         },
       },
     ],
-    data: roles ?? [],
+    data: ascedentSortRoles ?? [],
     getCoreRowModel: getCoreRowModel(),
   });
 
