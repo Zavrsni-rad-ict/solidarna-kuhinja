@@ -3,8 +3,10 @@ import { Table, variants } from '@/components';
 import { useTableRoleConfig } from '../hooks';
 import { Link } from 'react-router-dom';
 import { DeleteConfirmationModal } from '@/components/DeleteConfirmationModal/DeleteConfirmationModal';
+import { useTranslation } from 'react-i18next';
 
 export const RoleList = () => {
+  const { t: tRL } = useTranslation('RoleList');
   const { table, isOpenModal, setIsOpenModal } = useTableRoleConfig();
 
   return (
@@ -20,7 +22,7 @@ export const RoleList = () => {
 
         <div className="my-4 flex justify-end">
           <Link to="/roles/create" className={variants.primary}>
-            {/* {tUL('createButton')} */}Kreiraj Ulogu
+            {tRL('createButton')}
           </Link>
         </div>
       </div>

@@ -11,6 +11,7 @@ export const useTableRoleConfig = () => {
   const roles = data?.roles;
 
   const { t: tG } = useTranslation('General');
+  const { t: tRL } = useTranslation('RoleList');
   // TODO - Kada budem brisao rolu koristicu selectedRoleId
   const [selectedRoleId, setSelectedRoleId] = useState(0);
 
@@ -26,7 +27,7 @@ export const useTableRoleConfig = () => {
       },
       {
         accessorKey: 'name',
-        header: () => 'Name',
+        header: () => tRL('roleName'),
         accessorFn: (role) => role.name,
         size: 50,
       },

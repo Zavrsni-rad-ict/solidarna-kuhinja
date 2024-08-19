@@ -31,5 +31,9 @@
       "lastName": "Last name"
     },
     "createButton": "Create User"
+  },
+  "RoleList": {
+    "createButton": "Create Button",
+    "roleName": "Role Name"
   }
 }
