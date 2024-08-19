@@ -11,10 +11,15 @@ export const useTableRoleConfig = () => {
   const roles = data?.roles;
 
   const { t: tG } = useTranslation('General');
+  const { t: tRL } = useTranslation('RoleList');
   // TODO - Kada budem brisao rolu koristicu selectedRoleId
   const [selectedRoleId, setSelectedRoleId] = useState(0);
 
   const { isOpenModal, setIsOpenModal } = useModal();
+
+  const ascedentSortRoles = roles?.toSorted((a, b) =>
+    a.name.localeCompare(b.name),
+  );
 
   const table = useReactTable({
     columns: [
@@ -26,13 +31,14 @@ export const useTableRoleConfig = () => {
       },
       {
         accessorKey: 'name',
-        header: () => 'Name',
+        header: () => tRL('roleName'),
         accessorFn: (role) => role.name,
-        size: 150,
+        size: 50,
       },
       {
         accessorKey: 'actions',
         header: () => tG('actions'),
+        size: 50,
         cell: (props) => {
           const role = props.row.original;
           return (
@@ -61,7 +67,7 @@ export const useTableRoleConfig = () => {
         },
       },
     ],
-    data: roles ?? [],
+    data: ascedentSortRoles ?? [],
     getCoreRowModel: getCoreRowModel(),
   });
 

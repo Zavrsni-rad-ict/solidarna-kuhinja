@@ -32,6 +32,10 @@ interface Resources {
     };
     createButton: 'Create User';
   };
+  RoleList: {
+    createButton: 'Create Button';
+    roleName: 'Role Name';
+  };
 }
 
 export default Resources;

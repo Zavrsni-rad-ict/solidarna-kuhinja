@@ -1,5 +1,4 @@
 import { Table as TableProps, flexRender } from '@tanstack/react-table';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 type Props<T> = {
