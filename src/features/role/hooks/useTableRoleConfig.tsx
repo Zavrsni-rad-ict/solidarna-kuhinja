@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, variants } from '@/components';
 import { useModal } from '@/hooks';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 export const useTableRoleConfig = () => {
   const { data, isLoading } = useFetchRoles();
@@ -12,8 +12,8 @@ export const useTableRoleConfig = () => {
 
   const { t: tG } = useTranslation('General');
   const { t: tRL } = useTranslation('RoleList');
-  // TODO - Kada budem brisao rolu koristicu selectedRoleId
-  // const [selectedRoleId, setSelectedRoleId] = useState(0);
+
+  const [selectedRoleId, setSelectedRoleId] = useState(0);
 
   const { isOpenModal, setIsOpenModal } = useModal();
 
@@ -49,10 +49,6 @@ export const useTableRoleConfig = () => {
               <Link
                 to={isAdmin ? '' : `/roles/edit/${role.id}`}
                 className={isAdmin ? variants.disabled : variants.yellow}
-                onClick={() => {
-                  // TODO Remove...
-                  console.log('Klik');
-                }}
               >
                 {tG('edit')}
               </Link>
@@ -60,7 +56,7 @@ export const useTableRoleConfig = () => {
                 type="button"
                 onClick={() => {
                   setIsOpenModal(true);
-                  // setSelectedRoleId(role.id);
+                  setSelectedRoleId(role.id);
                 }}
                 className={`${isAdmin ? variants.disabled : variants.red}`}
                 disabled={isAdmin}
@@ -77,5 +73,5 @@ export const useTableRoleConfig = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  return { table, isOpenModal, setIsOpenModal, isLoading };
+  return { table, isOpenModal, setIsOpenModal, isLoading, selectedRoleId };
 };
