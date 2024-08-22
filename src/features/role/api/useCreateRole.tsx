@@ -4,21 +4,18 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useFetchRoles } from './useFetchRoles';
 import { toast } from 'react-toastify';
+import { ActionResponse } from '@/types';
 
 export type RoleRequest = {
   name: string;
 };
 
-type RoleResponse = {
-  ok: boolean;
-};
-
-const createRole = (role: RoleRequest): Promise<RoleResponse> =>
+const createRole = (role: RoleRequest): Promise<ActionResponse> =>
   axios.post('/users-permissions/roles', role);
 
 export const useCreateRole = () => {
   const { data } = useFetchRoles();
-  return useMutation<RoleResponse, string | AxiosError, RoleRequest>({
+  return useMutation<ActionResponse, string | AxiosError, RoleRequest>({
     mutationKey: [MUTATION_KEYS.CREATE_ROLE],
     mutationFn: createRole,
     onMutate: ({ name }) => {
