@@ -33,7 +33,7 @@
     "createButton": "Kreiraj korisnika"
   },
   "RoleList": {
-    "createButton": "Create Button",
-    "roleName": "Role Name"
+    "createButton": "Kreiraj ulogu",
+    "roleName": "Naziv Role"
   }
 }
