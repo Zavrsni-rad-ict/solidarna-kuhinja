@@ -1,6 +1,6 @@
 import { MainLayout } from '@/components/Layout';
 import { Profile } from '@/features/profile';
-import { CreateRole, RoleList } from '@/features/role';
+import { CreateRole, EditRole, RoleList } from '@/features/role';
 import { CreateUser, UserList, UpdateUser } from '@/features/user/components';
 
 import { Suspense } from 'react';
@@ -28,7 +28,7 @@ export const protectedRoutes = [
         children: [
           { path: '', element: <UserList /> },
           { path: 'create', element: <CreateUser /> },
-          { path: 'edit/:id', element: <UpdateUser /> },
+          { path: 'edit/:id', element: <UpdateUser /> }, // TODO: Rename this component to EditUser
         ],
       },
       {
@@ -36,6 +36,7 @@ export const protectedRoutes = [
         children: [
           { path: '', element: <RoleList /> },
           { path: 'create', element: <CreateRole /> },
+          { path: 'edit/:id', element: <EditRole /> },
         ],
       },
       { path: '*', element: <Navigate to="/" /> },

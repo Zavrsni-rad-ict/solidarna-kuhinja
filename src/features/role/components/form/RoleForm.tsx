@@ -1,9 +1,13 @@
 import { Button, InputGroup } from '@/components';
 
 import { Spinner } from '@/components/ui/spinner';
-import { FormProps } from '@/types';
+import { FormProps, SingleRole } from '@/types';
 
-export const RoleForm = ({ status }: FormProps) => {
+type Props = FormProps & {
+  role?: SingleRole;
+};
+
+export const RoleForm = ({ status, role }: Props) => {
   return (
     <div className="flex flex-wrap gap-4">
       <div className="max-w-[820px] w-full grid grid-cols-1 md:grid-cols-12 gap-4">
@@ -19,6 +23,8 @@ export const RoleForm = ({ status }: FormProps) => {
           >
             {status === 'pending' ? (
               <Spinner variant="light" size="md" />
+            ) : role ? (
+              'Update'
             ) : (
               'Submit'
             )}

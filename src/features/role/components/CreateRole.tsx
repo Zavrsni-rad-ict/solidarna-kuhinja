@@ -1,10 +1,7 @@
-import React from 'react';
 import { RoleForm } from './form/RoleForm';
 import { RoleRequest, useCreateRole } from '../api';
 import { FormWrapper } from '@/components/RHFFormProvider/FormWrapper';
-import * as yup from 'yup';
-import { useTranslation } from 'react-i18next';
-import { MAXIMUM_CHARACTERS } from '@/constants';
+import { useSchema } from '../hooks';
 
 export const CreateRole = () => {
   const { mutateAsync: createRoleAsync, status } = useCreateRole();
@@ -13,18 +10,7 @@ export const CreateRole = () => {
     await createRoleAsync(data);
   };
 
-  const { t: tGE } = useTranslation('GlobalError');
-
-  const schema = yup.object().shape({
-    name: yup
-      .string()
-      .min(3, `${tGE('minimumCharacters')} 3`)
-      .max(
-        MAXIMUM_CHARACTERS,
-        `${tGE('maximumCharacters')} ${MAXIMUM_CHARACTERS}`,
-      )
-      .required(),
-  });
+  const schema = useSchema();
 
   return (
     <FormWrapper schema={schema} submitHandler={submitHandler}>
