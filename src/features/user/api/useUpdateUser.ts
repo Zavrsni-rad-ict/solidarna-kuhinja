@@ -19,7 +19,7 @@ export const useUpdateUser = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: [MUTATION_KEYS.CREATE_USER],
+    mutationKey: [MUTATION_KEYS.UPDATE_USER],
     mutationFn: updateUser,
     onMutate: (updatedUser) => {
       queryClient.setQueryData([QUERY_KEYS.USERS, updatedUser.id], updatedUser);
