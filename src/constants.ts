@@ -16,7 +16,9 @@ export enum QUERY_KEYS {
 export enum MUTATION_KEYS {
   CREATE_USER = 'CREATE_USER',
   DELETE_USER = 'DELETE_USER',
+  // TODO - Update user??
 
   CREATE_ROLE = 'CREATE_ROLE',
   UPDATE_ROLE = 'UPDATE_ROLE',
+  DELETE_ROLE = 'DELETE_ROLE',
 }
