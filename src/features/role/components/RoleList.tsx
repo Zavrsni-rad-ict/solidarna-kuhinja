@@ -4,10 +4,14 @@ import { useTableRoleConfig } from '../hooks';
 import { Link } from 'react-router-dom';
 import { DeleteConfirmationModal } from '@/components/DeleteConfirmationModal/DeleteConfirmationModal';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from '@/components/ui/spinner';
 
 export const RoleList = () => {
   const { t: tRL } = useTranslation('RoleList');
-  const { table, isOpenModal, setIsOpenModal } = useTableRoleConfig();
+  const { table, isOpenModal, setIsOpenModal, isLoading } =
+    useTableRoleConfig();
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div>
