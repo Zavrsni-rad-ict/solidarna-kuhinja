@@ -57,6 +57,18 @@ export type Role = {
   nb_users: number;
 };
 
+export type SingleRole = {
+  id: number;
+  name: RoleName;
+  type: Lowercase<RoleName>;
+  permissions: any;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type SingleRoleResponse = { role: SingleRole };
+
 export type RoleName =
   | 'Authenticated'
   | 'Public'

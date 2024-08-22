@@ -33,7 +33,7 @@
     "createButton": "Create User"
   },
   "RoleList": {
-    "createButton": "Create Button",
+    "createButton": "Create Role",
     "roleName": "Role Name"
   }
 }

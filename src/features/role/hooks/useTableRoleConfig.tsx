@@ -7,13 +7,13 @@ import { useModal } from '@/hooks';
 import { useState } from 'react';
 
 export const useTableRoleConfig = () => {
-  const { data } = useFetchRoles();
+  const { data, isLoading } = useFetchRoles();
   const roles = data?.roles;
 
   const { t: tG } = useTranslation('General');
   const { t: tRL } = useTranslation('RoleList');
   // TODO - Kada budem brisao rolu koristicu selectedRoleId
-  const [selectedRoleId, setSelectedRoleId] = useState(0);
+  // const [selectedRoleId, setSelectedRoleId] = useState(0);
 
   const { isOpenModal, setIsOpenModal } = useModal();
 
@@ -41,24 +41,30 @@ export const useTableRoleConfig = () => {
         size: 50,
         cell: (props) => {
           const role = props.row.original;
+
+          const isAdmin = role.type === 'admin';
+
           return (
             <div className="flex gap-2">
-              <Link to={`/roles/edit/${role.id}`} className={variants.yellow}>
+              <Link
+                to={isAdmin ? '' : `/roles/edit/${role.id}`}
+                className={isAdmin ? variants.disabled : variants.yellow}
+                onClick={() => {
+                  // TODO Remove...
+                  console.log('Klik');
+                }}
+              >
                 {tG('edit')}
               </Link>
               <Button
                 type="button"
                 onClick={() => {
                   setIsOpenModal(true);
-                  setSelectedRoleId(role.id);
+                  // setSelectedRoleId(role.id);
                 }}
-                className={`${
-                  role.type === 'admin' ? variants.disabled : variants.red
-                }`}
-                disabled={role.type === 'admin'}
-                title={
-                  role.type === 'admin' ? 'Cannot delete admin' : undefined
-                }
+                className={`${isAdmin ? variants.disabled : variants.red}`}
+                disabled={isAdmin}
+                title={isAdmin ? 'Cannot delete admin' : undefined}
               >
                 {tG('delete')}
               </Button>
@@ -71,5 +77,5 @@ export const useTableRoleConfig = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  return { table, isOpenModal, setIsOpenModal };
+  return { table, isOpenModal, setIsOpenModal, isLoading };
 };
