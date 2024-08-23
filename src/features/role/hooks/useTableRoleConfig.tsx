@@ -17,9 +17,15 @@ export const useTableRoleConfig = () => {
 
   const { isOpenModal, setIsOpenModal } = useModal();
 
-  const ascedentSortRoles = roles?.toSorted((a, b) =>
-    a.name.localeCompare(b.name),
+  const ascedentSortRoles = useMemo(
+    () => roles?.toSorted((a, b) => a.name.localeCompare(b.name)),
+    [roles],
   );
+
+  const handleDeleteClick = (roleId: number) => {
+    setIsOpenModal(true);
+    setSelectedRoleId(roleId);
+  };
 
   const table = useReactTable({
     columns: [
@@ -54,10 +60,7 @@ export const useTableRoleConfig = () => {
               </Link>
               <Button
                 type="button"
-                onClick={() => {
-                  setIsOpenModal(true);
-                  setSelectedRoleId(role.id);
-                }}
+                onClick={() => handleDeleteClick(role.id)}
                 className={`${isAdmin ? variants.disabled : variants.red}`}
                 disabled={isAdmin}
                 title={isAdmin ? 'Cannot delete admin' : undefined}

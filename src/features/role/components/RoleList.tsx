@@ -14,11 +14,11 @@ export const RoleList = () => {
     useTableRoleConfig();
 
   const { mutate: deleteRole } = useDeleteRole();
-  const handleClose = useCallback(() => setIsOpenModal(false), []);
-  const handleConfirm = useCallback(
-    () => deleteRole(selectedRoleId),
-    [selectedRoleId],
-  );
+  const handleClose = () => setIsOpenModal(false);
+  const handleConfirm = () => {
+    deleteRole(selectedRoleId);
+    setIsOpenModal(false);
+  };
 
   if (isLoading) return <Spinner />;
 
