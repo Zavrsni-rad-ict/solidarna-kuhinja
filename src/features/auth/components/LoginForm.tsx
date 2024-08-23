@@ -6,6 +6,8 @@ import { useLogin } from '@/lib/auth';
 import { RHFFormProvider } from '@/components/RHFFormProvider';
 import { Button } from '@/components/Button';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+import { Spinner } from '@/components/ui/spinner';
 
 type Inputs = {
   email: string;
@@ -32,10 +34,17 @@ export const LoginForm = () => {
   });
 
   const { handleSubmit, control } = methods;
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { mutate: login } = useLogin();
+  const { mutate: login, error, status } = useLogin();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => login(data);
+  useEffect(() => {
+    if (status === 'success') setIsSubmitted(false);
+  }, [status]);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    login(data);
+    setIsSubmitted(true);
+  };
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') return handleSubmit(onSubmit);
   };
@@ -60,8 +69,17 @@ export const LoginForm = () => {
         name="password"
       />
       <div className="flex justify-end mt-5">
-        <Button variant="red" type="submit">
-          {tG('sign_in')}
+        <Button
+          variant="red"
+          type="submit"
+          className="w-[82px] h-[40px] flex justify-center items-center transition disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isSubmitted}
+        >
+          {isSubmitted ? (
+            <Spinner size="sm" className="text-white" />
+          ) : (
+            tG('sign_in')
+          )}
         </Button>
       </div>
     </RHFFormProvider>
