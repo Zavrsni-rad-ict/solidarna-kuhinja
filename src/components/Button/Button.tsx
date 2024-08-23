@@ -38,17 +38,21 @@ export const variants: Record<Variant, string> = {
 };
 
 export const Button = (props: Props) => {
-  const { variant, children, shouldCapitalizeValue, type, ...buttonProps } =
-    props;
+  const {
+    variant,
+    children,
+    shouldCapitalizeValue,
+    type,
+    className,
+    ...buttonProps
+  } = props;
 
   const selectedVariant = variant && variants[variant];
 
   return (
     <button
       type={type}
-      className={`cursor-pointer ${selectedVariant ?? ''} ${
-        buttonProps.className ?? ''
-      }`}
+      className={`cursor-pointer ${selectedVariant ?? ''} ${className || ''}`}
       {...buttonProps}
     >
       {shouldCapitalizeValue && typeof children === 'string'

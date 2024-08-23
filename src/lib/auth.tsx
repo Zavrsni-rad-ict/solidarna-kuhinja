@@ -7,6 +7,8 @@ import { axios } from './api-client';
 import storage from '@/utils/storage';
 import { JWT_TOKEN_LOCAL_STORAGE_KEY, QUERY_KEYS } from '@/constants';
 import { LoginInput, loginWithEmailAndPassword, logout } from '@/features/auth';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features
@@ -71,10 +73,14 @@ async function handleUserResponse(data: AuthResponse) {
 const authConfig = {
   userFn: getUser,
   loginFn: async (data: LoginInput) => {
-    const response = await loginWithEmailAndPassword(data);
-    const user = await handleUserResponse(response);
+    try {
+      const response = await loginWithEmailAndPassword(data);
+      const user = await handleUserResponse(response);
 
-    return user;
+      return user;
+    } catch (err: any) {
+      toast.error(err.response.data.error.message);
+    }
   },
   registerFn: async (data: RegisterInput) => {
     const response = await registerWithEmailAndPassword(data);
