@@ -7,3 +7,4 @@ export * from './Sidebar/Sidebar';
 export * from './Dropdown';
 export * from './Modal/Modal';
 export * from './Table/Table';
+export * from './Map/Map';

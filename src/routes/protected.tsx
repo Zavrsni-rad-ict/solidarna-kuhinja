@@ -1,4 +1,5 @@
 import { MainLayout } from '@/components/Layout';
+import { MapView } from '@/features/map';
 import { Profile } from '@/features/profile';
 import { CreateRole, EditRole, RoleList } from '@/features/role';
 import { CreateUser, UserList, UpdateUser } from '@/features/user/components';
@@ -38,6 +39,10 @@ export const protectedRoutes = [
           { path: 'create', element: <CreateRole /> },
           { path: 'edit/:id', element: <EditRole /> },
         ],
+      },
+      {
+        path: '/map',
+        element: <MapView />,
       },
       { path: '*', element: <Navigate to="/" /> },
     ],
