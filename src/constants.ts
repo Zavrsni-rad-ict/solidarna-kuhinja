@@ -7,6 +7,11 @@ export const MAXIMUM_CHARACTERS = 50;
 
 export const REDIRECT_AFTER_3_SECONDS = 3000;
 
+export const BELGRADE_COORDINATES = {
+  lat: 44.8125,
+  lng: 20.4612,
+} as const;
+
 export enum QUERY_KEYS {
   AUTHENTICATED_USER = 'AUTHENTICATED_USER',
   USERS = 'USERS',
