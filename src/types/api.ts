@@ -85,3 +85,7 @@ export enum RoleEnum {
   Deliverer = 5,
   FieldWorker = 6,
 }
+
+export type ActionResponse = {
+  ok: boolean;
+};

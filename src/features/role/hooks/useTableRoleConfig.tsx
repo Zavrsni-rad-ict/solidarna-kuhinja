@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, variants } from '@/components';
 import { useModal } from '@/hooks';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 export const useTableRoleConfig = () => {
   const { data, isLoading } = useFetchRoles();
@@ -12,14 +12,20 @@ export const useTableRoleConfig = () => {
 
   const { t: tG } = useTranslation('General');
   const { t: tRL } = useTranslation('RoleList');
-  // TODO - Kada budem brisao rolu koristicu selectedRoleId
-  // const [selectedRoleId, setSelectedRoleId] = useState(0);
+
+  const [selectedRoleId, setSelectedRoleId] = useState(0);
 
   const { isOpenModal, setIsOpenModal } = useModal();
 
-  const ascedentSortRoles = roles?.toSorted((a, b) =>
-    a.name.localeCompare(b.name),
+  const ascedentSortRoles = useMemo(
+    () => roles?.toSorted((a, b) => a.name.localeCompare(b.name)),
+    [roles],
   );
+
+  const handleDeleteClick = (roleId: number) => {
+    setIsOpenModal(true);
+    setSelectedRoleId(roleId);
+  };
 
   const table = useReactTable({
     columns: [
@@ -49,19 +55,12 @@ export const useTableRoleConfig = () => {
               <Link
                 to={isAdmin ? '' : `/roles/edit/${role.id}`}
                 className={isAdmin ? variants.disabled : variants.yellow}
-                onClick={() => {
-                  // TODO Remove...
-                  console.log('Klik');
-                }}
               >
                 {tG('edit')}
               </Link>
               <Button
                 type="button"
-                onClick={() => {
-                  setIsOpenModal(true);
-                  // setSelectedRoleId(role.id);
-                }}
+                onClick={() => handleDeleteClick(role.id)}
                 className={`${isAdmin ? variants.disabled : variants.red}`}
                 disabled={isAdmin}
                 title={isAdmin ? 'Cannot delete admin' : undefined}
@@ -77,5 +76,5 @@ export const useTableRoleConfig = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  return { table, isOpenModal, setIsOpenModal, isLoading };
+  return { table, isOpenModal, setIsOpenModal, isLoading, selectedRoleId };
 };

@@ -1,6 +1,6 @@
 import { axios } from '@/lib/api-client';
 import { RoleRequest } from './useCreateRole';
-import { Role, RoleName, RoleResponse } from '@/types';
+import { ActionResponse, RoleName, RoleResponse } from '@/types';
 import { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
@@ -12,13 +12,9 @@ import { useFetchRoles } from './useFetchRoles';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-type UpdateRoleResponse = {
-  ok: boolean;
-};
-
 type UpdateRoleRequest = RoleRequest & { id: number };
 
-const updateRole = (role: UpdateRoleRequest): Promise<UpdateRoleResponse> =>
+const updateRole = (role: UpdateRoleRequest): Promise<ActionResponse> =>
   axios.put(`/users-permissions/roles/${role.id}`, { name: role.name });
 
 export const useUpdateRole = () => {
@@ -26,11 +22,7 @@ export const useUpdateRole = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  return useMutation<
-    UpdateRoleResponse,
-    string | AxiosError,
-    UpdateRoleRequest
-  >({
+  return useMutation<ActionResponse, string | AxiosError, UpdateRoleRequest>({
     mutationKey: [MUTATION_KEYS.UPDATE_ROLE],
     mutationFn: updateRole,
     onMutate: ({ name, id }) => {

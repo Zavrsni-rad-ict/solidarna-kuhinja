@@ -5,20 +5,29 @@ import { Link } from 'react-router-dom';
 import { DeleteConfirmationModal } from '@/components/DeleteConfirmationModal/DeleteConfirmationModal';
 import { useTranslation } from 'react-i18next';
 import { Spinner } from '@/components/ui/spinner';
+import { useDeleteRole } from '../api';
+import { useCallback } from 'react';
 
 export const RoleList = () => {
   const { t: tRL } = useTranslation('RoleList');
-  const { table, isOpenModal, setIsOpenModal, isLoading } =
+  const { table, isOpenModal, setIsOpenModal, isLoading, selectedRoleId } =
     useTableRoleConfig();
+
+  const { mutate: deleteRole } = useDeleteRole();
+  const handleClose = () => setIsOpenModal(false);
+  const handleConfirm = () => {
+    deleteRole(selectedRoleId);
+    setIsOpenModal(false);
+  };
 
   if (isLoading) return <Spinner />;
 
   return (
-    <div>
+    <>
       <DeleteConfirmationModal
         isOpen={isOpenModal}
-        onClose={() => setIsOpenModal(false)}
-        onConfirm={() => {}}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
         message="Are you sure you want to delete this role?"
       />
       <div className="p-6">
@@ -30,7 +39,7 @@ export const RoleList = () => {
           </Link>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

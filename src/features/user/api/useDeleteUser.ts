@@ -15,7 +15,7 @@ export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: [MUTATION_KEYS.CREATE_USER],
+    mutationKey: [MUTATION_KEYS.DELETE_USER],
     mutationFn: deleteUser,
     onSuccess: (deletedUser) => {
       toast.success('Korisnik je uspesno obrisan - HC');
