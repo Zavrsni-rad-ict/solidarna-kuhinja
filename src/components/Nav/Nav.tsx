@@ -60,7 +60,7 @@ function ProfileMenu() {
         <Button
           variant="text"
           color="blue-gray"
-          className="flex items-center gap-1 rounded-full lg:ml-auto"
+          className="flex items-center gap-1 rounded-full lg:ml-auto w-[64px] h-[64px]"
         >
           <Avatar
             width={64}
