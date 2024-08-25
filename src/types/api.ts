@@ -89,3 +89,10 @@ export enum RoleEnum {
 export type ActionResponse = {
   ok: boolean;
 };
+
+export type Pagination = {
+  page: number;
+  pageCount: number;
+  pageSize: number;
+  total: number;
+};

@@ -1,4 +1,5 @@
 import { MainLayout } from '@/components/Layout';
+import { Home } from '@/features/home';
 import { MapView } from '@/features/map';
 import { Profile } from '@/features/profile';
 import { CreateRole, EditRole, RoleList } from '@/features/role';
@@ -22,7 +23,7 @@ export const protectedRoutes = [
     path: '/',
     element: <App />,
     children: [
-      { path: '', element: <>Home</> },
+      { path: '', element: <Home /> },
       { path: '/account', element: <Profile /> },
       {
         path: '/users',
