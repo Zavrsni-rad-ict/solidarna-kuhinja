@@ -5,7 +5,7 @@ import { Coordinates } from '@/types';
 import { useState } from 'react';
 
 export const MapView = () => {
-  const [_, setLocation] = useState<never[] | Coordinates[]>([]);
+  const [location, setLocation] = useState<null | Coordinates>(null);
   const [query, setQuery] = useState('');
 
   return (
@@ -17,7 +17,7 @@ export const MapView = () => {
           query={query}
         />
       </div>
-      <Map />
+      <Map location={location} setQuery={setQuery} showDraggableMarker />
     </>
   );
 };

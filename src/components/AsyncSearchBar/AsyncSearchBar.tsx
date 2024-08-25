@@ -24,10 +24,10 @@ const AsyncSearchBar = ({ setLocation, setQuery }: Props) => {
       getOptionValue={(e) => e.display_name}
       onInputChange={(value) => setQuery(value)}
       onChange={(value) =>
-        setLocation((prevState) => [
-          ...prevState,
-          { lat: Number(value.lat), lng: Number(value.lon) },
-        ])
+        setLocation(() => ({
+          lat: Number(value.lat),
+          lng: Number(value.lon),
+        }))
       }
     />
   );
