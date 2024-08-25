@@ -1,44 +1,46 @@
-import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  Popup,
-  useMapEvent,
-  useMap,
-} from 'react-leaflet';
-import { FullscreenControl } from 'react-leaflet-fullscreen';
+import { MapContainer, Marker, TileLayer, Popup, useMap } from 'react-leaflet';
 
 import 'react-leaflet-fullscreen/styles.css';
 import 'leaflet/dist/leaflet.css';
 import AsyncSearchBar from '../AsyncSearchBar/AsyncSearchBar';
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SetViewOnClick } from './SetViewOnClick';
 import { BELGRADE_COORDINATES } from '@/constants';
-import { Draggable } from 'leaflet';
-import { DraggableMarker } from './DraggableMarker';
+import { Coordinates, EventLocation } from '@/types';
+import { calculateMapCenter } from '@/utils/calculateMapCenter';
 
-const RecenterAutomatically = ({ lat, lng }: any) => {
+type Props = {
+  eventLocations?: EventLocation[];
+};
+
+const RecenterMap = ({
+  eventLocations,
+}: {
+  eventLocations: EventLocation[] | undefined;
+}) => {
   const map = useMap();
+
   useEffect(() => {
-    map.setView([lat, lng]);
-  }, [lat, lng]);
+    if (eventLocations) {
+      const mapCenter = calculateMapCenter(eventLocations);
+      map.flyTo(mapCenter);
+    }
+  }, [eventLocations]);
+
   return null;
 };
 
-type LocationCoordinates = {
-  lat: number;
-  lng: number;
-};
-
-export const Map = () => {
-  const [location, setLocation] = useState<never[] | LocationCoordinates[]>([]);
+export const Map = ({ eventLocations }: Props) => {
+  const [location, setLocation] = useState<never[] | Coordinates[]>([]);
   const [query, setQuery] = useState('');
 
+  // TODO Obrisati consolu
   console.log(location);
   const animateRef = useRef(true);
 
   return (
     <>
+      {/* // TODO Ovaj deosa AsyncSearchBarom treba da ide van komponente u MapView */}
       <div className="my-4 relative z-[1001]">
         <AsyncSearchBar
           setLocation={setLocation}
@@ -56,27 +58,22 @@ export const Map = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {/* <DraggableMarker
-          lat={location?.[0].lat ?? 0}
-          lng={location?.[0].lng ?? 0}
-          // setQuery={setLocation}
-          setQuery={(e) => console.log({ e })}
-          center={BELGRADE_COORDINATES}
-        /> */}
+
         <SetViewOnClick animateRef={animateRef} />
-        {location.length > 0 && (
-          <RecenterAutomatically
-            // Uvek mi dohvati poslednji iz pretrage
-            lat={location[location.length - 1].lat}
-            lng={location[location.length - 1].lng}
-          />
-        )}
-        {/* <FullscreenControl position="topleft" /> */}
-        {/* <Marker position={[51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker> */}
+
+        <RecenterMap eventLocations={eventLocations} />
+        {eventLocations &&
+          eventLocations.map((location) => (
+            <Marker
+              position={[location.coordinates.lat, location.coordinates.lng]}
+              key={location.name}
+              eventHandlers={{
+                mouseover: (event) => event.target.openPopup(),
+              }}
+            >
+              <Popup>{location.name}</Popup>
+            </Marker>
+          ))}
       </MapContainer>
     </>
   );
