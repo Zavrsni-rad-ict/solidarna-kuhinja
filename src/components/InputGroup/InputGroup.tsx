@@ -16,7 +16,7 @@ export const InputGroup = (props: Props) => {
   // const { control } = useFormContext();
 
   return (
-    <div className="relative mb-6">
+    <div className="">
       <Controller
         name={name}
         // control={control}
