@@ -3,6 +3,8 @@ import { Button, InputGroup } from '@/components';
 import { Spinner } from '@/components/ui/spinner';
 import { FormProps, SingleRole } from '@/types';
 
+import { PermissionList } from '../PermissionList';
+
 type Props = FormProps & {
   role?: SingleRole;
 };
@@ -14,6 +16,8 @@ export const RoleForm = ({ status, role }: Props) => {
         <div className="col-span-12">
           <InputGroup name="name" placeholder="Role Name" label="Role name" />
         </div>
+
+        <PermissionList role={role} />
 
         <div className="col-start-1 mt-4">
           <Button
