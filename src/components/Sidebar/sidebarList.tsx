@@ -30,8 +30,8 @@ export const sidebarItems: SidebarItem[] = [
     Icon: IconUserRoles,
   },
   {
-    tabName: 'map',
-    to: '/map',
+    tabName: 'Create Event',
+    to: '/create-event',
     Icon: IconMap,
   },
 ];

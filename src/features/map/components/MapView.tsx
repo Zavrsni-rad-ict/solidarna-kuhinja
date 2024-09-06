@@ -11,6 +11,7 @@ export const MapView = () => {
   return (
     <>
       <div className="my-4 relative z-[1001]">
+        <label>Izaberi lokaciju na mapi</label>
         <AsyncSearchBar
           setLocation={setLocation}
           setQuery={setQuery}
