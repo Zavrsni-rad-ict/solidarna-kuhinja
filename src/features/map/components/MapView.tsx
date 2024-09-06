@@ -4,8 +4,11 @@ import AsyncSearchBar from '@/components/AsyncSearchBar/AsyncSearchBar';
 import { Coordinates } from '@/types';
 import { useState } from 'react';
 
-export const MapView = () => {
-  const [_, setLocation] = useState<never[] | Coordinates[]>([]);
+type Props = {
+  location: Coordinates | null;
+  setLocation: (location: Coordinates) => void;
+};
+export const MapView = ({ location, setLocation }: Props) => {
   const [query, setQuery] = useState('');
 
   return (
@@ -16,9 +19,10 @@ export const MapView = () => {
           setLocation={setLocation}
           setQuery={setQuery}
           query={query}
+          shouldReturnOneLocation
         />
       </div>
-      <Map />
+      <Map location={location} />
     </>
   );
 };

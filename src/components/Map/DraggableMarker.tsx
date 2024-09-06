@@ -1,15 +1,18 @@
+import { Coordinates } from '@/types';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { Marker, useMapEvents, useMap } from 'react-leaflet';
 
-type Props = any;
+type Props = {
+  lat: number;
+  lng: number;
+  setLocation: ((location: Coordinates) => void) | undefined;
+  center: Coordinates;
+};
 
-export const DraggableMarker = ({ lat, lng, setQuery, center }: Props) => {
+export const DraggableMarker = ({ lat, lng, setLocation, center }: Props) => {
   const [position, setPosition] = useState(center);
   const markerRef = useRef(null);
   const changePoisition = useMap();
-
-  // console.log('lat', lat);
-  // console.log('long', lng);
 
   useEffect(() => {
     if (lat && lng) {
@@ -20,10 +23,8 @@ export const DraggableMarker = ({ lat, lng, setQuery, center }: Props) => {
 
   const map = useMapEvents({
     click(e) {
-      // console.log('eeeeeeeeeeee', e.latlng);
       setPosition({ lat: e.latlng.lat, lng: e.latlng.lng });
-      setQuery({ lat: e.latlng.lat, lng: e.latlng.lng });
-
+      setLocation && setLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
       map.flyTo(e.latlng, map.getZoom());
     },
   });
@@ -33,7 +34,11 @@ export const DraggableMarker = ({ lat, lng, setQuery, center }: Props) => {
       dragend(e) {
         const marker = markerRef.current;
         if (marker != null) {
-          setQuery({ lat: e.target._latlng.lat, lng: e.target._latlng.lng });
+          setLocation &&
+            setLocation({
+              lat: e.target._latlng.lat,
+              lng: e.target._latlng.lng,
+            });
           setPosition(marker.getLatLng());
         }
       },
@@ -43,10 +48,9 @@ export const DraggableMarker = ({ lat, lng, setQuery, center }: Props) => {
 
   return (
     <Marker
-      draggable={true}
+      draggable
       eventHandlers={eventHandlers}
       position={position}
-      ref={markerRef}
     ></Marker>
   );
 };

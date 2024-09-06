@@ -8,16 +8,15 @@ import { SetViewOnClick } from './SetViewOnClick';
 import { BELGRADE_COORDINATES } from '@/constants';
 import { Coordinates, EventLocation } from '@/types';
 import { calculateMapCenter } from '@/utils/calculateMapCenter';
+import { DraggableMarker } from './DraggableMarker';
 
 type Props = {
   eventLocations?: EventLocation[];
+  location?: Coordinates | null;
+  setLocation?: (location: Coordinates) => void;
 };
 
-const RecenterMap = ({
-  eventLocations,
-}: {
-  eventLocations: EventLocation[] | undefined;
-}) => {
+const RecenterMap = ({ eventLocations, location }: Props) => {
   const map = useMap();
 
   useEffect(() => {
@@ -27,10 +26,16 @@ const RecenterMap = ({
     }
   }, [eventLocations]);
 
+  useEffect(() => {
+    if (location) {
+      map.flyTo(location);
+    }
+  }, [location]);
+
   return null;
 };
 
-export const Map = ({ eventLocations }: Props) => {
+export const Map = ({ eventLocations, location, setLocation }: Props) => {
   const animateRef = useRef(true);
 
   return (
@@ -47,7 +52,7 @@ export const Map = ({ eventLocations }: Props) => {
 
       <SetViewOnClick animateRef={animateRef} />
 
-      <RecenterMap eventLocations={eventLocations} />
+      <RecenterMap location={location} eventLocations={eventLocations} />
       {eventLocations &&
         eventLocations.map((location) => (
           <Marker
@@ -60,6 +65,17 @@ export const Map = ({ eventLocations }: Props) => {
             <Popup>{location.name}</Popup>
           </Marker>
         ))}
+
+      {!eventLocations && (
+        <DraggableMarker
+          lat={location?.lat ?? BELGRADE_COORDINATES.lat}
+          lng={location?.lng ?? BELGRADE_COORDINATES.lng}
+          setLocation={
+            typeof setLocation === 'function' ? setLocation : undefined
+          }
+          center={BELGRADE_COORDINATES}
+        />
+      )}
     </MapContainer>
   );
 };

@@ -3,7 +3,10 @@ import { RHFFormProvider } from '@/components/RHFFormProvider';
 import { Spinner } from '@/components/ui/spinner';
 import { MapView } from '@/features/map';
 import { useForm } from 'react-hook-form';
-import Datepicker from 'react-tailwindcss-datepicker';
+import { EventRequest, useCreateEvent } from '../api';
+import { FormWrapper } from '@/components/RHFFormProvider/FormWrapper';
+import { useState } from 'react';
+import { Coordinates } from '@/types';
 
 export const CreateEventView = () => {
   const methods = useForm({
@@ -12,9 +15,16 @@ export const CreateEventView = () => {
     shouldFocusError: false,
   });
 
+  const [location, setLocation] = useState<null | Coordinates>(null);
+
   const currentDate = new Date().toISOString().slice(0, 10);
+
+  const { mutate: createEvent } = useCreateEvent();
+  const submtiHandler = async (data: EventRequest) =>
+    createEvent({ ...data, latitude: location!.lat, longitude: location!.lng });
+
   return (
-    <RHFFormProvider methods={methods}>
+    <FormWrapper schema={null} submitHandler={submtiHandler}>
       <div className="grid grid-cols-3 grid-rows-2 gap-4">
         <div className="col-span-1">
           <InputGroup
@@ -43,20 +53,20 @@ export const CreateEventView = () => {
         <div className="col-span-1 row-start-2">
           <InputGroup
             label="Koliko dostavljaca je potrebno - HC"
-            name="numberOfDeliveryPerson"
+            name="numberOfFieldWorkers"
             placeholder="Uneti broj - "
           />
         </div>
         <div className="col-span-1 row-start-2">
           <InputGroup
             label="Koliko ljudi na terenu je potrebno - HC"
-            name="numberOfpeople"
+            name="numberOfDeliveryPerson"
             placeholder="Uneti broj - HC "
           />
         </div>
       </div>
 
-      <MapView />
+      <MapView location={location} setLocation={setLocation} />
 
       <div className="col-start-1 mt-4">
         <Button
@@ -68,7 +78,7 @@ export const CreateEventView = () => {
           {false ? <Spinner size="sm" className="text-white" /> : 'SUBMIT - HC'}
         </Button>
       </div>
-    </RHFFormProvider>
+    </FormWrapper>
   );
 };
 
