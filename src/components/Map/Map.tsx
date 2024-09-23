@@ -74,7 +74,8 @@ export const Map = ({ eventLocations, location, setLocation }: Props) => {
                 <div className="flex flex-col my-2">
                   <div className="flex gap-2">
                     <IconChief width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                    <strong>Broj Kuvara: </strong>0 / {location.numberOfCooks}
+                    <strong>Broj Kuvara: </strong>0 /{' '}
+                    {location.numberOfCooks ?? 'null'}
                   </div>
                   <div className="flex gap-2">
                     <IconDeliveryBike
@@ -82,12 +83,12 @@ export const Map = ({ eventLocations, location, setLocation }: Props) => {
                       height={ICON_SIZE.sm}
                     />
                     <strong>Broj Dostavljaca: </strong>0 /{' '}
-                    {location.numberOfDeliveryPerson}
+                    {location.numberOfDeliveryPerson ?? 'null'}
                   </div>
                   <div className="flex gap-2">
                     <IconUser width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
                     <strong>Broj Ljudi na terenu: </strong>0 /{' '}
-                    {location.numberOfFieldWorkers}
+                    {location.numberOfFieldWorkers ?? 'null'}
                   </div>
                 </div>
               </div>
