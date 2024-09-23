@@ -21,11 +21,7 @@ export const Home = () => {
     [events],
   );
 
-  return (
-    <>
-      <Map eventLocations={eventLocations} />
-    </>
-  );
+  return <Map eventLocations={eventLocations} />;
 };
 
 Home.displayName = 'Home';
