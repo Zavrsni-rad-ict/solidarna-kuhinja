@@ -41,7 +41,7 @@ export const InputGroup = (props: Props) => {
               placeholder={placeholder}
             />
             {error && (
-              <span className="absolute flex items-center font-medium tracking-wide text-red-500 text-xs mt-1">
+              <span className="absolute flex items-center font-medium text-red-500 text-xs mt-1 max-w-[350px]">
                 {error.message}
               </span>
             )}

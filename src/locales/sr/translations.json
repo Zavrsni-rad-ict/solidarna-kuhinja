@@ -7,7 +7,9 @@
     "actions": "Akcije",
     "edit": "Izmeni",
     "delete": "Obriši",
-    "no_data_available": "Nema dostupnih podataka"
+    "no_data_available": "Nema dostupnih podataka",
+    "number_input_placeholder": "Uneti broj",
+    "submit": "Submit"
   },
   "Login": {
     "password": "Lozinka",
@@ -35,5 +37,13 @@
   "RoleList": {
     "createButton": "Kreiraj ulogu",
     "roleName": "Naziv Role"
+  },
+  "CreateEventView": {
+    "locationName": "Naziv lokacije",
+    "calendar": "Kalendar",
+    "numberOfCooks": "Broj kuvara",
+    "numberOfFieldWorkers": "Broj ljudi na terenu",
+    "numberOfDeliveryPerson": "Broj dostavljaca",
+    "mapLocation": "Izaberi lokaciju na mapi"
   }
 }
