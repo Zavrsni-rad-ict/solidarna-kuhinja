@@ -30,3 +30,14 @@ export enum MUTATION_KEYS {
 
   CREATE_EVENT = 'CREATE_EVENT',
 }
+
+export type Size = 'xs' | 'sm' | 'm' | 'l' | 'xl' | '2xl' | '3xl';
+export const ICON_SIZE = {
+  xs: 8,
+  sm: 16,
+  m: 24,
+  l: 32,
+  xl: 48,
+  '2xl': 64,
+  '3xl': 96,
+} as const;
