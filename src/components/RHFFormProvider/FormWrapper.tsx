@@ -18,7 +18,7 @@ export const FormWrapper = <T extends FieldValues>({
 }: FormWrapperProps<T>) => {
   const methods = useForm<T>({
     mode: 'onSubmit',
-    resolver: yupResolver(schema) as any,
+    resolver: schema ? (yupResolver(schema) as any) : undefined,
     shouldFocusError: false,
     defaultValues,
   });

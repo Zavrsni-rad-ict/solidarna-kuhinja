@@ -8,6 +8,9 @@ type LocationAttributes = {
   publishedAt: string;
   latitude: number;
   longitude: number;
+  numberOfCooks: number;
+  numberOfDeliveryPerson: number;
+  numberOfFieldWorkers: number;
 };
 
 type EventData = {

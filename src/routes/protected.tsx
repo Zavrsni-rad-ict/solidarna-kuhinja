@@ -1,6 +1,6 @@
 import { MainLayout } from '@/components/Layout';
+import { CreateEventView } from '@/features/create-event';
 import { Home } from '@/features/home';
-import { MapView } from '@/features/map';
 import { Profile } from '@/features/profile';
 import { CreateRole, EditRole, RoleList } from '@/features/role';
 import { CreateUser, UserList, UpdateUser } from '@/features/user/components';
@@ -42,8 +42,8 @@ export const protectedRoutes = [
         ],
       },
       {
-        path: '/map',
-        element: <MapView />,
+        path: '/create-event',
+        element: <CreateEventView />,
       },
       { path: '*', element: <Navigate to="/" /> },
     ],

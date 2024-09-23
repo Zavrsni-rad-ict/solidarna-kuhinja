@@ -4,7 +4,11 @@ import makeAnimated from 'react-select/animated';
 
 type Props = any;
 
-const AsyncSearchBar = ({ setLocation, setQuery }: Props) => {
+const AsyncSearchBar = ({
+  setLocation,
+  setQuery,
+  shouldReturnOneLocation,
+}: Props) => {
   const animatedComponents = makeAnimated();
 
   const filterLocations = async (input: string) => {
@@ -23,12 +27,19 @@ const AsyncSearchBar = ({ setLocation, setQuery }: Props) => {
       getOptionLabel={(e) => e.display_name}
       getOptionValue={(e) => e.display_name}
       onInputChange={(value) => setQuery(value)}
-      onChange={(value) =>
+      onChange={(value) => {
+        if (shouldReturnOneLocation) {
+          return setLocation(() => ({
+            lat: Number(value.lat),
+            lng: Number(value.lon),
+          }));
+        }
+
         setLocation((prevState) => [
           ...prevState,
           { lat: Number(value.lat), lng: Number(value.lon) },
-        ])
-      }
+        ]);
+      }}
     />
   );
 };

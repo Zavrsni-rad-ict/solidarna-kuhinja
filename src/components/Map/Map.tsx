@@ -3,21 +3,24 @@ import { MapContainer, Marker, TileLayer, Popup, useMap } from 'react-leaflet';
 import 'react-leaflet-fullscreen/styles.css';
 import 'leaflet/dist/leaflet.css';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { SetViewOnClick } from './SetViewOnClick';
-import { BELGRADE_COORDINATES } from '@/constants';
+import { BELGRADE_COORDINATES, ICON_SIZE } from '@/constants';
 import { Coordinates, EventLocation } from '@/types';
 import { calculateMapCenter } from '@/utils/calculateMapCenter';
+import { DraggableMarker } from './DraggableMarker';
+
+import IconChief from '@/assets/chief.svg?react';
+import IconDeliveryBike from '@/assets/deliver-bike-svgrepo-com.svg?react';
+import IconUser from '@/assets/user-svgrepo-com.svg?react';
 
 type Props = {
   eventLocations?: EventLocation[];
+  location?: Coordinates | null;
+  setLocation?: (location: Coordinates) => void;
 };
 
-const RecenterMap = ({
-  eventLocations,
-}: {
-  eventLocations: EventLocation[] | undefined;
-}) => {
+const RecenterMap = ({ eventLocations, location }: Props) => {
   const map = useMap();
 
   useEffect(() => {
@@ -27,10 +30,16 @@ const RecenterMap = ({
     }
   }, [eventLocations]);
 
+  useEffect(() => {
+    if (location) {
+      map.flyTo(location);
+    }
+  }, [location]);
+
   return null;
 };
 
-export const Map = ({ eventLocations }: Props) => {
+export const Map = ({ eventLocations, location, setLocation }: Props) => {
   const animateRef = useRef(true);
 
   return (
@@ -47,7 +56,7 @@ export const Map = ({ eventLocations }: Props) => {
 
       <SetViewOnClick animateRef={animateRef} />
 
-      <RecenterMap eventLocations={eventLocations} />
+      <RecenterMap location={location} eventLocations={eventLocations} />
       {eventLocations &&
         eventLocations.map((location) => (
           <Marker
@@ -57,9 +66,46 @@ export const Map = ({ eventLocations }: Props) => {
               mouseover: (event) => event.target.openPopup(),
             }}
           >
-            <Popup>{location.name}</Popup>
+            <Popup>
+              <div className="flex flex-wrap items-center">
+                <strong className="uppercase text-center">
+                  {location.name}
+                </strong>
+                <div className="flex flex-col my-2">
+                  <div className="flex gap-2">
+                    <IconChief width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
+                    <strong>Broj Kuvara: </strong>0 /{' '}
+                    {location.numberOfCooks ?? 'null'}
+                  </div>
+                  <div className="flex gap-2">
+                    <IconDeliveryBike
+                      width={ICON_SIZE.sm}
+                      height={ICON_SIZE.sm}
+                    />
+                    <strong>Broj Dostavljaca: </strong>0 /{' '}
+                    {location.numberOfDeliveryPerson ?? 'null'}
+                  </div>
+                  <div className="flex gap-2">
+                    <IconUser width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
+                    <strong>Broj Ljudi na terenu: </strong>0 /{' '}
+                    {location.numberOfFieldWorkers ?? 'null'}
+                  </div>
+                </div>
+              </div>
+            </Popup>
           </Marker>
         ))}
+
+      {!eventLocations && (
+        <DraggableMarker
+          lat={location?.lat ?? BELGRADE_COORDINATES.lat}
+          lng={location?.lng ?? BELGRADE_COORDINATES.lng}
+          setLocation={
+            typeof setLocation === 'function' ? setLocation : undefined
+          }
+          center={BELGRADE_COORDINATES}
+        />
+      )}
     </MapContainer>
   );
 };
