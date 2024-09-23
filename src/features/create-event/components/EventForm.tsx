@@ -1,46 +1,48 @@
 import { InputGroup } from '@/components';
+import { useTranslation } from 'react-i18next';
 
 export const EventForm = () => {
   const currentDate = new Date().toISOString().slice(0, 10);
+
+  const { t } = useTranslation('CreateEventView');
+  const { t: tG } = useTranslation('General');
 
   return (
     <div className="grid grid-cols-3 grid-rows-2 gap-4">
       <div className="col-span-1">
         <InputGroup
-          label="Location Name - HC"
+          label={t('locationName')}
           name="locationName"
-          placeholder="Location name"
+          placeholder={t('locationName')}
         />
       </div>
       <InputGroup
-        label="Calendar - HC"
+        label={t('calendar')}
         name="date"
         type="datetime-local"
-        title="Firefox browser ne podrzava vreme, samo datum"
+        title="Firefox browser does not support time, only date"
         min={currentDate}
       />
 
-      <div className="col-span-1"></div>
-
       <div className="col-span-1 row-start-2">
         <InputGroup
-          label="Koliko kuvara je potrebno - HC"
+          label={t('numberOfCooks')}
           name="numberOfCooks"
-          placeholder="Uneti broj - HC"
+          placeholder={tG('number_input_placeholder')}
         />
       </div>
       <div className="col-span-1 row-start-2">
         <InputGroup
-          label="Koliko dostavljaca je potrebno - HC"
+          label={t('numberOfFieldWorkers')}
           name="numberOfFieldWorkers"
-          placeholder="Uneti broj - "
+          placeholder={tG('number_input_placeholder')}
         />
       </div>
       <div className="col-span-1 row-start-2">
         <InputGroup
-          label="Koliko ljudi na terenu je potrebno - HC"
+          label={t('numberOfDeliveryPerson')}
           name="numberOfDeliveryPerson"
-          placeholder="Uneti broj - HC "
+          placeholder={tG('number_input_placeholder')}
         />
       </div>
     </div>

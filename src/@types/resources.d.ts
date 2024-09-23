@@ -8,6 +8,8 @@ interface Resources {
     edit: 'Edit';
     delete: 'Delete';
     no_data_available: 'No data available';
+    number_input_placeholder: 'Enter a number';
+    submit: 'Submit';
   };
   Login: {
     password: 'Password';
@@ -33,8 +35,15 @@ interface Resources {
     createButton: 'Create User';
   };
   RoleList: {
-    createButton: 'Create Button';
+    createButton: 'Create Role';
     roleName: 'Role Name';
+  };
+  CreateEventView: {
+    locationName: 'Location Name';
+    calendar: 'Calendar';
+    numberOfCooks: 'Number of Cooks';
+    numberOfFieldWorkers: 'Number of Field Workers';
+    numberOfDeliveryPerson: 'Number of Delivery Person';
   };
 }
 

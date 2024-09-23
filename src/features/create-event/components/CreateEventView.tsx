@@ -8,6 +8,7 @@ import { FormWrapper } from '@/components/RHFFormProvider/FormWrapper';
 import { useState } from 'react';
 import { Coordinates } from '@/types';
 import { EventForm } from './EventForm';
+import { useTranslation } from 'react-i18next';
 
 export const CreateEventView = () => {
   const methods = useForm({
@@ -16,6 +17,7 @@ export const CreateEventView = () => {
     shouldFocusError: false,
   });
 
+  const { t } = useTranslation('General');
   const [location, setLocation] = useState<null | Coordinates>(null);
 
   const { mutate: createEvent } = useCreateEvent();
@@ -35,7 +37,7 @@ export const CreateEventView = () => {
           className="w-[82px] h-[40px] flex justify-center items-center transition disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={false}
         >
-          {false ? <Spinner size="sm" className="text-white" /> : 'SUBMIT - HC'}
+          {false ? <Spinner size="sm" className="text-white" /> : t('submit')}
         </Button>
       </div>
     </FormWrapper>
