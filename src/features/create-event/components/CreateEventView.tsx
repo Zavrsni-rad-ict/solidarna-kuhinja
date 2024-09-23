@@ -1,8 +1,6 @@
-import { Button, InputGroup } from '@/components';
-import { RHFFormProvider } from '@/components/RHFFormProvider';
+import { Button } from '@/components';
 import { Spinner } from '@/components/ui/spinner';
 import { MapView } from '@/features/map';
-import { useForm } from 'react-hook-form';
 import { EventRequest, useCreateEvent } from '../api';
 import { FormWrapper } from '@/components/RHFFormProvider/FormWrapper';
 import { useState } from 'react';
@@ -11,12 +9,6 @@ import { EventForm } from './EventForm';
 import { useTranslation } from 'react-i18next';
 
 export const CreateEventView = () => {
-  const methods = useForm({
-    mode: 'onSubmit',
-    // resolver: yupResolver(schema),
-    shouldFocusError: false,
-  });
-
   const { t } = useTranslation('General');
   const [location, setLocation] = useState<null | Coordinates>(null);
 
