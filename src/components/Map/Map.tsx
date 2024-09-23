@@ -26,7 +26,13 @@ const RecenterMap = ({ eventLocations, location }: Props) => {
   useEffect(() => {
     if (eventLocations) {
       const mapCenter = calculateMapCenter(eventLocations);
+      const bounds: [number, number][] = eventLocations.map((loc) => [
+        loc.coordinates.lat,
+        loc.coordinates.lng,
+      ]);
+
       map.flyTo(mapCenter);
+      map.fitBounds(bounds);
     }
   }, [eventLocations]);
 
