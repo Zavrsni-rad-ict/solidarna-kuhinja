@@ -8,14 +8,13 @@ export const EventForm = () => {
   const { t: tG } = useTranslation('General');
 
   return (
-    <div className="grid grid-cols-3 grid-rows-2 gap-4">
-      <div className="col-span-1">
-        <InputGroup
-          label={t('locationName')}
-          name="locationName"
-          placeholder={t('locationName')}
-        />
-      </div>
+    <div className="grid grid-cols-3 grid-rows-2 gap-8">
+      <InputGroup
+        label={t('locationName')}
+        name="locationName"
+        placeholder={t('locationName')}
+      />
+
       <InputGroup
         label={t('calendar')}
         name="date"

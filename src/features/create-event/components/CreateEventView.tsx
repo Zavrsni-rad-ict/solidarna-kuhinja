@@ -1,4 +1,7 @@
+import * as yup from 'yup';
+
 import { Button } from '@/components';
+
 import { Spinner } from '@/components/ui/spinner';
 import { MapView } from '@/features/map';
 import { EventRequest, useCreateEvent } from '../api';
@@ -16,11 +19,23 @@ export const CreateEventView = () => {
   const submtiHandler = async (data: EventRequest) =>
     createEvent({ ...data, latitude: location!.lat, longitude: location!.lng });
 
+  const { t: tGE } = useTranslation('GlobalError');
+
+  const schema = yup.object().shape({
+    locationName: yup.string().required(tGE('required')),
+    date: yup.string().required(),
+    numberOfCooks: yup.number().required().min(1),
+    numberOfFieldWorkers: yup.number().required().min(1),
+    numberOfDeliveryPerson: yup.number().required().min(1),
+  });
+
   return (
-    <FormWrapper schema={null} submitHandler={submtiHandler}>
+    <FormWrapper schema={schema} submitHandler={submtiHandler}>
       <EventForm />
 
-      <MapView location={location} setLocation={setLocation} />
+      <div className="mt-10">
+        <MapView location={location} setLocation={setLocation} />
+      </div>
 
       <div className="col-start-1 mt-4">
         <Button

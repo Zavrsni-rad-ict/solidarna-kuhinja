@@ -3,6 +3,7 @@ import { Map } from '@/components';
 import AsyncSearchBar from '@/components/AsyncSearchBar/AsyncSearchBar';
 import { Coordinates } from '@/types';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   location: Coordinates | null;
@@ -11,10 +12,11 @@ type Props = {
 export const MapView = ({ location, setLocation }: Props) => {
   const [query, setQuery] = useState('');
 
+  const { t } = useTranslation('CreateEventView');
   return (
     <>
       <div className="my-4 relative z-[1001]">
-        <label>Izaberi lokaciju na mapi</label>
+        <label>{t('mapLocation')}</label>
         <AsyncSearchBar
           setLocation={setLocation}
           setQuery={setQuery}
