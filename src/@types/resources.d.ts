@@ -44,6 +44,7 @@ interface Resources {
     numberOfCooks: 'Number of Cooks';
     numberOfFieldWorkers: 'Number of Field Workers';
     numberOfDeliveryPerson: 'Number of Delivery Person';
+    mapLocation: 'Choose map location';
   };
 }
 

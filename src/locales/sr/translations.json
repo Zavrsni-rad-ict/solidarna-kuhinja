@@ -43,6 +43,7 @@
     "calendar": "Kalendar",
     "numberOfCooks": "Broj kuvara",
     "numberOfFieldWorkers": "Broj ljudi na terenu",
-    "numberOfDeliveryPerson": "Broj dostavljaca"
+    "numberOfDeliveryPerson": "Broj dostavljaca",
+    "mapLocation": "Izaberi lokaciju na mapi"
   }
 }
