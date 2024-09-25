@@ -32,13 +32,15 @@ export const PaginationControl = <T,>({ table }: { table: Table<T> }) => {
         >
           {'>>'}
         </button>
-        <span className="flex items-center gap-1">
-          <div>Page</div>
-          <strong>
-            {table.getState().pagination.pageIndex + 1} of{' '}
-            {table.getPageCount().toLocaleString()}
-          </strong>
-        </span>
+        {table.getPageCount() > 0 && (
+          <span className="flex items-center gap-1">
+            <div>Page</div>
+            <strong>
+              {table.getState().pagination.pageIndex + 1} of{' '}
+              {table.getPageCount().toLocaleString()}
+            </strong>
+          </span>
+        )}
       </div>
 
       <select
@@ -46,7 +48,7 @@ export const PaginationControl = <T,>({ table }: { table: Table<T> }) => {
         onChange={(e) => {
           table.setPageSize(Number(e.target.value));
         }}
-        className="bg-transparent"
+        className="cursor-pointer bg-transparent"
       >
         {[5, 10, 15].map((pageSize) => (
           <option key={pageSize} value={pageSize}>
@@ -54,7 +56,6 @@ export const PaginationControl = <T,>({ table }: { table: Table<T> }) => {
           </option>
         ))}
       </select>
-      {/* {dataQuery.isFetching ? 'Loading...' : null} */}
     </div>
   );
 };

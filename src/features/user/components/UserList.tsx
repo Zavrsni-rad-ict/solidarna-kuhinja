@@ -1,6 +1,6 @@
 import { Spinner } from '@/components/ui/spinner';
 import { useDeleteUser } from '../api';
-import { Table, variants } from '@/components';
+import { SearchBar, Table, variants } from '@/components';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useTableUserConfig } from '@/features/role/hooks/useTableUserConfig';
@@ -10,8 +10,14 @@ export const UserList = () => {
   const { t: tUL } = useTranslation('UserList');
   const { mutate: deleteUser } = useDeleteUser();
 
-  const { table, selectedUserId, isOpenModal, setIsOpenModal, isLoadingUsers } =
-    useTableUserConfig();
+  const {
+    table,
+    selectedUserId,
+    isOpenModal,
+    setIsOpenModal,
+    isLoadingUsers,
+    handleFindUser,
+  } = useTableUserConfig();
 
   const handleClose = () => setIsOpenModal(false);
 
@@ -32,6 +38,9 @@ export const UserList = () => {
       />
 
       <div className="p-6">
+        <div className="my-4">
+          <SearchBar onChange={handleFindUser} />
+        </div>
         <Table table={table} />
 
         <div className="my-4 flex justify-end">

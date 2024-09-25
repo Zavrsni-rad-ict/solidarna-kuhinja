@@ -11,18 +11,28 @@ import { UserDTO } from '../types';
 type Props = {
   pageNumber: number;
   pageSize: number;
+  search?: string;
 };
 
-const fetchUsers = async ({ pageNumber, pageSize }: Props): Promise<UserDTO> =>
-  await axios.get(`/users?page=${pageNumber}&pageSize=${pageSize}`);
+const fetchUsers = async ({
+  pageNumber,
+  pageSize,
+  search,
+}: Props): Promise<UserDTO> => {
+  const searchParam = search ? `&search=${encodeURIComponent(search)}` : '';
+  console.log({ searchParam });
+  return await axios.get(
+    `/users?page=${pageNumber}&pageSize=${pageSize}${searchParam}`,
+  );
+};
 
 export const useFetchAllUsers = (
-  { pageNumber, pageSize }: Props,
+  { pageNumber, pageSize, search }: Props,
   queryConfig?: UseQueryOptions<UserDTO>,
 ) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.USERS, pageNumber, pageSize],
-    queryFn: () => fetchUsers({ pageNumber, pageSize }),
+    queryKey: [QUERY_KEYS.USERS, pageNumber, pageSize, search],
+    queryFn: () => fetchUsers({ pageNumber, pageSize, search }),
     placeholderData: keepPreviousData,
     ...queryConfig,
   });
