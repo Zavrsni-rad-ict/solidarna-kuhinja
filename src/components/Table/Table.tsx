@@ -1,5 +1,6 @@
 import { Table as TableProps, flexRender } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
+import { PaginationControl } from '../PaginationControl/PaginationControl';
 
 type Props<T> = {
   table: TableProps<T>;
@@ -81,61 +82,7 @@ export const Table = <T,>({ table, shouldShowFooter = false }: Props<T>) => {
         )}
       </table>
 
-      <div className="h-2" />
-      <div className="flex flex-wrap items-center gap-2 m-3 justify-between">
-        <div className="pagination flex gap-2">
-          <button
-            className="border rounded p-1"
-            onClick={() => table.firstPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {'<<'}
-          </button>
-          <button
-            className="border rounded p-1"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {'<'}
-          </button>
-          <button
-            className="border rounded p-1"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            {'>'}
-          </button>
-          <button
-            className="border rounded p-1"
-            onClick={() => table.lastPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            {'>>'}
-          </button>
-          <span className="flex items-center gap-1">
-            <div>Page</div>
-            <strong>
-              {table.getState().pagination.pageIndex + 1} of{' '}
-              {table.getPageCount().toLocaleString()}
-            </strong>
-          </span>
-        </div>
-
-        <select
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(Number(e.target.value));
-          }}
-          className="bg-transparent"
-        >
-          {[5, 10, 15].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-        {/* {dataQuery.isFetching ? 'Loading...' : null} */}
-      </div>
+      <PaginationControl table={table} />
     </div>
   );
 };

@@ -105,8 +105,6 @@ export const useTableUserConfig = () => {
         newPagination = updater;
       }
 
-      console.log(newPagination);
-
       setPagination(newPagination);
     },
   });
