@@ -9,6 +9,8 @@ import { Button, variants } from '@/components';
 import { useModal } from '@/hooks';
 import { useState } from 'react';
 import { useFetchAllUsers } from '@/features/user/api';
+import { useDebounce } from '@/features/user/hooks';
+import { DEBOUNCE_DELAY } from '@/constants';
 
 export const useTableUserConfig = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -16,9 +18,13 @@ export const useTableUserConfig = () => {
     pageSize: 5,
   });
 
+  const [searchState, setSearchState] = useState('');
+  const debouncedSearchTerm = useDebounce(searchState, DEBOUNCE_DELAY);
+
   const { data: users, isLoading: isLoadingUsers } = useFetchAllUsers({
     pageNumber: pagination.pageIndex + 1, // Because for endpoint doesn't exist pageNumber 0
     pageSize: pagination.pageSize,
+    search: debouncedSearchTerm,
   });
 
   const { t: tG } = useTranslation('General');
@@ -109,5 +115,19 @@ export const useTableUserConfig = () => {
     },
   });
 
-  return { table, isOpenModal, setIsOpenModal, selectedUserId, isLoadingUsers };
+  const handleFindUser = (e: React.FormEvent<HTMLInputElement>) => {
+    const newValue = e.currentTarget.value;
+
+    setSearchState(newValue);
+  };
+
+  console.log({ debouncedSearchTerm });
+  return {
+    table,
+    isOpenModal,
+    setIsOpenModal,
+    selectedUserId,
+    isLoadingUsers,
+    handleFindUser,
+  };
 };

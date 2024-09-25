@@ -10,18 +10,20 @@ export const UserList = () => {
   const { t: tUL } = useTranslation('UserList');
   const { mutate: deleteUser } = useDeleteUser();
 
-  const { table, selectedUserId, isOpenModal, setIsOpenModal, isLoadingUsers } =
-    useTableUserConfig();
+  const {
+    table,
+    selectedUserId,
+    isOpenModal,
+    setIsOpenModal,
+    isLoadingUsers,
+    handleFindUser,
+  } = useTableUserConfig();
 
   const handleClose = () => setIsOpenModal(false);
 
   const handleDelete = () => {
     deleteUser(selectedUserId);
     setIsOpenModal(false);
-  };
-
-  const handleFindUser = (e: React.FormEvent<HTMLInputElement>) => {
-    const newValue = e.currentTarget.value;
   };
 
   if (isLoadingUsers) return <Spinner />;

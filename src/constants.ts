@@ -7,6 +7,8 @@ export const MAXIMUM_CHARACTERS = 50;
 
 export const REDIRECT_AFTER_3_SECONDS = 3000;
 
+export const DEBOUNCE_DELAY = 300;
+
 export const BELGRADE_COORDINATES = {
   lat: 44.8125,
   lng: 20.4612,
