@@ -1,6 +1,6 @@
 import { Spinner } from '@/components/ui/spinner';
 import { useDeleteUser } from '../api';
-import { Table, variants } from '@/components';
+import { SearchBar, Table, variants } from '@/components';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useTableUserConfig } from '@/features/role/hooks/useTableUserConfig';
@@ -20,6 +20,10 @@ export const UserList = () => {
     setIsOpenModal(false);
   };
 
+  const handleFindUser = (e: React.FormEvent<HTMLInputElement>) => {
+    const newValue = e.currentTarget.value;
+  };
+
   if (isLoadingUsers) return <Spinner />;
 
   return (
@@ -32,6 +36,9 @@ export const UserList = () => {
       />
 
       <div className="p-6">
+        <div className="my-4">
+          <SearchBar onChange={handleFindUser} />
+        </div>
         <Table table={table} />
 
         <div className="my-4 flex justify-end">
