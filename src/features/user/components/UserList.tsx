@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useTableUserConfig } from '@/features/role/hooks/useTableUserConfig';
 import { DeleteConfirmationModal } from '@/components/DeleteConfirmationModal/DeleteConfirmationModal';
+import { RoleName } from '@/types';
 
 export const UserList = () => {
   const { t: tUL } = useTranslation('UserList');
@@ -17,6 +18,9 @@ export const UserList = () => {
     setIsOpenModal,
     isLoadingUsers,
     handleFindUser,
+    userGroups,
+    setCheckedRole,
+    totalUsers,
   } = useTableUserConfig();
 
   const handleClose = () => setIsOpenModal(false);
@@ -38,8 +42,53 @@ export const UserList = () => {
       />
 
       <div className="p-6">
-        <div className="my-4">
+        <div className="my-4 flex items-center gap-4">
           <SearchBar onChange={handleFindUser} />
+
+          <div className="flex gap-4 items-center">
+            <>
+              <input
+                id="all"
+                type="radio"
+                name="default-radio"
+                value="All"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                onChange={() => setCheckedRole(null)}
+                defaultChecked
+              />
+              <label
+                htmlFor="all"
+                className="capitalize text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                All ({totalUsers})
+              </label>
+            </>
+
+            {Object.entries(userGroups).map(([roleName, userList]) => {
+              return (
+                <>
+                  <input
+                    id={roleName}
+                    type="radio"
+                    name="default-radio"
+                    value={roleName}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => {
+                      setCheckedRole(
+                        e.currentTarget.value as Lowercase<RoleName>,
+                      );
+                    }}
+                  />
+                  <label
+                    htmlFor={roleName}
+                    className="capitalize text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    {roleName} ({userList.length})
+                  </label>
+                </>
+              );
+            })}
+          </div>
         </div>
         <Table table={table} />
 
