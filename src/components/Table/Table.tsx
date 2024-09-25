@@ -1,5 +1,6 @@
 import { Table as TableProps, flexRender } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
+import { PaginationControl } from '../PaginationControl/PaginationControl';
 
 type Props<T> = {
   table: TableProps<T>;
@@ -80,6 +81,8 @@ export const Table = <T,>({ table, shouldShowFooter = false }: Props<T>) => {
           </tfoot>
         )}
       </table>
+
+      <PaginationControl table={table} />
     </div>
   );
 };

@@ -1,5 +1,8 @@
-import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { useFetchRoles } from '../api';
+import {
+  PaginationState,
+  getCoreRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, variants } from '@/components';
@@ -8,7 +11,15 @@ import { useState } from 'react';
 import { useFetchAllUsers } from '@/features/user/api';
 
 export const useTableUserConfig = () => {
-  const { data: users } = useFetchAllUsers();
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 5,
+  });
+
+  const { data: users, isLoading: isLoadingUsers } = useFetchAllUsers({
+    pageNumber: pagination.pageIndex + 1, // Because for endpoint doesn't exist pageNumber 0
+    pageSize: pagination.pageSize,
+  });
 
   const { t: tG } = useTranslation('General');
   const { t: tUL } = useTranslation('UserList');
@@ -80,9 +91,23 @@ export const useTableUserConfig = () => {
         },
       },
     ],
-    data: users ?? [],
+    data: users?.data ?? [],
+    pageCount: users?.meta.pagination.pageCount,
+    manualPagination: true,
+    state: { pagination },
     getCoreRowModel: getCoreRowModel(),
+    onPaginationChange: (updater) => {
+      let newPagination;
+
+      if (typeof updater === 'function') {
+        newPagination = updater(table.getState().pagination);
+      } else {
+        newPagination = updater;
+      }
+
+      setPagination(newPagination);
+    },
   });
 
-  return { table, isOpenModal, setIsOpenModal, selectedUserId };
+  return { table, isOpenModal, setIsOpenModal, selectedUserId, isLoadingUsers };
 };

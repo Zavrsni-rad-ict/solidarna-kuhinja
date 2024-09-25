@@ -1,6 +1,7 @@
+import { Meta } from '@/types';
 import { Role } from '@/types/api';
 
-export type User = {
+type User = {
   id: number;
   username: string;
   email: string;
@@ -13,4 +14,9 @@ export type User = {
   lastName: string;
   password: string;
   role: Role;
+};
+
+export type UserDTO = {
+  data: User[];
+  meta: Meta;
 };

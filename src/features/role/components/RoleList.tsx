@@ -6,7 +6,6 @@ import { DeleteConfirmationModal } from '@/components/DeleteConfirmationModal/De
 import { useTranslation } from 'react-i18next';
 import { Spinner } from '@/components/ui/spinner';
 import { useDeleteRole } from '../api';
-import { useCallback } from 'react';
 
 export const RoleList = () => {
   const { t: tRL } = useTranslation('RoleList');
