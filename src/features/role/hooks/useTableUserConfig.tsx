@@ -124,7 +124,7 @@ export const useTableUserConfig = () => {
   });
 
   const handleFindUser = (e: React.FormEvent<HTMLInputElement>) => {
-    const newValue = e.currentTarget.value;
+    const newValue = e.currentTarget.value.toLowerCase();
 
     setSearchState(newValue);
   };
