@@ -25,6 +25,16 @@ export const protectedRoutes = [
     children: [
       { path: '', element: <Home /> },
       { path: '/account', element: <Profile /> },
+      { path: '*', element: <Navigate to="/" /> }, // TODO: This line should probbably be singled out and in the last place
+    ],
+  },
+];
+
+export const adminRoutes = [
+  {
+    path: '/',
+    element: <App />,
+    children: [
       {
         path: '/users',
         children: [
@@ -45,7 +55,6 @@ export const protectedRoutes = [
         path: '/create-event',
         element: <CreateEventView />,
       },
-      { path: '*', element: <Navigate to="/" /> },
     ],
   },
 ];
