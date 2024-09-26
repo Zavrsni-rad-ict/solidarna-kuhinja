@@ -8,8 +8,8 @@ import {
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { queryClient } from '@/lib/react-query';
-import { User } from '../types';
 import { AxiosError } from 'axios';
+import { User } from '@/types';
 
 export type UserRequest = {
   email: string;
@@ -41,6 +41,9 @@ export const useCreateUser = () => {
           return [...users, createdUser];
         });
       }
+
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USERS] });
+
       setTimeout(() => navigate('/users'), REDIRECT_AFTER_3_SECONDS);
     },
     onError: (err) => {

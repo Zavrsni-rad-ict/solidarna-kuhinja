@@ -35,7 +35,7 @@ export const useFetchAllUsers = (
   queryConfig?: UseQueryOptions<UserDTO>,
 ) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.USERS, pageNumber, pageSize, search, role],
+    queryKey: [QUERY_KEYS.USERS, { pageNumber, pageSize, search, role }],
     queryFn: () => fetchUsers({ pageNumber, pageSize, search, role }),
     placeholderData: keepPreviousData,
     ...queryConfig,
