@@ -28,6 +28,9 @@ import {
 import { useLogout } from '@/lib/auth';
 import { useNavigate } from 'react-router-dom';
 
+import logoPath from '../../../public/logo-white.png';
+import { ICON_SIZE } from '@/constants';
+
 // profile menu component
 const profileMenuItems = [
   {
@@ -212,15 +215,9 @@ export const Nav = () => {
   }, []);
 
   return (
-    <Navbar className="p-2 lg:pl-6 bg-red-200">
+    <Navbar className="p-2 lg:pl-6 bg-red-600 border-none">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-        >
-          Material Tailwind
-        </Typography>
+        <img src={logoPath} alt="Logo" width={ICON_SIZE['3xl']} />
         <div className="hidden lg:block">{/* <NavList /> */}</div>
         {/* <IconButton
           size="sm"
