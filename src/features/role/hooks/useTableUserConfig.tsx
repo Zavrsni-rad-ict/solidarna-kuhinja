@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom';
 import { Button, variants } from '@/components';
 import { useModal } from '@/hooks';
 import { useState } from 'react';
-import { useFetchAllUsers } from '@/features/user/api';
+import { useFetchAllUsers, useFetchUsersByRole } from '@/features/user/api';
 import { useDebounce } from '@/features/user/hooks';
 import { DEBOUNCE_DELAY } from '@/constants';
+import { RoleName } from '@/types';
 
 export const useTableUserConfig = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -21,11 +22,18 @@ export const useTableUserConfig = () => {
   const [searchState, setSearchState] = useState('');
   const debouncedSearchTerm = useDebounce(searchState, DEBOUNCE_DELAY);
 
+  const [checkedRole, setCheckedRole] = useState<null | Lowercase<RoleName>>(
+    null,
+  );
+
   const { data: users, isLoading: isLoadingUsers } = useFetchAllUsers({
     pageNumber: pagination.pageIndex + 1, // Because for endpoint doesn't exist pageNumber 0
     pageSize: pagination.pageSize,
     search: debouncedSearchTerm,
+    role: checkedRole,
   });
+
+  const { userGroups } = useFetchUsersByRole();
 
   const { t: tG } = useTranslation('General');
   const { t: tUL } = useTranslation('UserList');
@@ -116,12 +124,16 @@ export const useTableUserConfig = () => {
   });
 
   const handleFindUser = (e: React.FormEvent<HTMLInputElement>) => {
-    const newValue = e.currentTarget.value;
+    const newValue = e.currentTarget.value.toLowerCase();
 
     setSearchState(newValue);
   };
 
-  console.log({ debouncedSearchTerm });
+  const totalLength = Object.values(userGroups).reduce(
+    (sum, array) => sum + array.length,
+    0,
+  );
+
   return {
     table,
     isOpenModal,
@@ -129,5 +141,8 @@ export const useTableUserConfig = () => {
     selectedUserId,
     isLoadingUsers,
     handleFindUser,
+    userGroups,
+    setCheckedRole,
+    totalUsers: totalLength,
   };
 };
