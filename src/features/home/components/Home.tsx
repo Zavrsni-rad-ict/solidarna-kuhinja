@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 
 export const Home = () => {
   const { data: events } = useFetchEvents();
-
   const eventLocations = useMemo(
     () =>
       events?.data.map((location) => ({
