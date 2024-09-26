@@ -69,34 +69,37 @@ function ProfileMenu() {
         {profileMenuItems.map(({ label, icon }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
-            <MenuItem
+            <div
               key={label}
-              onClick={closeMenu}
-              className={`flex items-center gap-2 rounded py-2 ${
+              onClick={
                 isLastItem
-                  ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
-                  : 'hover:bg-slate-500/10'
-              }`}
+                  ? logout
+                  : () =>
+                      handleNavigate(label.replaceAll(' ', '-').toLowerCase())
+              }
             >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? 'text-red-500' : ''}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? 'red' : 'inherit'}
-                onClick={
+              <MenuItem
+                onClick={closeMenu}
+                className={`flex items-center gap-2 rounded py-2 ${
                   isLastItem
-                    ? logout
-                    : () =>
-                        handleNavigate(label.replaceAll(' ', '-').toLowerCase())
-                }
+                    ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
+                    : 'hover:bg-slate-500/10'
+                }`}
               >
-                {label}
-              </Typography>
-            </MenuItem>
+                {React.createElement(icon, {
+                  className: `h-4 w-4 ${isLastItem ? 'text-red-500' : ''}`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  as="span"
+                  variant="small"
+                  className="font-normal"
+                  color={isLastItem ? 'red' : 'inherit'}
+                >
+                  {label}
+                </Typography>
+              </MenuItem>
+            </div>
           );
         })}
       </MenuList>

@@ -12,7 +12,6 @@ export const AppRoutes = () => {
 
   const routes = user ? protectedRoutes : publicRoutes;
 
-  console.log(isAdmin);
   const element = useRoutes([...routes, ...(isAdmin ? adminRoutes : [])]);
 
   return <>{element}</>;
