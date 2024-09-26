@@ -1,7 +1,7 @@
 import { Meta } from '@/types';
 import { Role } from '@/types/api';
 
-type User = {
+export type User = {
   id: number;
   username: string;
   email: string;
