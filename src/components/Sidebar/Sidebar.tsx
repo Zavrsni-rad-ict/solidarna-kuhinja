@@ -18,7 +18,7 @@ export const Sidebar = () => {
   return (
     <aside
       id="logo-sidebar"
-      className="hidden sm:block w-64 h-auto h-screen-with-header transition-transform -translate-x-full bg-blue-gray-200 border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+      className="hidden sm:block w-64 min-h-screen-with-header transition-transform -translate-x-full bg-blue-gray-200 border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
       aria-label="Sidebar"
     >
       <nav className="px-3 pb-4 mt-8 overflow-y-auto bg-blue-gray-50 dark:bg-gray-800 h-auto top-8 sticky">

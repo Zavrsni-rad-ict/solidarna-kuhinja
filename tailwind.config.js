@@ -104,7 +104,7 @@ module.exports = {
           },
         },
       },
-      height: {
+      minHeight: {
         'screen-with-header': `calc(100vh - ${HEADER_HEIGHT}px)`,
       },
     },
