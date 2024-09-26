@@ -42,4 +42,5 @@ export const ICON_SIZE = {
   xl: 48,
   '2xl': 64,
   '3xl': 96,
+  '4xl': 128,
 } as const;
