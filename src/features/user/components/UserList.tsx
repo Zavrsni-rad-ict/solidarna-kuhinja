@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useTableUserConfig } from '@/features/role/hooks/useTableUserConfig';
 import { DeleteConfirmationModal } from '@/components/DeleteConfirmationModal/DeleteConfirmationModal';
 import { RoleName } from '@/types';
+import React from 'react';
 
 export const UserList = () => {
   const { t: tUL } = useTranslation('UserList');
@@ -66,7 +67,7 @@ export const UserList = () => {
 
             {Object.entries(userGroups).map(([roleName, userList]) => {
               return (
-                <>
+                <React.Fragment key={roleName}>
                   <input
                     id={roleName}
                     type="radio"
@@ -85,7 +86,7 @@ export const UserList = () => {
                   >
                     {roleName} ({userList.length})
                   </label>
-                </>
+                </React.Fragment>
               );
             })}
           </div>

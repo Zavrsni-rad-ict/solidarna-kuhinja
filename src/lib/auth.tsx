@@ -1,7 +1,7 @@
 import { configureAuth } from 'react-query-auth';
 import { z } from 'zod';
 
-import { AuthResponse, User } from '@/types/api';
+import { AuthResponse } from '@/types/api';
 
 import { axios } from './api-client';
 import storage from '@/utils/storage';
@@ -9,6 +9,8 @@ import { JWT_TOKEN_LOCAL_STORAGE_KEY, QUERY_KEYS } from '@/constants';
 import { LoginInput, loginWithEmailAndPassword, logout } from '@/features/auth';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { User } from '@/features/user/types';
+import { queryClient } from './react-query';
 
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features
@@ -22,7 +24,7 @@ const getUser = async (): Promise<User | null> => {
   }
 
   try {
-    const response = await axios.get<any, User>('/users/me', {
+    const response = await axios.get<any, User>('/users/me?populate=*', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -76,6 +78,10 @@ const authConfig = {
     try {
       const response = await loginWithEmailAndPassword(data);
       const user = await handleUserResponse(response);
+
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.AUTHENTICATED_USER],
+      });
 
       return user;
     } catch (err: any) {

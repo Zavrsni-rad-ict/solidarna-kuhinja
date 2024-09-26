@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { queryClient } from '@/lib/react-query';
 import { AxiosError } from 'axios';
-import { User } from '@/types';
+import { User } from '../types';
 
 export type UserRequest = {
   email: string;

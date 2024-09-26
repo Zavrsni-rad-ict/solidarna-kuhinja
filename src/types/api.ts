@@ -2,6 +2,8 @@
 // ideally, we want to keep these api related types in sync
 // with the backend instead of manually writing them out
 
+import { User } from '@/features/user/types';
+
 export type BaseEntity = {
   id: string;
   createdAt: number;
@@ -10,15 +12,6 @@ export type BaseEntity = {
 export type Entity<T> = {
   [K in keyof T]: T[K];
 } & BaseEntity;
-
-export type User = Entity<{
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: RoleName;
-  teamId: string;
-  bio: string;
-}>;
 
 export type AuthResponse = {
   jwt: string;
