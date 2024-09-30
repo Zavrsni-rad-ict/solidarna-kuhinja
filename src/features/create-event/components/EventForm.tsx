@@ -18,8 +18,7 @@ export const EventForm = () => {
       <InputGroup
         label={t('calendar')}
         name="date"
-        type="datetime-local"
-        title="Firefox browser does not support time, only date"
+        type="date"
         min={currentDate}
       />
 
