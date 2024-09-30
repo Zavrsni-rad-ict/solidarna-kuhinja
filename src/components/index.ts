@@ -10,3 +10,4 @@ export * from './Table/Table';
 export * from './Map/Map';
 export * from './PaginationControl/PaginationControl';
 export * from './SearchBar/SearchBar';
+export * from './Calendar/Calendar';
