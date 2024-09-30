@@ -17,7 +17,7 @@ import {
 import { useLogout } from '@/lib/auth';
 import { useNavigate } from 'react-router-dom';
 
-import logoPath from '../../../public/logo-white.png';
+import logoPath from '@/assets/logo-white.png';
 import { ICON_SIZE } from '@/constants';
 
 // profile menu component
