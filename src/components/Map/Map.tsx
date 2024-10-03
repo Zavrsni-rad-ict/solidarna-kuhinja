@@ -14,6 +14,9 @@ import IconChief from '@/assets/chief.svg?react';
 import IconDeliveryBike from '@/assets/deliver-bike-svgrepo-com.svg?react';
 import IconUser from '@/assets/user-svgrepo-com.svg?react';
 import { useLocation } from 'react-router-dom';
+import { useUser } from '@/lib/auth';
+
+import { Button } from '../Button';
 
 type Props = {
   eventLocations?: EventLocation[];
@@ -60,6 +63,8 @@ export const Map = ({
   const animateRef = useRef(true);
 
   const loc = useLocation();
+
+  const { data: user } = useUser();
 
   return (
     <div className="relative">
@@ -117,6 +122,14 @@ export const Map = ({
                       <strong>Broj Ljudi na terenu: </strong>0 /{' '}
                       {location.numberOfFieldWorkers ?? '-'}
                     </div>
+                  </div>
+
+                  <div className="my-1 w-full flex justify-end">
+                    {/* {user?.role.type !== 'admin' && ( */}
+                    <Button type="button" variant="red" className="!p-1">
+                      Prijavi se
+                    </Button>
+                    {/* )} */}
                   </div>
                 </div>
               </Popup>
