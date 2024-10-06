@@ -17,7 +17,10 @@ import { useLocation } from 'react-router-dom';
 import { useUser } from '@/lib/auth';
 
 import { Button } from '../Button';
-import { useRegisterUserForEvent } from '@/features/home/api/useRegisterUserForEvent';
+import {
+  useRegisterUserForEvent,
+  useDeleteUserForEvent,
+} from '@/features/home';
 
 type Props = {
   eventLocations?: EventLocation[];
@@ -68,11 +71,19 @@ export const Map = ({
   const { data: user } = useUser({ refetchOnMount: true });
 
   const { mutate: registerUserForEvent } = useRegisterUserForEvent();
+  const { mutate: deleteUserForEvent } = useDeleteUserForEvent();
 
   const handleClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    const signAction = ev.currentTarget.dataset.signAction as
+      | 'sign-in'
+      | 'sign-out';
     const eventId = Number(ev.currentTarget.dataset.id);
     const numberOfCooks = Number(ev.currentTarget.dataset.numberOfCooks);
     const signedUpChefs = Number(ev.currentTarget.dataset.signedUpChefs);
+
+    if (signAction === 'sign-out') {
+      return deleteUserForEvent({ eventId, userId: user!.id });
+    }
 
     registerUserForEvent({
       eventId,
@@ -107,10 +118,7 @@ export const Map = ({
         <RecenterMap location={location} eventLocations={eventLocations} />
         {eventLocations &&
           eventLocations.map((location) => {
-            const shouldChangeButtonText =
-              user?.events && user?.events.length > 0;
-
-            console.log({ user, shouldChangeButtonText });
+            const toggleSignText = user?.events && user?.events.length > 0;
 
             return (
               <Marker
@@ -157,8 +165,11 @@ export const Map = ({
                           data-id={location.id}
                           data-number-of-cooks={location.numberOfCooks}
                           data-signed-up-chefs={location.signedUpChefs}
+                          data-sign-action={
+                            toggleSignText ? 'sign-out' : 'sign-in'
+                          }
                         >
-                          {shouldChangeButtonText ? 'Odjavi se' : 'Prijavi se'}
+                          {toggleSignText ? 'Odjavi se' : 'Prijavi se'}
                         </Button>
                       )}
                     </div>

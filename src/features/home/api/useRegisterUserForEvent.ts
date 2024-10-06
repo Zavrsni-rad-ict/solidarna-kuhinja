@@ -8,7 +8,6 @@ import { AxiosError } from 'axios';
 const registerUserForEvent = ({
   eventId,
   usersIds,
-  signedUpChefs,
 }: {
   eventId: number;
   usersIds: number[];
@@ -24,6 +23,7 @@ export const useRegisterUserForEvent = () => {
     mutationKey: [MUTATION_KEYS.UPDATE_EVENT],
     mutationFn: registerUserForEvent,
     onMutate: ({ numberOfCooks, signedUpChefs }) => {
+      // ! Verovatno je visak - ostalo mi zbog refaktora.... PROVERI
       if (numberOfCooks === signedUpChefs) {
         throw 'Nema potrebe da se prijavlju kuvari vise za ovaj dogadjaj';
       }
