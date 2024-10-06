@@ -1,4 +1,4 @@
-import { Meta } from '@/types';
+import { EventLocation, Meta } from '@/types';
 import { Role } from '@/types/api';
 
 export type User = {
@@ -14,6 +14,7 @@ export type User = {
   lastName: string;
   password: string;
   role: Role;
+  events: EventLocation[];
 };
 
 export type UserDTO = {

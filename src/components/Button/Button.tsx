@@ -34,7 +34,7 @@ export const variants: Record<Variant, string> = {
   yellow:
     'focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded text-sm px-5 py-2.5 dark:focus:ring-yellow-900',
   disabled:
-    'bg-gray-500 text-white py-2 px-4 rounded opacity-50 cursor-not-allowed text-sm font-medium px-5 py-2.5',
+    'bg-gray-500 text-white py-2 px-4 rounded opacity-50 !cursor-not-allowed text-sm font-medium px-5 py-2.5',
 };
 
 export const Button = (props: Props) => {

@@ -31,6 +31,7 @@ export enum MUTATION_KEYS {
   DELETE_ROLE = 'DELETE_ROLE',
 
   CREATE_EVENT = 'CREATE_EVENT',
+  UPDATE_EVENT = 'UPDATE_EVENT',
 }
 
 export type Size = 'xs' | 'sm' | 'm' | 'l' | 'xl' | '2xl' | '3xl';
@@ -44,3 +45,5 @@ export const ICON_SIZE = {
   '3xl': 96,
   '4xl': 128,
 } as const;
+
+export const nullValueText = '\u2014';

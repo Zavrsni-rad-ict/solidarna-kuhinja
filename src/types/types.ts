@@ -5,12 +5,14 @@ export type FormProps = {
 };
 
 export type EventLocation = {
+  id: number;
   name: string;
   coordinates: Coordinates;
   date: string;
   numberOfCooks: number;
   numberOfDeliveryPerson: number;
   numberOfFieldWorkers: number;
+  signedUpChefs: number;
 };
 
 export type Coordinates = {

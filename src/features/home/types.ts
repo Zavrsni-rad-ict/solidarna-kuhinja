@@ -11,6 +11,7 @@ type LocationAttributes = {
   numberOfCooks: number;
   numberOfDeliveryPerson: number;
   numberOfFieldWorkers: number;
+  signedUpChefs: number;
 };
 
 type EventData = {

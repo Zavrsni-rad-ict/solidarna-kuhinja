@@ -17,6 +17,7 @@ import { useLocation } from 'react-router-dom';
 import { useUser } from '@/lib/auth';
 
 import { Button } from '../Button';
+import { useRegisterUserForEvent } from '@/features/home/api/useRegisterUserForEvent';
 
 type Props = {
   eventLocations?: EventLocation[];
@@ -64,7 +65,22 @@ export const Map = ({
 
   const loc = useLocation();
 
-  const { data: user } = useUser();
+  const { data: user } = useUser({ refetchOnMount: true });
+
+  const { mutate: registerUserForEvent } = useRegisterUserForEvent();
+
+  const handleClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    const eventId = Number(ev.currentTarget.dataset.id);
+    const numberOfCooks = Number(ev.currentTarget.dataset.numberOfCooks);
+    const signedUpChefs = Number(ev.currentTarget.dataset.signedUpChefs);
+
+    registerUserForEvent({
+      eventId,
+      usersIds: [user!.id],
+      numberOfCooks,
+      signedUpChefs,
+    });
+  };
 
   return (
     <div className="relative">
@@ -90,51 +106,67 @@ export const Map = ({
 
         <RecenterMap location={location} eventLocations={eventLocations} />
         {eventLocations &&
-          eventLocations.map((location) => (
-            <Marker
-              position={[location.coordinates.lat, location.coordinates.lng]}
-              key={location.name}
-              eventHandlers={{
-                mouseover: (event) => event.target.openPopup(),
-              }}
-            >
-              <Popup>
-                <div className="flex flex-wrap items-center">
-                  <strong className="uppercase text-center">
-                    {location.name}
-                  </strong>
-                  <div className="flex flex-col my-2">
-                    <div className="flex gap-2">
-                      <IconChief width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                      <strong>Broj Kuvara: </strong>0 /{' '}
-                      {location.numberOfCooks ?? '-'}
-                    </div>
-                    <div className="flex gap-2">
-                      <IconDeliveryBike
-                        width={ICON_SIZE.sm}
-                        height={ICON_SIZE.sm}
-                      />
-                      <strong>Broj Dostavljaca: </strong>0 /{' '}
-                      {location.numberOfDeliveryPerson ?? '-'}
-                    </div>
-                    <div className="flex gap-2">
-                      <IconUser width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                      <strong>Broj Ljudi na terenu: </strong>0 /{' '}
-                      {location.numberOfFieldWorkers ?? '-'}
-                    </div>
-                  </div>
+          eventLocations.map((location) => {
+            const shouldChangeButtonText =
+              user?.events && user?.events.length > 0;
 
-                  <div className="my-1 w-full flex justify-end">
-                    {/* {user?.role.type !== 'admin' && ( */}
-                    <Button type="button" variant="red" className="!p-1">
-                      Prijavi se
-                    </Button>
-                    {/* )} */}
+            console.log({ user, shouldChangeButtonText });
+
+            return (
+              <Marker
+                position={[location.coordinates.lat, location.coordinates.lng]}
+                key={location.name}
+                eventHandlers={{
+                  mouseover: (event) => event.target.openPopup(),
+                }}
+              >
+                <Popup>
+                  <div className="flex flex-wrap items-center">
+                    <strong className="uppercase text-center">
+                      {location.name}
+                    </strong>
+                    <div className="flex flex-col my-2">
+                      <div className="flex gap-2">
+                        <IconChief width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
+                        <strong>Broj Kuvara: </strong>
+                        {location.signedUpChefs} /{' '}
+                        {location.numberOfCooks ?? '-'}
+                      </div>
+                      <div className="flex gap-2">
+                        <IconDeliveryBike
+                          width={ICON_SIZE.sm}
+                          height={ICON_SIZE.sm}
+                        />
+                        <strong>Broj Dostavljaca: </strong>0 /{' '}
+                        {location.numberOfDeliveryPerson ?? '-'}
+                      </div>
+                      <div className="flex gap-2">
+                        <IconUser width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
+                        <strong>Broj Ljudi na terenu: </strong>0 /{' '}
+                        {location.numberOfFieldWorkers ?? '-'}
+                      </div>
+                    </div>
+
+                    <div className="my-1 w-full flex justify-end">
+                      {user?.role.type !== 'admin' && (
+                        <Button
+                          type="button"
+                          variant="red"
+                          className="!p-1"
+                          onClick={handleClick}
+                          data-id={location.id}
+                          data-number-of-cooks={location.numberOfCooks}
+                          data-signed-up-chefs={location.signedUpChefs}
+                        >
+                          {shouldChangeButtonText ? 'Odjavi se' : 'Prijavi se'}
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Popup>
-            </Marker>
-          ))}
+                </Popup>
+              </Marker>
+            );
+          })}
 
         {loc.pathname === '/create-event' && !eventLocations && (
           <DraggableMarker
