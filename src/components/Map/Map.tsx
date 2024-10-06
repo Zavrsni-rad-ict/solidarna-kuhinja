@@ -119,6 +119,9 @@ export const Map = ({
         {eventLocations &&
           eventLocations.map((location) => {
             const toggleSignText = user?.events && user?.events.length > 0;
+            const shouldDisableButton =
+              user?.events &&
+              user.events.some((event) => location.id !== event.id);
 
             return (
               <Marker
@@ -159,7 +162,7 @@ export const Map = ({
                       {user?.role.type !== 'admin' && (
                         <Button
                           type="button"
-                          variant="red"
+                          variant={shouldDisableButton ? 'disabled' : 'red'}
                           className="!p-1"
                           onClick={handleClick}
                           data-id={location.id}
@@ -168,8 +171,12 @@ export const Map = ({
                           data-sign-action={
                             toggleSignText ? 'sign-out' : 'sign-in'
                           }
+                          disabled={shouldDisableButton}
                         >
-                          {toggleSignText ? 'Odjavi se' : 'Prijavi se'}
+                          {/* If button is disabled I want to show "sign-in" */}
+                          {!shouldDisableButton && toggleSignText
+                            ? 'Odjavi se'
+                            : 'Prijavi se'}
                         </Button>
                       )}
                     </div>
