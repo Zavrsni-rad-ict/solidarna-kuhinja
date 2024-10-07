@@ -68,6 +68,7 @@ export const Map = ({
 
   const loc = useLocation();
 
+  // TODO#1 Ovo sve moze da ide u posebnu komponentu
   const { data: user } = useUser({ refetchOnMount: true });
 
   const { mutate: registerUserForEvent } = useRegisterUserForEvent();
@@ -92,6 +93,7 @@ export const Map = ({
       signedUpChefs,
     });
   };
+  // TODO#1 do ovde
 
   return (
     <div className="relative">
@@ -116,6 +118,9 @@ export const Map = ({
         <SetViewOnClick animateRef={animateRef} />
 
         <RecenterMap location={location} eventLocations={eventLocations} />
+        {/*
+  // TODO#2 Ovo sve moze da ide u posebnu komponentu
+    */}
         {eventLocations &&
           eventLocations.map((location) => {
             const toggleSignText = user?.events && user?.events.length > 0;
