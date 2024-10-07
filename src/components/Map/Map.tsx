@@ -1,4 +1,4 @@
-import { MapContainer, Marker, TileLayer, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 
 import 'react-leaflet-fullscreen/styles.css';
 import 'leaflet/dist/leaflet.css';
@@ -10,17 +10,9 @@ import { Coordinates, EventLocation } from '@/types';
 import { calculateMapCenter } from '@/utils/calculateMapCenter';
 import { DraggableMarker } from './DraggableMarker';
 
-import IconChief from '@/assets/chief.svg?react';
-import IconDeliveryBike from '@/assets/deliver-bike-svgrepo-com.svg?react';
-import IconUser from '@/assets/user-svgrepo-com.svg?react';
 import { useLocation } from 'react-router-dom';
-import { useUser } from '@/lib/auth';
 
-import { Button } from '../Button';
-import {
-  useRegisterUserForEvent,
-  useDeleteUserForEvent,
-} from '@/features/home';
+import { EventLocationMarker } from './EventLocationMarker';
 
 type Props = {
   eventLocations?: EventLocation[];
@@ -68,33 +60,6 @@ export const Map = ({
 
   const loc = useLocation();
 
-  // TODO#1 Ovo sve moze da ide u posebnu komponentu
-  const { data: user } = useUser({ refetchOnMount: true });
-
-  const { mutate: registerUserForEvent } = useRegisterUserForEvent();
-  const { mutate: deleteUserForEvent } = useDeleteUserForEvent();
-
-  const handleClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
-    const signAction = ev.currentTarget.dataset.signAction as
-      | 'sign-in'
-      | 'sign-out';
-    const eventId = Number(ev.currentTarget.dataset.id);
-    const numberOfCooks = Number(ev.currentTarget.dataset.numberOfCooks);
-    const signedUpChefs = Number(ev.currentTarget.dataset.signedUpChefs);
-
-    if (signAction === 'sign-out') {
-      return deleteUserForEvent({ eventId, userId: user!.id });
-    }
-
-    registerUserForEvent({
-      eventId,
-      usersIds: [user!.id],
-      numberOfCooks,
-      signedUpChefs,
-    });
-  };
-  // TODO#1 do ovde
-
   return (
     <div className="relative">
       {isDateEmpty && (
@@ -118,78 +83,10 @@ export const Map = ({
         <SetViewOnClick animateRef={animateRef} />
 
         <RecenterMap location={location} eventLocations={eventLocations} />
-        {/*
-  // TODO#2 Ovo sve moze da ide u posebnu komponentu
-    */}
-        {eventLocations &&
-          eventLocations.map((location) => {
-            const toggleSignText = user?.events && user?.events.length > 0;
-            const shouldDisableButton =
-              user?.events &&
-              user.events.some((event) => location.id !== event.id);
 
-            return (
-              <Marker
-                position={[location.coordinates.lat, location.coordinates.lng]}
-                key={location.name}
-                eventHandlers={{
-                  mouseover: (event) => event.target.openPopup(),
-                }}
-              >
-                <Popup>
-                  <div className="flex flex-wrap items-center">
-                    <strong className="uppercase text-center">
-                      {location.name}
-                    </strong>
-                    <div className="flex flex-col my-2">
-                      <div className="flex gap-2">
-                        <IconChief width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                        <strong>Broj Kuvara: </strong>
-                        {location.signedUpChefs} /{' '}
-                        {location.numberOfCooks ?? '-'}
-                      </div>
-                      <div className="flex gap-2">
-                        <IconDeliveryBike
-                          width={ICON_SIZE.sm}
-                          height={ICON_SIZE.sm}
-                        />
-                        <strong>Broj Dostavljaca: </strong>0 /{' '}
-                        {location.numberOfDeliveryPerson ?? '-'}
-                      </div>
-                      <div className="flex gap-2">
-                        <IconUser width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                        <strong>Broj Ljudi na terenu: </strong>0 /{' '}
-                        {location.numberOfFieldWorkers ?? '-'}
-                      </div>
-                    </div>
-
-                    <div className="my-1 w-full flex justify-end">
-                      {user?.role.type !== 'admin' && (
-                        <Button
-                          type="button"
-                          variant={shouldDisableButton ? 'disabled' : 'red'}
-                          className="!p-1"
-                          onClick={handleClick}
-                          data-id={location.id}
-                          data-number-of-cooks={location.numberOfCooks}
-                          data-signed-up-chefs={location.signedUpChefs}
-                          data-sign-action={
-                            toggleSignText ? 'sign-out' : 'sign-in'
-                          }
-                          disabled={shouldDisableButton}
-                        >
-                          {/* If button is disabled I want to show "sign-in" */}
-                          {!shouldDisableButton && toggleSignText
-                            ? 'Odjavi se'
-                            : 'Prijavi se'}
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </Popup>
-              </Marker>
-            );
-          })}
+        {eventLocations && (
+          <EventLocationMarker eventLocations={eventLocations} />
+        )}
 
         {loc.pathname === '/create-event' && !eventLocations && (
           <DraggableMarker
