@@ -11,7 +11,7 @@ import IconUser from '@/assets/user-svgrepo-com.svg?react';
 
 import React from 'react';
 import { EventLocation } from '@/types';
-import { ICON_SIZE } from '@/constants';
+import { ICON_SIZE, RoleMap, nullValueText } from '@/constants';
 import { Button } from '../Button';
 
 export const EventLocationMarker = ({
@@ -21,6 +21,16 @@ export const EventLocationMarker = ({
 }) => {
   const { data: user } = useUser({ refetchOnMount: true });
 
+  const role = user?.role?.type;
+  const signedUpKey:
+    | 'signedUpChefs'
+    | 'signedUpFieldWorkers'
+    | 'signedUpDeliverer' = RoleMap[role]?.signedUp;
+  const numberKey:
+    | 'numberOfChefs'
+    | 'numberOfDeliveryPerson'
+    | 'numberOfFieldWorkers' = RoleMap[role]?.number;
+
   const { mutate: registerUserForEvent } = useRegisterUserForEvent();
   const { mutate: deleteUserForEvent } = useDeleteUserForEvent();
 
@@ -29,25 +39,33 @@ export const EventLocationMarker = ({
       | 'sign-in'
       | 'sign-out';
     const eventId = Number(ev.currentTarget.dataset.id);
-    const numberOfCooks = Number(ev.currentTarget.dataset.numberOfCooks);
-    const signedUpChefs = Number(ev.currentTarget.dataset.signedUpChefs);
+    const roleName = ev.currentTarget.dataset.signedUpKey;
 
     if (signAction === 'sign-out') {
-      return deleteUserForEvent({ eventId, userId: user!.id });
+      return deleteUserForEvent({
+        eventId,
+        userId: user!.id,
+        signedKey: signedUpKey,
+      });
     }
 
     registerUserForEvent({
       eventId,
       usersIds: [user!.id],
-      numberOfCooks,
-      signedUpChefs,
+      roleName,
     });
   };
 
   return eventLocations.map((location) => {
     const toggleSignText = user?.events && user?.events.length > 0;
+
+    const totalAvailableRoleForSignUp = location[numberKey]; // TODO Kod radi, ali Nisu dobro upareni tipovi
+    const availableRoleForSignUp = location[signedUpKey];
+
     const shouldDisableButton =
-      user?.events && user.events.some((event) => location.id !== event.id);
+      location.signedInUsers.some(
+        (signedInUser) => signedInUser.id !== user?.id,
+      ) && totalAvailableRoleForSignUp === availableRoleForSignUp;
 
     return (
       <Marker
@@ -64,30 +82,34 @@ export const EventLocationMarker = ({
               <div className="flex gap-2">
                 <IconChief width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
                 <strong>Broj Kuvara: </strong>
-                {location.signedUpChefs} / {location.numberOfCooks ?? '-'}
+                {location.signedUpChefs ?? nullValueText} /{' '}
+                {location.numberOfCooks ?? nullValueText}
               </div>
               <div className="flex gap-2">
                 <IconDeliveryBike width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                <strong>Broj Dostavljaca: </strong>0 /{' '}
-                {location.numberOfDeliveryPerson ?? '-'}
+                <strong>Broj Dostavljaca: </strong>
+                {location.signedUpDeliverer ?? nullValueText} /{' '}
+                {location.numberOfDeliveryPerson ?? nullValueText}
               </div>
               <div className="flex gap-2">
                 <IconUser width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                <strong>Broj Ljudi na terenu: </strong>0 /{' '}
-                {location.numberOfFieldWorkers ?? '-'}
+                <strong>Broj Ljudi na terenu: </strong>
+                {location.signedUpFieldWorkers ?? nullValueText} /{' '}
+                {location.numberOfFieldWorkers ?? nullValueText}
               </div>
             </div>
 
             <div className="my-1 w-full flex justify-end">
-              {user?.role.type !== 'admin' && (
+              {user?.role?.type !== 'admin' && (
                 <Button
                   type="button"
                   variant={shouldDisableButton ? 'disabled' : 'red'}
                   className="!p-1"
                   onClick={handleClick}
                   data-id={location.id}
-                  data-number-of-cooks={location.numberOfCooks}
-                  data-active-role={location.signedUpChefs}
+                  data-number={totalAvailableRoleForSignUp}
+                  data-signed-up-count={availableRoleForSignUp}
+                  data-signed-up-key={signedUpKey}
                   data-sign-action={toggleSignText ? 'sign-out' : 'sign-in'}
                   disabled={shouldDisableButton}
                 >

@@ -4,7 +4,7 @@ import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 import { EventResponse } from '../types';
 
 const fetchEventByDate = async (date: string): Promise<EventResponse> =>
-  await axios.get(`/events?filters[date][$eq]=${date}`);
+  await axios.get(`/events?filters[date][$eq]=${date}&populate=*`);
 
 export const useFetchEventByDate = (
   date: string,

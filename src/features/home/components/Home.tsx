@@ -23,6 +23,9 @@ export const Home = () => {
         numberOfDeliveryPerson: location.attributes.numberOfDeliveryPerson,
         numberOfFieldWorkers: location.attributes.numberOfFieldWorkers,
         signedUpChefs: location.attributes.signedUpChefs,
+        signedUpFieldWorkers: location.attributes.signedUpFieldWorkers,
+        signedUpDeliverer: location.attributes.signedUpDeliverer,
+        signedInUsers: location.attributes.users.data,
       })),
     [event],
   );

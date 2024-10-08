@@ -1,4 +1,5 @@
 import { Pagination } from './api';
+import { UserField } from '@/features/home/types';
 
 export type FormProps = {
   status: 'error' | 'idle' | 'pending' | 'success';
@@ -13,6 +14,9 @@ export type EventLocation = {
   numberOfDeliveryPerson: number;
   numberOfFieldWorkers: number;
   signedUpChefs: number;
+  signedUpDeliverer: number;
+  signedUpFieldWorkers: number;
+  signedInUsers: UserField[];
 };
 
 export type Coordinates = {

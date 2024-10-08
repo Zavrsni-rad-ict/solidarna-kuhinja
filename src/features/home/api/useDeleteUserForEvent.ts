@@ -7,9 +7,10 @@ import { toast } from 'react-toastify';
 type Props = {
   userId: number;
   eventId: number;
+  signedKey: string;
 };
-const deleteUserForEvent = ({ eventId, userId }: Props) =>
-  axios.delete(`/users/${userId}/events/${eventId}`);
+const deleteUserForEvent = ({ eventId, userId, signedKey }: Props) =>
+  axios.delete(`/users/${userId}/events/${eventId}?signedKey=${signedKey}`);
 
 export const useDeleteUserForEvent = () => {
   return useMutation({

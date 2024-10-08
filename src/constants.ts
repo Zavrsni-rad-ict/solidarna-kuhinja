@@ -48,3 +48,19 @@ export const ICON_SIZE = {
 } as const;
 
 export const nullValueText = '\u2014';
+
+// TODO Prepraviti tipove i renamovati key (number -> totalSignedUp)
+export const RoleMap: Record<any, { signedUp: string; number: string }> = {
+  chefs: {
+    signedUp: 'signedUpChefs',
+    number: 'numberOfCooks',
+  },
+  deliverer: {
+    signedUp: 'signedUpDeliverer',
+    number: 'numberOfDeliveryPerson',
+  },
+  fieldworker: {
+    signedUp: 'signedUpFieldWorkers',
+    number: 'numberOfFieldWorkers',
+  },
+};

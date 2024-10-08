@@ -21,13 +21,13 @@ type Props = {
   isDateEmpty?: boolean;
 };
 
-const RecenterMap = ({ eventLocations, location }: Props) => {
+const RecenterMap = ({ eventLocations, location, isDateEmpty }: Props) => {
   const map = useMap();
 
   useEffect(() => {
     if (eventLocations && eventLocations.length === 0) return;
 
-    if (eventLocations) {
+    if (eventLocations && !isDateEmpty) {
       const mapCenter = calculateMapCenter(eventLocations);
       const bounds: [number, number][] = eventLocations.map((loc) => [
         loc.coordinates.lat,
@@ -84,7 +84,7 @@ export const Map = ({
 
         <RecenterMap location={location} eventLocations={eventLocations} />
 
-        {eventLocations && (
+        {eventLocations && !isDateEmpty && (
           <EventLocationMarker eventLocations={eventLocations} />
         )}
 
