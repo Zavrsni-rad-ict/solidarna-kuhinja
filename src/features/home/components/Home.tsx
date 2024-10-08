@@ -4,11 +4,15 @@ import { useMemo, useState } from 'react';
 
 export const Home = () => {
   const [date, setDate] = useState<string>('');
-  const { data: event } = useFetchEventByDate(date, { enabled: !!date });
+  const { data: event } = useFetchEventByDate(date, {
+    enabled: !!date,
+    refetchOnMount: true,
+  });
 
   const eventLocations = useMemo(
     () =>
       event?.data.map((location) => ({
+        id: location.id,
         name: location.attributes.locationName,
         date: location.attributes.date,
         coordinates: {
@@ -18,6 +22,10 @@ export const Home = () => {
         numberOfCooks: location.attributes.numberOfCooks,
         numberOfDeliveryPerson: location.attributes.numberOfDeliveryPerson,
         numberOfFieldWorkers: location.attributes.numberOfFieldWorkers,
+        signedUpChefs: location.attributes.signedUpChefs,
+        signedUpFieldWorkers: location.attributes.signedUpFieldWorkers,
+        signedUpDeliverer: location.attributes.signedUpDeliverer,
+        signedInUsers: location.attributes.users.data,
       })),
     [event],
   );

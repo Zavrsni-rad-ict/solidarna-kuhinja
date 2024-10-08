@@ -25,12 +25,14 @@ export enum MUTATION_KEYS {
   CREATE_USER = 'CREATE_USER',
   DELETE_USER = 'DELETE_USER',
   UPDATE_USER = 'UPDATE_USER',
+  DELETE_USER_FOR_EVENT = 'DELETE_USER_FOR_EVENT',
 
   CREATE_ROLE = 'CREATE_ROLE',
   UPDATE_ROLE = 'UPDATE_ROLE',
   DELETE_ROLE = 'DELETE_ROLE',
 
   CREATE_EVENT = 'CREATE_EVENT',
+  UPDATE_EVENT = 'UPDATE_EVENT',
 }
 
 export type Size = 'xs' | 'sm' | 'm' | 'l' | 'xl' | '2xl' | '3xl';
@@ -44,3 +46,21 @@ export const ICON_SIZE = {
   '3xl': 96,
   '4xl': 128,
 } as const;
+
+export const nullValueText = '\u2014';
+
+// TODO Prepraviti tipove i renamovati key (number -> totalSignedUp)
+export const RoleMap: Record<any, { signedUp: string; number: string }> = {
+  chefs: {
+    signedUp: 'signedUpChefs',
+    number: 'numberOfCooks',
+  },
+  deliverer: {
+    signedUp: 'signedUpDeliverer',
+    number: 'numberOfDeliveryPerson',
+  },
+  fieldworker: {
+    signedUp: 'signedUpFieldWorkers',
+    number: 'numberOfFieldWorkers',
+  },
+};
