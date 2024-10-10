@@ -55,6 +55,10 @@ export const adminRoutes = [
         path: '/create-event',
         element: <CreateEventView />,
       },
+      {
+        path: '/event',
+        element: <>EVENT VIEW</>,
+      },
     ],
   },
 ];
