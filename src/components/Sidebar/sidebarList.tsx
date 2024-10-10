@@ -43,7 +43,7 @@ export const sidebarItems: SidebarItem[] = [
   },
   {
     tabName: 'List of Event',
-    to: '/event',
+    to: '/events',
     Icon: IconMap,
     isVisible: (roleType) => roleType === 'admin',
   },

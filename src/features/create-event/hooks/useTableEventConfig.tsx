@@ -95,7 +95,7 @@ export const useTableEventConfig = () => {
 
           return (
             <div className="flex gap-2">
-              <Link to={`events/edit/${eventId}`} className={variants.yellow}>
+              <Link to={`edit/${eventId}`} className={variants.yellow}>
                 {tG('edit')}
               </Link>
               <Button
