@@ -1,5 +1,6 @@
 import { MainLayout } from '@/components/Layout';
 import { CreateEventView } from '@/features/create-event';
+import { EventList } from '@/features/create-event/components/EventList';
 import { Home } from '@/features/home';
 import { Profile } from '@/features/profile';
 import { CreateRole, EditRole, RoleList } from '@/features/role';
@@ -57,7 +58,7 @@ export const adminRoutes = [
       },
       {
         path: '/event',
-        element: <>EVENT VIEW</>,
+        element: <EventList />,
       },
     ],
   },
