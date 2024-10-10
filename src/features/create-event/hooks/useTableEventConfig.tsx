@@ -1,6 +1,7 @@
-import { variants } from '@/components';
+import { Button, variants } from '@/components';
 import { nullValueText } from '@/constants';
 import { useFetchEvents } from '@/features/home';
+import { useModal } from '@/hooks';
 import {
   PaginationState,
   getCoreRowModel,
@@ -22,13 +23,20 @@ export const useTableEventConfig = () => {
   });
   const { t: tG } = useTranslation('General');
 
-  console.log(events);
-
   const sortEventsByDateAsc = events?.data.toSorted(
     (a, b) =>
       new Date(b.attributes.date).getTime() -
       new Date(a.attributes.date).getTime(),
   );
+
+  const { isOpenModal, setIsOpenModal } = useModal();
+
+  const [selectedEventId, setSelectedEventId] = useState(0);
+
+  const handleDeleteClick = (eventId: number) => {
+    setIsOpenModal(true);
+    setSelectedEventId(eventId);
+  };
 
   const table = useReactTable({
     columns: [
@@ -55,14 +63,18 @@ export const useTableEventConfig = () => {
         accessorKey: 'chefs',
         header: () => 'Chefs',
         accessorFn: (event) =>
-          `${event.attributes.signedUpChefs ?? nullValueText} / ${event.attributes.numberOfCooks}`,
+          `${event.attributes.signedUpChefs ?? nullValueText} / ${
+            event.attributes.numberOfCooks
+          }`,
         size: 60,
       },
       {
         accessorKey: 'deliverer',
         header: () => 'Deliverer',
         accessorFn: (event) =>
-          `${event.attributes.signedUpDeliverer ?? nullValueText} / ${event.attributes.numberOfDeliveryPerson}`,
+          `${event.attributes.signedUpDeliverer ?? nullValueText} / ${
+            event.attributes.numberOfDeliveryPerson
+          }`,
         size: 60,
       },
 
@@ -70,8 +82,33 @@ export const useTableEventConfig = () => {
         accessorKey: 'fieldWorkers',
         header: () => 'Field Workers',
         accessorFn: (event) =>
-          `${event.attributes.signedUpFieldWorkers ?? nullValueText} / ${event.attributes.numberOfFieldWorkers}`,
+          `${event.attributes.signedUpFieldWorkers ?? nullValueText} / ${
+            event.attributes.numberOfFieldWorkers
+          }`,
         size: 60,
+      },
+      {
+        accessorKey: 'actions',
+        header: () => tG('actions'),
+        cell: (props) => {
+          const eventId = props.row.original.id;
+
+          return (
+            <div className="flex gap-2">
+              <Link to={`events/edit/${eventId}`} className={variants.yellow}>
+                {tG('edit')}
+              </Link>
+              <Button
+                type="button"
+                onClick={() => handleDeleteClick(eventId)}
+                className={variants.red}
+              >
+                {tG('delete')}
+              </Button>
+            </div>
+          );
+        },
+        size: 50,
       },
     ],
     data: sortEventsByDateAsc ?? [],
@@ -95,5 +132,8 @@ export const useTableEventConfig = () => {
   return {
     table,
     isLoadingEvents,
+    isOpenModal,
+    setIsOpenModal,
+    selectedEventId,
   };
 };
