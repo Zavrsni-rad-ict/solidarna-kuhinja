@@ -23,8 +23,6 @@ export const EventFormWrapper = ({ submitHandler, data }: Props) => {
     data ? { lat: data.latitude, lng: data.longitude } : null,
   );
 
-  console.log({ coordinates });
-
   const schema = yup.object().shape({
     locationName: yup.string().required(tGE('required')),
     date: yup.string().required(),
