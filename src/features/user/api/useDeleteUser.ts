@@ -20,11 +20,7 @@ export const useDeleteUser = () => {
     onSuccess: (deletedUser) => {
       toast.success('Korisnik je uspesno obrisan - HC');
 
-      const users: User[] = queryClient.getQueryData([QUERY_KEYS.USERS])!;
-      queryClient.setQueryData(
-        [QUERY_KEYS.USERS],
-        users.filter((user) => user.id !== deletedUser.id),
-      );
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USERS] });
     },
 
     onError: (err) => {
