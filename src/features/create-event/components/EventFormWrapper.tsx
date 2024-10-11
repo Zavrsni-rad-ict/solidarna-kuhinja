@@ -12,16 +12,18 @@ import { EventRequest } from '../api';
 
 type Props = {
   submitHandler: (data: EventRequest) => void;
-  data: LocationAttributes;
+  data?: LocationAttributes;
 };
 
 export const EventFormWrapper = ({ submitHandler, data }: Props) => {
   const { t } = useTranslation('General');
   const { t: tGE } = useTranslation('GlobalError');
 
-  const [location, setLocation] = useState<null | Coordinates>(() =>
+  const [coordinates, setCoordinates] = useState<null | Coordinates>(() =>
     data ? { lat: data.latitude, lng: data.longitude } : null,
   );
+
+  console.log({ coordinates });
 
   const schema = yup.object().shape({
     locationName: yup.string().required(tGE('required')),
@@ -33,19 +35,22 @@ export const EventFormWrapper = ({ submitHandler, data }: Props) => {
 
   const buttonText = data ? t('edit') : t('submit');
 
+  const onSubmit = (data: EventRequest) =>
+    submitHandler({
+      ...data,
+      latitude: coordinates!.lat,
+      longitude: coordinates!.lng,
+    });
+
   return (
-    <FormWrapper
-      schema={schema}
-      submitHandler={submitHandler}
-      defaultValues={data}
-    >
+    <FormWrapper schema={schema} submitHandler={onSubmit} defaultValues={data}>
       <EventForm />
 
       <div className="mt-10">
         <MapView
-          location={location}
-          setLocation={setLocation}
-          querySearch={data.locationName ?? ''}
+          coordinates={coordinates}
+          setCoordinates={setCoordinates}
+          querySearch={data?.locationName ?? ''}
         />
       </div>
 

@@ -1,14 +1,18 @@
 import { useParams } from 'react-router-dom';
 import { EventFormWrapper } from './EventFormWrapper';
-import { useFetchEventById } from '../api';
+import { EventRequest, useFetchEventById, useUpdateEvent } from '../api';
 import { Spinner } from '@/components/ui/spinner';
 
 export const EditEvent = () => {
   const id = useParams().id as string;
 
-  const { data: event, isFetching, isError, error } = useFetchEventById(id);
+  const { data: event, isError, isLoading, error } = useFetchEventById(id);
+  const { mutate: updateEvent } = useUpdateEvent();
 
-  if (isFetching || !event) {
+  const submitHandler = (data: EventRequest) =>
+    updateEvent({ event: data, id });
+
+  if (isLoading || !event) {
     return <Spinner />;
   }
 
@@ -19,9 +23,7 @@ export const EditEvent = () => {
   return (
     <EventFormWrapper
       data={event.data.attributes}
-      submitHandler={() => {
-        console.log('submit handler');
-      }}
+      submitHandler={submitHandler}
     />
   );
 };

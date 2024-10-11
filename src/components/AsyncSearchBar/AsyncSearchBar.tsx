@@ -30,6 +30,7 @@ const AsyncSearchBar = ({
       onInputChange={(value) => setQuery(value)}
       defaultInputValue={query}
       onChange={(value) => {
+        console.log('Klik');
         if (shouldReturnOneLocation) {
           return setLocation(() => ({
             lat: Number(value.lat),
