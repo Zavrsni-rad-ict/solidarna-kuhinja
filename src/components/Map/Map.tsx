@@ -10,8 +10,6 @@ import { Coordinates, EventLocation } from '@/types';
 import { calculateMapCenter } from '@/utils/calculateMapCenter';
 import { DraggableMarker } from './DraggableMarker';
 
-import { useLocation } from 'react-router-dom';
-
 import { EventLocationMarker } from './EventLocationMarker';
 
 type Props = {
@@ -58,8 +56,6 @@ export const Map = ({
 }: Props) => {
   const animateRef = useRef(true);
 
-  const loc = useLocation();
-
   return (
     <div className="relative">
       {isDateEmpty && (
@@ -88,7 +84,7 @@ export const Map = ({
           <EventLocationMarker eventLocations={eventLocations} />
         )}
 
-        {loc.pathname === '/create-event' && !eventLocations && (
+        {!eventLocations && (
           <DraggableMarker
             lat={location?.lat ?? BELGRADE_COORDINATES.lat}
             lng={location?.lng ?? BELGRADE_COORDINATES.lng}

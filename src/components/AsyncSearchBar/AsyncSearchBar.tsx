@@ -8,6 +8,7 @@ const AsyncSearchBar = ({
   setLocation,
   setQuery,
   shouldReturnOneLocation,
+  query,
 }: Props) => {
   const animatedComponents = makeAnimated();
 
@@ -27,6 +28,7 @@ const AsyncSearchBar = ({
       getOptionLabel={(e) => e.display_name}
       getOptionValue={(e) => e.display_name}
       onInputChange={(value) => setQuery(value)}
+      defaultInputValue={query}
       onChange={(value) => {
         if (shouldReturnOneLocation) {
           return setLocation(() => ({

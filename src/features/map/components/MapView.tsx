@@ -8,9 +8,10 @@ import { useTranslation } from 'react-i18next';
 type Props = {
   location: Coordinates | null;
   setLocation: (location: Coordinates) => void;
+  querySearch?: string;
 };
-export const MapView = ({ location, setLocation }: Props) => {
-  const [query, setQuery] = useState('');
+export const MapView = ({ location, setLocation, querySearch }: Props) => {
+  const [query, setQuery] = useState(querySearch);
 
   const { t } = useTranslation('CreateEventView');
   return (
