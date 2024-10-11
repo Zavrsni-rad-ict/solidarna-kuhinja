@@ -33,6 +33,7 @@ export enum MUTATION_KEYS {
 
   CREATE_EVENT = 'CREATE_EVENT',
   UPDATE_EVENT = 'UPDATE_EVENT',
+  DELETE_EVENT = 'DELETE_EVENT',
 }
 
 export type Size = 'xs' | 'sm' | 'm' | 'l' | 'xl' | '2xl' | '3xl';
