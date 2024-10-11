@@ -68,7 +68,7 @@ export const Map = ({
       <MapContainer
         center={BELGRADE_COORDINATES}
         zoom={16}
-        className="min-h-[480px]"
+        className="min-h-[420px]"
         id="map"
       >
         <TileLayer
