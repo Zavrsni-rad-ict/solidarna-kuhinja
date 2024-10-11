@@ -9,6 +9,7 @@ export const Home = () => {
     refetchOnMount: true,
   });
 
+  console.log('eee', { event });
   const eventLocations = useMemo(
     () =>
       event?.data.map((location) => ({
@@ -25,7 +26,7 @@ export const Home = () => {
         signedUpChefs: location.attributes.signedUpChefs,
         signedUpFieldWorkers: location.attributes.signedUpFieldWorkers,
         signedUpDeliverer: location.attributes.signedUpDeliverer,
-        signedInUsers: location.attributes.users.data,
+        signedInUsers: location.attributes.users?.data,
       })),
     [event],
   );

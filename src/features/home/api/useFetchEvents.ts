@@ -7,7 +7,7 @@ const fetchEvents = async (): Promise<EventResponse> =>
   await axios.get('/events');
 
 export const useFetchEvents = (
-  queryConfig?: UseQueryOptions<EventResponse>,
+  queryConfig?: Omit<UseQueryOptions<EventResponse>, 'queryKey'>,
 ) => {
   return useQuery({
     queryKey: [QUERY_KEYS.EVENTS],

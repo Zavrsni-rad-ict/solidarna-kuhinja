@@ -6,11 +6,16 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
-  location: Coordinates | null;
-  setLocation: (location: Coordinates) => void;
+  coordinates: Coordinates | null;
+  setCoordinates: (location: Coordinates) => void;
+  querySearch?: string;
 };
-export const MapView = ({ location, setLocation }: Props) => {
-  const [query, setQuery] = useState('');
+export const MapView = ({
+  coordinates,
+  setCoordinates,
+  querySearch,
+}: Props) => {
+  const [query, setQuery] = useState(querySearch);
 
   const { t } = useTranslation('CreateEventView');
   return (
@@ -18,13 +23,13 @@ export const MapView = ({ location, setLocation }: Props) => {
       <div className="my-4 relative z-[1001]">
         <label>{t('mapLocation')}</label>
         <AsyncSearchBar
-          setLocation={setLocation}
+          setLocation={setCoordinates}
           setQuery={setQuery}
           query={query}
           shouldReturnOneLocation
         />
       </div>
-      <Map location={location} />
+      <Map setLocation={setCoordinates} location={coordinates} />
     </>
   );
 };
