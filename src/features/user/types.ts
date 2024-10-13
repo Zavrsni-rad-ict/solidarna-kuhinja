@@ -15,6 +15,7 @@ export type User = {
   password: string;
   role: Role;
   events: EventLocation[];
+  participationCount: number;
 };
 
 export type UserDTO = {

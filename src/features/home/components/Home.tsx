@@ -1,4 +1,4 @@
-import { Calendar, Map } from '@/components';
+import { BasicInfo, Calendar, Map } from '@/components';
 import { useFetchEventByDate } from '../api';
 import { useMemo, useState } from 'react';
 
@@ -9,7 +9,6 @@ export const Home = () => {
     refetchOnMount: true,
   });
 
-  console.log('eee', { event });
   const eventLocations = useMemo(
     () =>
       event?.data.map((location) => ({
@@ -33,6 +32,8 @@ export const Home = () => {
 
   return (
     <>
+      <BasicInfo />
+
       {!event && <>Izaberite datum - HC</>}
       {event?.data.length === 0 && <>Nema akcije sa zeljenim datumom - HC</>}
 
