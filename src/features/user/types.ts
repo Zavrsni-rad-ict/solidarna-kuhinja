@@ -14,7 +14,7 @@ export type User = {
   lastName: string;
   password: string;
   role: Role;
-  events: EventLocation[];
+  events: EventLocation[] | undefined;
   participationCount: number;
 };
 
