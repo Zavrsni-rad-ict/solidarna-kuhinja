@@ -73,9 +73,9 @@ export const LoginForm = () => {
           variant="red"
           type="submit"
           className="w-[82px] h-[40px] flex justify-center items-center transition disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={isSubmitted}
+          disabled={isSubmitted && status === 'pending'}
         >
-          {isSubmitted ? (
+          {isSubmitted && status === 'pending' ? (
             <Spinner size="sm" className="text-white" />
           ) : (
             tG('sign_in')
