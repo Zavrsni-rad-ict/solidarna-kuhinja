@@ -33,7 +33,7 @@ export const BasicInfo = () => {
               Koliko si puta ucestvovao u akcijama - hc
             </small>
             <span className="text-4xl font-bold">
-              {user?.participationCount ?? 0}
+              {isLoading ? <Spinner /> : user?.participationCount ?? 0}
             </span>
           </CardBody>
         </Card>
@@ -43,9 +43,13 @@ export const BasicInfo = () => {
               Poslednji put si ucestvovao u akcijama - hc
             </small>
             <span className="text-4xl font-bold">
-              {user?.events?.length === 0
-                ? nullValueText
-                : moment(latestEvent).format('D.MM.YYYY')}
+              {isLoading ? (
+                <Spinner />
+              ) : user?.events?.length === 0 ? (
+                nullValueText
+              ) : (
+                moment(latestEvent).format('D.MM.YYYY')
+              )}
             </span>
           </CardBody>
         </Card>
