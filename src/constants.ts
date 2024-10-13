@@ -19,6 +19,7 @@ export enum QUERY_KEYS {
   USERS = 'USERS',
   ROLES = 'ROLES',
   EVENTS = 'EVENTS',
+  LANGUAGES = 'LANGUAGES',
 }
 
 export enum MUTATION_KEYS {

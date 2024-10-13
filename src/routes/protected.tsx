@@ -1,7 +1,7 @@
 import { MainLayout } from '@/components/Layout';
 import { CreateEventView, EditEvent, EventList } from '@/features/create-event';
 import { Home } from '@/features/home';
-import { Profile } from '@/features/profile';
+import { EditProfile, Profile } from '@/features/profile';
 import { CreateRole, EditRole, RoleList } from '@/features/role';
 import { CreateUser, UserList, UpdateUser } from '@/features/user/components';
 
@@ -25,6 +25,7 @@ export const protectedRoutes = [
     children: [
       { path: '', element: <Home /> },
       { path: '/account', element: <Profile /> },
+      { path: '/edit-profile', element: <EditProfile /> },
       { path: '*', element: <Navigate to="/" /> }, // TODO: This line should probbably be singled out and in the last place
     ],
   },

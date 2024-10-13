@@ -10,9 +10,9 @@ export const BasicInfo = () => {
 
   const latestEvent = useMemo(
     () =>
-      user?.events.sort(
+      user?.events?.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-      )[0].date,
+      )[0]?.date,
     [user],
   );
 
