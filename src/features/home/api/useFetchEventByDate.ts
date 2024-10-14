@@ -11,7 +11,7 @@ export const useFetchEventByDate = (
   queryConfig?: Omit<UseQueryOptions<EventResponse>, 'queryKey'>,
 ) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.EVENTS],
+    queryKey: [QUERY_KEYS.EVENTS, date],
     queryFn: () => fetchEventByDate(date),
     ...queryConfig,
   });

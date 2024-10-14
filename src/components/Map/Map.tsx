@@ -11,12 +11,14 @@ import { calculateMapCenter } from '@/utils/calculateMapCenter';
 import { DraggableMarker } from './DraggableMarker';
 
 import { EventLocationMarker } from './EventLocationMarker';
+import { Spinner } from '../ui/spinner';
 
 type Props = {
   eventLocations?: EventLocation[];
   location?: Coordinates | null;
   setLocation?: (location: Coordinates) => void;
   isDateEmpty?: boolean;
+  isFetching?: boolean;
 };
 
 const RecenterMap = ({ eventLocations, location, isDateEmpty }: Props) => {
@@ -53,15 +55,24 @@ export const Map = ({
   location,
   setLocation,
   isDateEmpty,
+  isFetching,
 }: Props) => {
   const animateRef = useRef(true);
 
   return (
     <div className="relative">
-      {isDateEmpty && (
+      {!isFetching && isDateEmpty && (
         <div className="group absolute bg-black bg-opacity-20 z-[9999] w-full h-full flex items-center justify-center hover:bg-opacity-40 transition">
           <span className="text-white text-4xl group-hover:visible">
             Izaberi Datum
+          </span>
+        </div>
+      )}
+
+      {isFetching && (
+        <div className="group absolute bg-black bg-opacity-20 z-[9999] w-full h-full flex items-center justify-center hover:bg-opacity-40 transition">
+          <span className="text-white text-4xl group-hover:visible">
+            <Spinner size="xl" variant="light" />
           </span>
         </div>
       )}
