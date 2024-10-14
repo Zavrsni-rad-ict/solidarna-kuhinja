@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import mkcert from 'vite-plugin-mkcert';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import svgr from 'vite-plugin-svgr';
@@ -20,7 +19,7 @@ export default defineConfig(({ command, mode }) => {
       optimizeDeps: {
         include: ['tailwind-config'],
       },
-      plugins: [react(), mkcert(), svgr()],
+      plugins: [react(), svgr()],
       resolve: {
         alias: {
           'tailwind-config': path.resolve(__dirname, './tailwind.config.js'),
