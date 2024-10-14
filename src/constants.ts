@@ -1,3 +1,5 @@
+import { NumberOfRoles, SignedUpRoles } from './types';
+
 export const JWT_TOKEN_LOCAL_STORAGE_KEY = 'jwt';
 
 export const HEADER_HEIGHT = 96;
@@ -52,7 +54,10 @@ export const ICON_SIZE = {
 export const nullValueText = '\u2014';
 
 // TODO Prepraviti tipove i renamovati key (number -> totalSignedUp)
-export const RoleMap: Record<any, { signedUp: string; number: string }> = {
+export const RoleMap: Record<
+  any,
+  { signedUp: SignedUpRoles; number: NumberOfRoles }
+> = {
   chefs: {
     signedUp: 'signedUpChefs',
     number: 'numberOfCooks',

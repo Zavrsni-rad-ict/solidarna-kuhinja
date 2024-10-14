@@ -11,7 +11,7 @@ type Props = {
 
 export const DraggableMarker = ({ lat, lng, setLocation, center }: Props) => {
   const [position, setPosition] = useState(center);
-  const markerRef = useRef(null);
+  const markerRef = useRef<any>(null);
   const changePoisition = useMap();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const DraggableMarker = ({ lat, lng, setLocation, center }: Props) => {
 
   const eventHandlers = useMemo(
     () => ({
-      dragend(e) {
+      dragend(e: any) {
         const marker = markerRef.current;
         if (marker != null) {
           setLocation &&

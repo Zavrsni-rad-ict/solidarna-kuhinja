@@ -1,5 +1,4 @@
-import { Pagination } from './api';
-import { UserField } from '@/features/home/types';
+import { Pagination, UserField } from './api';
 
 export type FormProps = {
   status: 'error' | 'idle' | 'pending' | 'success';
@@ -27,3 +26,13 @@ export type Coordinates = {
 export type Meta = {
   pagination: Pagination;
 };
+
+export type SignedUpRoles =
+  | 'signedUpChefs'
+  | 'signedUpFieldWorkers'
+  | 'signedUpDeliverer';
+
+export type NumberOfRoles =
+  | 'numberOfCooks'
+  | 'numberOfDeliveryPerson'
+  | 'numberOfFieldWorkers';

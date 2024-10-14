@@ -10,7 +10,7 @@ import IconDeliveryBike from '@/assets/deliver-bike-svgrepo-com.svg?react';
 import IconUser from '@/assets/user-svgrepo-com.svg?react';
 
 import React from 'react';
-import { EventLocation } from '@/types';
+import { EventLocation, NumberOfRoles, SignedUpRoles } from '@/types';
 import { ICON_SIZE, RoleMap, nullValueText } from '@/constants';
 import { Button } from '../Button';
 
@@ -21,15 +21,9 @@ export const EventLocationMarker = ({
 }) => {
   const { data: user } = useUser({ refetchOnMount: true });
 
-  const role = user?.role?.type;
-  const signedUpKey:
-    | 'signedUpChefs'
-    | 'signedUpFieldWorkers'
-    | 'signedUpDeliverer' = RoleMap[role]?.signedUp;
-  const numberKey:
-    | 'numberOfChefs'
-    | 'numberOfDeliveryPerson'
-    | 'numberOfFieldWorkers' = RoleMap[role]?.number;
+  const role = user!.role.type;
+  const signedUpKey: SignedUpRoles = RoleMap[role].signedUp;
+  const numberKey: NumberOfRoles = RoleMap[role].number;
 
   const { mutate: registerUserForEvent } = useRegisterUserForEvent();
   const { mutate: deleteUserForEvent } = useDeleteUserForEvent();
