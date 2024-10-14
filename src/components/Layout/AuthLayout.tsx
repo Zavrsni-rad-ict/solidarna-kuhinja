@@ -1,9 +1,7 @@
 export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  // const { t } = useTranslation('Auth');
-
   return (
     <div className="bg-slate-50">
-      <div className="min-h-screen flex flex-col justify-center items-center">
+      <div className="min-h-screen flex flex-col justify-center items-center mx-3">
         <div className="logo__wrapper">
           <span>Logo</span>
         </div>

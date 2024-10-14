@@ -1,10 +1,11 @@
 import { BasicInfo, Calendar, Map } from '@/components';
 import { useFetchEventByDate } from '../api';
 import { useMemo, useState } from 'react';
+import { Alert } from '@material-tailwind/react';
 
 export const Home = () => {
   const [date, setDate] = useState<string>('');
-  const { data: event } = useFetchEventByDate(date, {
+  const { data: event, isFetching } = useFetchEventByDate(date, {
     enabled: !!date,
     refetchOnMount: true,
   });
@@ -34,13 +35,22 @@ export const Home = () => {
     <>
       <BasicInfo />
 
-      {!event && <>Izaberite datum - HC</>}
-      {event?.data.length === 0 && <>Nema akcije sa zeljenim datumom - HC</>}
+      {event?.data.length === 0 && (
+        <Alert color="red" className="w-fit">
+          <span className="font-semibold">
+            Nema akcije sa zeljenim datumom - HC
+          </span>
+        </Alert>
+      )}
 
       <div className="my-3">
         <Calendar date={date} setDate={setDate} />
       </div>
-      <Map eventLocations={eventLocations} isDateEmpty={date === ''} />
+      <Map
+        eventLocations={eventLocations}
+        isDateEmpty={date === ''}
+        isFetching={isFetching}
+      />
     </>
   );
 };
