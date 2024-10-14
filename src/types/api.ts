@@ -4,37 +4,10 @@
 
 import { User } from '@/features/user/types';
 
-export type BaseEntity = {
-  id: string;
-  createdAt: number;
-};
-
-export type Entity<T> = {
-  [K in keyof T]: T[K];
-} & BaseEntity;
-
 export type AuthResponse = {
   jwt: string;
   user: User;
 };
-
-export type Team = Entity<{
-  name: string;
-  description: string;
-}>;
-
-export type Discussion = Entity<{
-  title: string;
-  body: string;
-  teamId: string;
-  author: User;
-}>;
-
-export type Comment = Entity<{
-  body: string;
-  discussionId: string;
-  author: User;
-}>;
 
 export type RoleResponse = {
   roles: Role[];
@@ -69,15 +42,6 @@ export type RoleName =
   | 'Cook'
   | 'Deliverer'
   | 'FieldWorker';
-
-export enum RoleEnum {
-  Authenticated = 1,
-  Public = 2,
-  Admin = 3,
-  Cook = 4,
-  Deliverer = 5,
-  FieldWorker = 6,
-}
 
 export type ActionResponse = {
   ok: boolean;
