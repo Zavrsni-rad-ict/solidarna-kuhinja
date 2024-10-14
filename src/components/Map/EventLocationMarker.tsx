@@ -22,8 +22,10 @@ export const EventLocationMarker = ({
   const { data: user } = useUser({ refetchOnMount: true });
 
   const role = user!.role.type;
-  const signedUpKey: SignedUpRoles = RoleMap[role].signedUp;
-  const numberKey: NumberOfRoles = RoleMap[role].number;
+
+  // If I don't use optional chaining the app will crash
+  const signedUpKey: SignedUpRoles = RoleMap[role]?.signedUp;
+  const numberKey: NumberOfRoles = RoleMap[role]?.number;
 
   const { mutate: registerUserForEvent } = useRegisterUserForEvent();
   const { mutate: deleteUserForEvent } = useDeleteUserForEvent();
