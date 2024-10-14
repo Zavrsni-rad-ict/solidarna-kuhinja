@@ -1,0 +1,49 @@
+{
+  "Test": {
+    "hello_world": "Hello World"
+  },
+  "General": {
+    "sign_in": "Uloguj se",
+    "actions": "Akcije",
+    "edit": "Izmeni",
+    "delete": "Obriši",
+    "no_data_available": "Nema dostupnih podataka",
+    "number_input_placeholder": "Uneti broj",
+    "submit": "Submit"
+  },
+  "Login": {
+    "password": "Lozinka",
+    "errors": {
+      "validation": {
+        "email": "Email nije ispravan",
+        "password": "Lozinka nije ispravna"
+      }
+    }
+  },
+  "GlobalError": {
+    "required": "Polje je obavezno",
+    "minimumCharacters": "Minimalan broj karaktera je",
+    "maximumCharacters": "Maksimalan broj karaktera je",
+    "capitalLetter": "Polje mora da počne sa velikim slovom"
+  },
+  "UserList": {
+    "columns": {
+      "username": "Korisničko ime",
+      "firstName": "Ime",
+      "lastName": "Prezime"
+    },
+    "createButton": "Kreiraj korisnika"
+  },
+  "RoleList": {
+    "createButton": "Kreiraj ulogu",
+    "roleName": "Naziv Role"
+  },
+  "CreateEventView": {
+    "locationName": "Naziv lokacije",
+    "calendar": "Kalendar",
+    "numberOfCooks": "Broj kuvara",
+    "numberOfFieldWorkers": "Broj ljudi na terenu",
+    "numberOfDeliveryPerson": "Broj dostavljaca",
+    "mapLocation": "Izaberi lokaciju na mapi"
+  }
+}
