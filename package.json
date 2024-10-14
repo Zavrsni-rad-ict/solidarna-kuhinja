@@ -36,7 +36,6 @@
     "react-select-async-paginate": "^0.7.5",
     "react-table": "^7.8.0",
     "react-toastify": "^10.0.5",
-    "vite-plugin-mkcert": "^1.17.5",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0",
     "yup": "^1.4.0",
