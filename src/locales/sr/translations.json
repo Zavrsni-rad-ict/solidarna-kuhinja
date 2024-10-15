@@ -9,7 +9,8 @@
     "delete": "Obriši",
     "no_data_available": "Nema dostupnih podataka",
     "number_input_placeholder": "Uneti broj",
-    "submit": "Submit"
+    "submit": "Submit",
+    "chooseDate": "Izaberi datum"
   },
   "Login": {
     "password": "Lozinka",

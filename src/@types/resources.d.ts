@@ -10,6 +10,7 @@ interface Resources {
     no_data_available: 'No data available';
     number_input_placeholder: 'Enter a number';
     submit: 'Submit';
+    chooseDate: 'Choose date';
   };
   Login: {
     password: 'Password';
