@@ -48,6 +48,11 @@ interface Resources {
     numberOfDeliveryPerson: 'Number of Delivery Person';
     mapLocation: 'Choose map location';
   };
+  BasicInfo: {
+    welcomeBack: 'Welcome back';
+    participationInAction: 'How many times have you participated in actions?';
+    lastTimeParticipated: 'Last time participated';
+  };
 }
 
 export default Resources;

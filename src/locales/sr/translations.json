@@ -47,5 +47,10 @@
     "numberOfFieldWorkers": "Broj ljudi na terenu",
     "numberOfDeliveryPerson": "Broj dostavljaca",
     "mapLocation": "Izaberi lokaciju na mapi"
+  },
+  "BasicInfo": {
+    "welcomeBack": "Dobrodošao nazad",
+    "participationInAction": "Koliko puta si učestvovao u akcijama?",
+    "lastTimeParticipated": "Poslednji put si ucestvovao u akciji"
   }
 }
