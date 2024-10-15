@@ -10,6 +10,7 @@ interface Resources {
     no_data_available: 'No data available';
     number_input_placeholder: 'Enter a number';
     submit: 'Submit';
+    chooseDate: 'Choose date';
   };
   Login: {
     password: 'Password';
@@ -31,12 +32,24 @@ interface Resources {
       username: 'Username';
       firstName: 'First Name';
       lastName: 'Last name';
+      role: 'Role';
+      participationCount: 'Participation Count';
     };
     createButton: 'Create User';
+  };
+  User: {
+    toastSuccess: {
+      create: "You've created a user successfully";
+      update: "You've updated a user successfully";
+      delete: "You've deleted a user successfully";
+    };
   };
   RoleList: {
     createButton: 'Create Role';
     roleName: 'Role Name';
+  };
+  Role: {
+    toastSuccess: "You've deleted a role successfully";
   };
   CreateEventView: {
     locationName: 'Location Name';
@@ -45,6 +58,27 @@ interface Resources {
     numberOfFieldWorkers: 'Number of Field Workers';
     numberOfDeliveryPerson: 'Number of Delivery Person';
     mapLocation: 'Choose map location';
+  };
+  BasicInfo: {
+    welcomeBack: 'Welcome back';
+    participationInAction: 'How many times have you participated in actions?';
+    lastTimeParticipated: 'Last time participated';
+  };
+  Modal: {
+    yes: "Yes I'm sure";
+    no: 'No, cancel';
+  };
+  Home: { noAction: 'There is no action with the desired date' };
+  EditProfile: {
+    languageChangeSuccess: 'You have successfully changed a language';
+    chooseLanguage: 'Choose language';
+  };
+  Event: {
+    toastSuccess: {
+      create: "You've created an event successfully";
+      update: "You've updated an event successfully";
+      delete: "You've deleted an event successfully";
+    };
   };
 }
 

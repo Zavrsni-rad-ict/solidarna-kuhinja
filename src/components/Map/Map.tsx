@@ -12,6 +12,7 @@ import { DraggableMarker } from './DraggableMarker';
 
 import { EventLocationMarker } from './EventLocationMarker';
 import { Spinner } from '../ui/spinner';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   eventLocations?: EventLocation[];
@@ -59,12 +60,14 @@ export const Map = ({
 }: Props) => {
   const animateRef = useRef(true);
 
+  const { t } = useTranslation('General');
+
   return (
     <div className="relative">
       {!isFetching && isDateEmpty && (
         <div className="group absolute bg-black bg-opacity-20 z-[9999] w-full h-full flex items-center justify-center hover:bg-opacity-40 transition">
           <span className="text-white text-4xl group-hover:visible">
-            Izaberi Datum
+            {t('chooseDate')}
           </span>
         </div>
       )}

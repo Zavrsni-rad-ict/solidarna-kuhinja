@@ -2,6 +2,7 @@ import { BasicInfo, Calendar, Map } from '@/components';
 import { useFetchEventByDate } from '../api';
 import { useMemo, useState } from 'react';
 import { Alert } from '@material-tailwind/react';
+import { useTranslation } from 'react-i18next';
 
 export const Home = () => {
   const [date, setDate] = useState<string>('');
@@ -9,6 +10,8 @@ export const Home = () => {
     enabled: !!date,
     refetchOnMount: true,
   });
+
+  const { t: tH } = useTranslation('Home');
 
   const eventLocations = useMemo(
     () =>
@@ -37,9 +40,7 @@ export const Home = () => {
 
       {event?.data.length === 0 && (
         <Alert color="red" className="w-fit">
-          <span className="font-semibold">
-            Nema akcije sa zeljenim datumom - HC
-          </span>
+          <span className="font-semibold">{tH('noAction')}</span>
         </Alert>
       )}
 
