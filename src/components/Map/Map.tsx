@@ -80,13 +80,6 @@ export const Map = ({
         </div>
       )}
 
-      {isFetching && (
-        <div className="group absolute bg-black bg-opacity-20 z-[9999] w-full h-full flex items-center justify-center hover:bg-opacity-40 transition">
-          <span className="text-white text-4xl group-hover:visible">
-            <Spinner size="xl" variant="light" />
-          </span>
-        </div>
-      )}
       <MapContainer
         center={BELGRADE_COORDINATES}
         zoom={16}
