@@ -19,6 +19,7 @@ type Props = {
 export const UserForm = ({ user, submitHandler }: Props) => {
   const { t: tGE } = useTranslation('GlobalError');
   const { t: tL } = useTranslation('Login');
+  const { t: tG } = useTranslation('General');
 
   const schema = yup.object().shape({
     email: yup
@@ -134,7 +135,7 @@ export const UserForm = ({ user, submitHandler }: Props) => {
               {status === 'pending' ? (
                 <Spinner variant="light" size="md" />
               ) : (
-                'Submit'
+                tG('submit')
               )}
             </Button>
           </div>
