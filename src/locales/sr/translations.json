@@ -40,6 +40,9 @@
     "createButton": "Kreiraj ulogu",
     "roleName": "Naziv Role"
   },
+  "Role": {
+    "toastSuccess": "Uspešno ste izbrisali korisnika"
+  },
   "CreateEventView": {
     "locationName": "Naziv lokacije",
     "calendar": "Kalendar",

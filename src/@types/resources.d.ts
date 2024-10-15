@@ -40,6 +40,9 @@ interface Resources {
     createButton: 'Create Role';
     roleName: 'Role Name';
   };
+  Role: {
+    toastSuccess: "You've deleted a user successfully";
+  };
   CreateEventView: {
     locationName: 'Location Name';
     calendar: 'Calendar';
