@@ -71,5 +71,12 @@
   "EditProfile": {
     "languageChangeSuccess": "Uspešno ste promenili jezik",
     "chooseLanguage": "Izaberi jezik"
+  },
+  "Event": {
+    "toastSuccess": {
+      "create": "Uspešno ste kreirali događaj",
+      "update": "Uspešno ste izmenili događaj",
+      "delete": "Uspešno ste obrisali događaj"
+    }
   }
 }

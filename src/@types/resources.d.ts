@@ -72,6 +72,13 @@ interface Resources {
     languageChangeSuccess: 'You have successfully changed a language';
     chooseLanguage: 'Choose language';
   };
+  Event: {
+    toastSuccess: {
+      create: "You've created an event successfully";
+      update: "You've updated an event successfully";
+      delete: "You've deleted an event successfully";
+    };
+  };
 }
 
 export default Resources;
