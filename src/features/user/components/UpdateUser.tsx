@@ -20,7 +20,6 @@ export const EditUser = () => {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        password: user.password,
         role: user.role.id,
         username: user.username,
         blocked: user.blocked,
