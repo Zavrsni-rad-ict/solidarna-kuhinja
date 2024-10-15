@@ -7,9 +7,9 @@ export const HEADER_HEIGHT = 96;
 export const MINIMUM_CHARACTERS = 5;
 export const MAXIMUM_CHARACTERS = 50;
 
-export const REDIRECT_AFTER_3_SECONDS = 3000;
+export const REDIRECT_AFTER_2_SECONDS = 2000;
 
-export const DEBOUNCE_DELAY = 300;
+export const DEBOUNCE_DELAY = 200;
 
 export const BELGRADE_COORDINATES = {
   lat: 44.8125,
