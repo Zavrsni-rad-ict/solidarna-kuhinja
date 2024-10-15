@@ -53,6 +53,10 @@ interface Resources {
     participationInAction: 'How many times have you participated in actions?';
     lastTimeParticipated: 'Last time participated';
   };
+  Modal: {
+    yes: "Yes I'm sure";
+    no: 'No, cancel';
+  };
 }
 
 export default Resources;

@@ -52,5 +52,9 @@
     "welcomeBack": "Dobrodošao nazad",
     "participationInAction": "Koliko puta si učestvovao u akcijama?",
     "lastTimeParticipated": "Poslednji put si ucestvovao u akciji"
+  },
+  "Modal": {
+    "yes": "Siguran sam",
+    "no": "Ne, otkaži"
   }
 }

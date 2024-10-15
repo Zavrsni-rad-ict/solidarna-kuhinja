@@ -29,7 +29,7 @@ export const useCreateUser = () => {
     mutationKey: [MUTATION_KEYS.CREATE_USER],
     mutationFn: createUser,
     onSuccess: (createdUser) => {
-      toast.success('Uspesno');
+      toast.success('Uspesno - hc');
 
       const users = queryClient.getQueryData<User[]>([QUERY_KEYS.USERS]);
 
