@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axios } from '@/lib/api-client';
 import {
   MUTATION_KEYS,
-  REDIRECT_AFTER_3_SECONDS,
+  REDIRECT_AFTER_2_SECONDS,
   QUERY_KEYS,
 } from '@/constants';
 import { toast } from 'react-toastify';
@@ -21,31 +21,14 @@ export const useUpdateUser = () => {
   return useMutation({
     mutationKey: [MUTATION_KEYS.UPDATE_USER],
     mutationFn: updateUser,
-    onMutate: (updatedUser) => {
-      queryClient.setQueryData([QUERY_KEYS.USERS, updatedUser.id], updatedUser);
-    },
-    onSuccess: (updatedUser) => {
-      toast.success('Suepriska!');
+    onSuccess: () => {
+      toast.success('Uspesno ste izmenili korisnika - hc');
 
-      const users = queryClient.getQueryData<User[]>([QUERY_KEYS.USERS]);
-
-      queryClient.setQueryData([QUERY_KEYS.USERS, updatedUser.id], updatedUser);
-
-      if (users) {
-        queryClient.setQueryData<User[]>([QUERY_KEYS.USERS], () => {
-          if (!users) return [];
-
-          const updatedUsers = users.map((user) =>
-            user.id === updatedUser.id ? updatedUser : user,
-          );
-
-          return updatedUsers;
-        });
-      }
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USERS] });
 
       setTimeout(() => {
         navigate('/users');
-      }, REDIRECT_AFTER_3_SECONDS);
+      }, REDIRECT_AFTER_2_SECONDS);
     },
     onError: (err) => toast.error(`Desila se greska: ${err.message}`),
   });
