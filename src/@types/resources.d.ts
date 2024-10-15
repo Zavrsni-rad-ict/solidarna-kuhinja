@@ -36,12 +36,19 @@ interface Resources {
     };
     createButton: 'Create User';
   };
+  User: {
+    toastSuccess: {
+      create: "You've created a user successfully";
+      update: "You've updated a user successfully";
+      delete: "You've deleted a user successfully";
+    };
+  };
   RoleList: {
     createButton: 'Create Role';
     roleName: 'Role Name';
   };
   Role: {
-    toastSuccess: "You've deleted a user successfully";
+    toastSuccess: "You've deleted a role successfully";
   };
   CreateEventView: {
     locationName: 'Location Name';

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { queryClient } from '@/lib/react-query';
 import { AxiosError } from 'axios';
 import { User } from '../types';
+import { useTranslation } from 'react-i18next';
 
 export type UserRequest = {
   email: string;
@@ -24,12 +25,14 @@ const createUser = (user: UserRequest): Promise<User> =>
   axios.post('/users', user);
 
 export const useCreateUser = () => {
+  const { t: tU } = useTranslation('User');
+
   const navigate = useNavigate();
   return useMutation<User, AxiosError, UserRequest, unknown>({
     mutationKey: [MUTATION_KEYS.CREATE_USER],
     mutationFn: createUser,
     onSuccess: (createdUser) => {
-      toast.success('Uspesno - hc');
+      toast.success(tU('toastSuccess.create'));
 
       const users = queryClient.getQueryData<User[]>([QUERY_KEYS.USERS]);
 

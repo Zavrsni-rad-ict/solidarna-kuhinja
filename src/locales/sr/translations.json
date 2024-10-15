@@ -36,12 +36,19 @@
     },
     "createButton": "Kreiraj korisnika"
   },
+  "User": {
+    "toastSuccess": {
+      "create": "Uspešno ste dodali korisnika",
+      "update": "Uspešno ste izmenili korisnika",
+      "delete": "Uspešno ste obrisali korisnika"
+    }
+  },
   "RoleList": {
     "createButton": "Kreiraj ulogu",
     "roleName": "Naziv Role"
   },
   "Role": {
-    "toastSuccess": "Uspešno ste izbrisali korisnika"
+    "toastSuccess": "Uspešno ste izbrisali ulogu"
   },
   "CreateEventView": {
     "locationName": "Naziv lokacije",
