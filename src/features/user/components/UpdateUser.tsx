@@ -3,12 +3,13 @@ import { UserForm } from './form/UserForm';
 import { UserRequest, useFetchUser, useUpdateUser } from '../api';
 import { useMemo } from 'react';
 
-export const UpdateUser = () => {
+export const EditUser = () => {
   const { id } = useParams<{ id: string }>();
 
   const { data: user } = useFetchUser(Number(id));
 
-  const { mutateAsync: updateUserAsync } = useUpdateUser();
+  const { mutateAsync: updateUserAsync, status: updateUserStatus } =
+    useUpdateUser();
 
   const submitHandler = async (data: UserRequest) => {
     await updateUserAsync({ ...data, id: user?.id! });
@@ -20,7 +21,6 @@ export const UpdateUser = () => {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        password: user.password,
         role: user.role.id,
         username: user.username,
         blocked: user.blocked,
@@ -28,7 +28,15 @@ export const UpdateUser = () => {
     [user],
   );
 
-  return formData && <UserForm user={formData} submitHandler={submitHandler} />;
+  return (
+    formData && (
+      <UserForm
+        user={formData}
+        submitHandler={submitHandler}
+        isSubmitted={updateUserStatus === 'pending'}
+      />
+    )
+  );
 };
 
-UpdateUser.displayName = 'UpdateUser';
+EditUser.displayName = 'EditUser';

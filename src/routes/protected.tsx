@@ -3,7 +3,7 @@ import { CreateEventView, EditEvent, EventList } from '@/features/create-event';
 import { Home } from '@/features/home';
 import { EditProfile, Profile } from '@/features/profile';
 import { CreateRole, EditRole, RoleList } from '@/features/role';
-import { CreateUser, UserList, UpdateUser } from '@/features/user/components';
+import { CreateUser, UserList, EditUser } from '@/features/user/components';
 
 import { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
@@ -41,7 +41,7 @@ export const adminRoutes = [
         children: [
           { path: '', element: <UserList /> },
           { path: 'create', element: <CreateUser /> },
-          { path: 'edit/:id', element: <UpdateUser /> }, // TODO: Rename this component to EditUser
+          { path: 'edit/:id', element: <EditUser /> },
         ],
       },
       {

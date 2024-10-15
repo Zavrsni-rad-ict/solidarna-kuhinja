@@ -3,7 +3,7 @@ import { axios } from '@/lib/api-client';
 import {
   MUTATION_KEYS,
   QUERY_KEYS,
-  REDIRECT_AFTER_3_SECONDS,
+  REDIRECT_AFTER_2_SECONDS,
 } from '@/constants';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,6 @@ import { User } from '../types';
 export type UserRequest = {
   email: string;
   username: string;
-  password: string;
   role: number;
   firstName: string;
   lastName: string;
@@ -44,7 +43,7 @@ export const useCreateUser = () => {
 
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USERS] });
 
-      setTimeout(() => navigate('/users'), REDIRECT_AFTER_3_SECONDS);
+      setTimeout(() => navigate('/users'), REDIRECT_AFTER_2_SECONDS);
     },
     onError: (err) => {
       // TODO: Obrisi as any da vidis gresku...
