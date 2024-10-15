@@ -1,4 +1,4 @@
-import { Spinner } from '@/components/ui/spinner';
+import { Spinner, CenteredLoadingSpinner } from '@/components/ui/spinner';
 import { useDeleteUser } from '../api';
 import { SearchBar, Table, variants } from '@/components';
 import { Link } from 'react-router-dom';
@@ -31,7 +31,7 @@ export const UserList = () => {
     setIsOpenModal(false);
   };
 
-  if (isLoadingUsers) return <Spinner />;
+  if (isLoadingUsers) return <CenteredLoadingSpinner />;
 
   return (
     <>
