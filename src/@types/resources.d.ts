@@ -58,6 +58,10 @@ interface Resources {
     no: 'No, cancel';
   };
   Home: { noAction: 'There is no action with the desired date' };
+  EditProfile: {
+    languageChangeSuccess: 'You have successfully changed a language';
+    chooseLanguage: 'Choose language';
+  };
 }
 
 export default Resources;

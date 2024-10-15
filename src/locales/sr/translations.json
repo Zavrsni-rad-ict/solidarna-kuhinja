@@ -57,5 +57,9 @@
     "yes": "Siguran sam",
     "no": "Ne, otkaži"
   },
-  "Home": { "noAction": "Nema akcije sa zeljenim datumom" }
+  "Home": { "noAction": "Nema akcije sa zeljenim datumom" },
+  "EditProfile": {
+    "languageChangeSuccess": "Uspešno ste promenili jezik",
+    "chooseLanguage": "Izaberi jezik"
+  }
 }
