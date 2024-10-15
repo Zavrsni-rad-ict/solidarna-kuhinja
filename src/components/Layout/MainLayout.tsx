@@ -6,7 +6,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <Nav />
       <div className="flex">
         <Sidebar />
-        <div className="p-3 w-full">{children}</div>
+        <div className="p-3 w-full overflow-x-hidden">{children}</div>
       </div>
     </>
   );

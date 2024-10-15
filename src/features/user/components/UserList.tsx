@@ -1,4 +1,4 @@
-import { Spinner } from '@/components/ui/spinner';
+import { Spinner, CenteredLoadingSpinner } from '@/components/ui/spinner';
 import { useDeleteUser } from '../api';
 import { SearchBar, Table, variants } from '@/components';
 import { Link } from 'react-router-dom';
@@ -31,7 +31,7 @@ export const UserList = () => {
     setIsOpenModal(false);
   };
 
-  if (isLoadingUsers) return <Spinner />;
+  if (isLoadingUsers) return <CenteredLoadingSpinner />;
 
   return (
     <>
@@ -43,10 +43,10 @@ export const UserList = () => {
       />
 
       <div className="p-6">
-        <div className="my-4 flex items-center gap-4">
+        <div className="my-4 flex items-center gap-4 flex-col-reverse sm:flex-row flex-wrap">
           <SearchBar onChange={handleFindUser} />
 
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-2 items-center flex-col sm:flex-row">
             <>
               <input
                 id="all"

@@ -9,7 +9,8 @@
     "delete": "Obriši",
     "no_data_available": "Nema dostupnih podataka",
     "number_input_placeholder": "Uneti broj",
-    "submit": "Submit"
+    "submit": "Submit",
+    "chooseDate": "Izaberi datum"
   },
   "Login": {
     "password": "Lozinka",
@@ -30,13 +31,25 @@
     "columns": {
       "username": "Korisničko ime",
       "firstName": "Ime",
-      "lastName": "Prezime"
+      "lastName": "Prezime",
+      "role": "Uloga",
+      "participationCount": "Učešće"
     },
     "createButton": "Kreiraj korisnika"
+  },
+  "User": {
+    "toastSuccess": {
+      "create": "Uspešno ste dodali korisnika",
+      "update": "Uspešno ste izmenili korisnika",
+      "delete": "Uspešno ste obrisali korisnika"
+    }
   },
   "RoleList": {
     "createButton": "Kreiraj ulogu",
     "roleName": "Naziv Role"
+  },
+  "Role": {
+    "toastSuccess": "Uspešno ste izbrisali ulogu"
   },
   "CreateEventView": {
     "locationName": "Naziv lokacije",
@@ -45,5 +58,26 @@
     "numberOfFieldWorkers": "Broj ljudi na terenu",
     "numberOfDeliveryPerson": "Broj dostavljaca",
     "mapLocation": "Izaberi lokaciju na mapi"
+  },
+  "BasicInfo": {
+    "welcomeBack": "Dobrodošao nazad",
+    "participationInAction": "Koliko puta si učestvovao u akcijama?",
+    "lastTimeParticipated": "Poslednji put si ucestvovao u akciji"
+  },
+  "Modal": {
+    "yes": "Siguran sam",
+    "no": "Ne, otkaži"
+  },
+  "Home": { "noAction": "Nema akcije sa zeljenim datumom" },
+  "EditProfile": {
+    "languageChangeSuccess": "Uspešno ste promenili jezik",
+    "chooseLanguage": "Izaberi jezik"
+  },
+  "Event": {
+    "toastSuccess": {
+      "create": "Uspešno ste kreirali događaj",
+      "update": "Uspešno ste izmenili događaj",
+      "delete": "Uspešno ste obrisali događaj"
+    }
   }
 }

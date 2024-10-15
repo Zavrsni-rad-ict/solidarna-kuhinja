@@ -7,7 +7,7 @@ export const SearchBar = ({
   onChange: ChangeEventHandler<HTMLInputElement>;
 }) => {
   return (
-    <div className="relative w-[320px]">
+    <div className="relative w-full sm:w-auto md:max-w-[320px]">
       <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
         <IconMagnifyingGlass />
       </div>

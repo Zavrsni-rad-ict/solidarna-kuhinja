@@ -18,12 +18,14 @@ export const EditProfile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
 
+  const { t } = useTranslation('EditProfile');
+
   const { i18n } = useTranslation();
   const handleChangeLanguage = (
     e: React.MouseEvent<HTMLButtonElement> & React.MouseEvent<HTMLLIElement>,
   ) => {
     i18n.changeLanguage(e.currentTarget.value);
-    toast.success('Uspesno si promeni jezik');
+    toast.success(t('languageChangeSuccess'));
   };
 
   return (
@@ -31,7 +33,7 @@ export const EditProfile = () => {
       <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
         <MenuHandler>
           <Button variant="text" className={variants.red}>
-            Choose language - HC
+            {t('chooseLanguage')}
           </Button>
         </MenuHandler>
         <MenuList className="p-1 z-[100001]" onClick={closeMenu}>

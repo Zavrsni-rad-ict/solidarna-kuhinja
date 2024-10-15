@@ -14,11 +14,13 @@ import { UserRequest } from '../../api';
 type Props = {
   user?: UserRequest;
   submitHandler: (data: UserRequest) => Promise<void>;
+  isSubmitted?: boolean;
 };
 
-export const UserForm = ({ user, submitHandler }: Props) => {
+export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
   const { t: tGE } = useTranslation('GlobalError');
   const { t: tL } = useTranslation('Login');
+  const { t: tG } = useTranslation('General');
 
   const schema = yup.object().shape({
     email: yup
@@ -128,13 +130,16 @@ export const UserForm = ({ user, submitHandler }: Props) => {
           <div className="col-start-1 mt-4">
             <Button
               type="submit"
-              variant="primary"
-              disabled={status === 'pending'}
+              variant={isSubmitted ? 'disabled' : 'primary'}
+              disabled={isSubmitted}
+              className={`w-[83px] h-[40px] ${
+                isSubmitted ? 'cursor-not-allowed' : ''
+              }`}
             >
-              {status === 'pending' ? (
-                <Spinner variant="light" size="md" />
+              {isSubmitted ? (
+                <Spinner variant="light" size="sm" className="w-full" />
               ) : (
-                'Submit'
+                tG('submit')
               )}
             </Button>
           </div>
