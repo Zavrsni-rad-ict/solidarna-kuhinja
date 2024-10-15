@@ -1,6 +1,7 @@
 import { Table as TableProps, flexRender } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { PaginationControl } from '../PaginationControl/PaginationControl';
+import { nullValueText } from '@/constants';
 
 type Props<T> = {
   table: TableProps<T>;
@@ -21,8 +22,9 @@ export const Table = <T,>({ table, shouldShowFooter = false }: Props<T>) => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className={`py-3 gap-3 text-left ${PADDING}`}
-                  style={{ width: header.getSize() }}
+                  className={`py-3 gap-3 text-left truncate ${PADDING}`}
+                  title={header.id}
+                  scope="col"
                 >
                   {header.isPlaceholder
                     ? null
@@ -49,13 +51,17 @@ export const Table = <T,>({ table, shouldShowFooter = false }: Props<T>) => {
                 className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 text-gray-900"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className={` ${PADDING}`}>
+                  <td
+                    key={cell.id}
+                    className={`truncate ${PADDING}`}
+                    title={cell.getValue() as string}
+                  >
                     {cell.getValue() || cell.column.id === 'actions'
                       ? flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext(),
                         )
-                      : '--'}
+                      : nullValueText}
                   </td>
                 ))}
               </tr>
