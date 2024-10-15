@@ -1,6 +1,6 @@
 import { Table } from '@/components';
 import { useTableEventConfig } from '../hooks';
-import { Spinner } from '@/components/ui/spinner';
+import { CenteredLoadingSpinner, Spinner } from '@/components/ui/spinner';
 import { DeleteConfirmationModal } from '@/components/DeleteConfirmationModal/DeleteConfirmationModal';
 import { useDeleteEvent } from '../api';
 
@@ -21,7 +21,7 @@ export const EventList = () => {
   };
 
   if (isLoadingEvents) {
-    return <Spinner />;
+    return <CenteredLoadingSpinner />;
   }
 
   return (

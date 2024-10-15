@@ -48,7 +48,6 @@ export const useTableUserConfig = () => {
         accessorKey: 'id',
         header: () => 'ID',
         accessorFn: (user) => user.id,
-        size: 50,
       },
       {
         accessorKey: 'firstName',
@@ -66,9 +65,19 @@ export const useTableUserConfig = () => {
         accessorFn: (user) => user.username,
       },
       {
+        accessorKey: 'role',
+        header: () => tUL('columns.role'),
+        accessorFn: (user) => user.role.name,
+      },
+      {
         accessorKey: 'email',
         header: () => 'Email',
         accessorFn: (user) => user.email,
+      },
+      {
+        accessorKey: 'ukupno ucestvovao - hc',
+        header: () => tUL('columns.participationCount'),
+        accessorFn: (user) => user.participationCount,
       },
       {
         accessorKey: 'actions',
