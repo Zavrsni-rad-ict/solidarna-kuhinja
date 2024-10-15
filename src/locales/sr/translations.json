@@ -30,7 +30,9 @@
     "columns": {
       "username": "Korisničko ime",
       "firstName": "Ime",
-      "lastName": "Prezime"
+      "lastName": "Prezime",
+      "role": "Uloga",
+      "participationCount": "Učešće"
     },
     "createButton": "Kreiraj korisnika"
   },

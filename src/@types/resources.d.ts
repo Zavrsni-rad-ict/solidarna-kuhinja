@@ -31,6 +31,8 @@ interface Resources {
       username: 'Username';
       firstName: 'First Name';
       lastName: 'Last name';
+      role: 'Role';
+      participationCount: 'Participation Count';
     };
     createButton: 'Create User';
   };

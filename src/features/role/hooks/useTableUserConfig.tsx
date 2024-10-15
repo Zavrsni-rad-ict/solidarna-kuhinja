@@ -75,7 +75,7 @@ export const useTableUserConfig = () => {
         accessorFn: (user) => user.email,
       },
       {
-        accessorKey: 'ukupno ucestvovao - hc',
+        accessorKey: 'participationCount',
         header: () => tUL('columns.participationCount'),
         accessorFn: (user) => user.participationCount,
       },
