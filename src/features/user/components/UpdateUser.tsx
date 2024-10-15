@@ -8,7 +8,8 @@ export const EditUser = () => {
 
   const { data: user } = useFetchUser(Number(id));
 
-  const { mutateAsync: updateUserAsync } = useUpdateUser();
+  const { mutateAsync: updateUserAsync, status: updateUserStatus } =
+    useUpdateUser();
 
   const submitHandler = async (data: UserRequest) => {
     await updateUserAsync({ ...data, id: user?.id! });
@@ -27,7 +28,15 @@ export const EditUser = () => {
     [user],
   );
 
-  return formData && <UserForm user={formData} submitHandler={submitHandler} />;
+  return (
+    formData && (
+      <UserForm
+        user={formData}
+        submitHandler={submitHandler}
+        isSubmitted={updateUserStatus === 'pending'}
+      />
+    )
+  );
 };
 
 EditUser.displayName = 'EditUser';
