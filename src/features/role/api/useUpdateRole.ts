@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   MUTATION_KEYS,
   QUERY_KEYS,
-  REDIRECT_AFTER_3_SECONDS,
+  REDIRECT_AFTER_2_SECONDS,
 } from '@/constants';
 import { useFetchRoles } from './useFetchRoles';
 import { toast } from 'react-toastify';
@@ -57,7 +57,7 @@ export const useUpdateRole = () => {
 
       setTimeout(() => {
         navigate('/roles');
-      }, REDIRECT_AFTER_3_SECONDS);
+      }, REDIRECT_AFTER_2_SECONDS);
     },
   });
 };
