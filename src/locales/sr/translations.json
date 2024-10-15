@@ -56,5 +56,6 @@
   "Modal": {
     "yes": "Siguran sam",
     "no": "Ne, otkaži"
-  }
+  },
+  "Home": { "noAction": "Nema akcije sa zeljenim datumom" }
 }

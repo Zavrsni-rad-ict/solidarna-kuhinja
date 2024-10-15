@@ -57,6 +57,7 @@ interface Resources {
     yes: "Yes I'm sure";
     no: 'No, cancel';
   };
+  Home: { noAction: 'There is no action with the desired date' };
 }
 
 export default Resources;
