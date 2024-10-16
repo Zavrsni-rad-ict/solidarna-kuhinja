@@ -12,6 +12,12 @@
     "submit": "Submit",
     "chooseDate": "Izaberi datum"
   },
+  "Sidebar": {
+    "home": "Početna strana",
+    "users": "Korisnici",
+    "createEvent": "Kreiraj događaj",
+    "listOfEvents": "Lista događaja"
+  },
   "Login": {
     "password": "Lozinka",
     "errors": {
