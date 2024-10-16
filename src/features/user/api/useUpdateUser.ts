@@ -1,10 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axios } from '@/lib/api-client';
-import {
-  MUTATION_KEYS,
-  REDIRECT_AFTER_2_SECONDS,
-  QUERY_KEYS,
-} from '@/constants';
+import { MUTATION_KEYS, REDIRECT_DELAY, QUERY_KEYS } from '@/constants';
 import { toast } from 'react-toastify';
 import { UserRequest } from './useCreateUser';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +27,7 @@ export const useUpdateUser = () => {
 
       setTimeout(() => {
         navigate('/users');
-      }, REDIRECT_AFTER_2_SECONDS);
+      }, REDIRECT_DELAY);
     },
     onError: (err) => toast.error(`Err: ${err.message}`),
   });
