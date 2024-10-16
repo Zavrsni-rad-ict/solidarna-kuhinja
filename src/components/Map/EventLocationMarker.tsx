@@ -9,7 +9,7 @@ import IconChief from '@/assets/chief.svg?react';
 import IconDeliveryBike from '@/assets/deliver-bike-svgrepo-com.svg?react';
 import IconUser from '@/assets/user-svgrepo-com.svg?react';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { EventLocation, NumberOfRoles, SignedUpRoles } from '@/types';
 import { ICON_SIZE, RoleMap, nullValueText } from '@/constants';
 import { Button } from '../Button';
@@ -52,16 +52,22 @@ export const EventLocationMarker = ({
     });
   };
 
+  const isUserSignedInToAnyEvent = useMemo(() => {
+    return eventLocations.some((event) =>
+      event.signedInUsers.some((signedInUser) => signedInUser.id === user?.id),
+    );
+  }, [eventLocations, user]);
+
   return eventLocations.map((location) => {
-    const toggleSignText = user?.events && user?.events.length > 0;
+    const isUserSignedInToLocation = location.signedInUsers.some(
+      (signedInUser) => signedInUser.id === user?.id,
+    );
 
     const totalAvailableRoleForSignUp = location[numberKey]; // TODO Kod radi, ali Nisu dobro upareni tipovi
     const availableRoleForSignUp = location[signedUpKey];
 
     const shouldDisableButton =
-      location.signedInUsers.some(
-        (signedInUser) => signedInUser.id !== user?.id,
-      ) && totalAvailableRoleForSignUp === availableRoleForSignUp;
+      isUserSignedInToAnyEvent && !isUserSignedInToLocation;
 
     return (
       <Marker
@@ -106,13 +112,13 @@ export const EventLocationMarker = ({
                   data-number={totalAvailableRoleForSignUp}
                   data-signed-up-count={availableRoleForSignUp}
                   data-signed-up-key={signedUpKey}
-                  data-sign-action={toggleSignText ? 'sign-out' : 'sign-in'}
+                  data-sign-action={
+                    isUserSignedInToLocation ? 'sign-out' : 'sign-in'
+                  }
                   disabled={shouldDisableButton}
                 >
                   {/* If button is disabled I want to show "sign-in" */}
-                  {!shouldDisableButton && toggleSignText
-                    ? 'Odjavi se'
-                    : 'Prijavi se'}
+                  {isUserSignedInToLocation ? 'Odjavi se' : 'Prijavi se'}
                 </Button>
               )}
             </div>
