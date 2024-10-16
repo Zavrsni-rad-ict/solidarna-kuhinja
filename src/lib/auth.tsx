@@ -7,7 +7,6 @@ import { axios } from './api-client';
 import storage from '@/utils/storage';
 import { JWT_TOKEN_LOCAL_STORAGE_KEY, QUERY_KEYS } from '@/constants';
 import { LoginInput, loginWithEmailAndPassword, logout } from '@/features/auth';
-import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { User } from '@/features/user/types';
 import { queryClient } from './react-query';
