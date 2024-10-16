@@ -46,6 +46,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
                     pauseOnFocusLoss={false}
                     theme="light"
                     hideProgressBar
+                    position="bottom-center"
                   />
                 </AuthLoader>
               </HelmetProvider>
