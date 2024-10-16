@@ -2,7 +2,6 @@ import { MainLayout } from '@/components/Layout';
 import { CreateEventView, EditEvent, EventList } from '@/features/create-event';
 import { Home } from '@/features/home';
 import { EditProfile, Profile } from '@/features/profile';
-import { CreateRole, EditRole, RoleList } from '@/features/role';
 import { CreateUser, UserList, EditUser } from '@/features/user/components';
 
 import { Suspense } from 'react';
@@ -42,14 +41,6 @@ export const adminRoutes = [
           { path: '', element: <UserList /> },
           { path: 'create', element: <CreateUser /> },
           { path: 'edit/:id', element: <EditUser /> },
-        ],
-      },
-      {
-        path: '/roles',
-        children: [
-          { path: '', element: <RoleList /> },
-          { path: 'create', element: <CreateRole /> },
-          { path: 'edit/:id', element: <EditRole /> },
         ],
       },
       {

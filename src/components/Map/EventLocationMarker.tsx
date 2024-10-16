@@ -9,10 +9,11 @@ import IconChief from '@/assets/chief.svg?react';
 import IconDeliveryBike from '@/assets/deliver-bike-svgrepo-com.svg?react';
 import IconUser from '@/assets/user-svgrepo-com.svg?react';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { EventLocation, NumberOfRoles, SignedUpRoles } from '@/types';
 import { ICON_SIZE, RoleMap, nullValueText } from '@/constants';
 import { Button } from '../Button';
+import { useTranslation } from 'react-i18next';
 
 export const EventLocationMarker = ({
   eventLocations,
@@ -52,16 +53,24 @@ export const EventLocationMarker = ({
     });
   };
 
+  const { t: tE } = useTranslation('Event');
+
+  const isUserSignedInToAnyEvent = useMemo(() => {
+    return eventLocations.some((event) =>
+      event.signedInUsers.some((signedInUser) => signedInUser.id === user?.id),
+    );
+  }, [eventLocations, user]);
+
   return eventLocations.map((location) => {
-    const toggleSignText = user?.events && user?.events.length > 0;
+    const isUserSignedInToLocation = location.signedInUsers.some(
+      (signedInUser) => signedInUser.id === user?.id,
+    );
 
     const totalAvailableRoleForSignUp = location[numberKey]; // TODO Kod radi, ali Nisu dobro upareni tipovi
     const availableRoleForSignUp = location[signedUpKey];
 
     const shouldDisableButton =
-      location.signedInUsers.some(
-        (signedInUser) => signedInUser.id !== user?.id,
-      ) && totalAvailableRoleForSignUp === availableRoleForSignUp;
+      isUserSignedInToAnyEvent && !isUserSignedInToLocation;
 
     return (
       <Marker
@@ -77,19 +86,19 @@ export const EventLocationMarker = ({
             <div className="flex flex-col my-2">
               <div className="flex gap-2">
                 <IconChief width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                <strong>Broj Kuvara: </strong>
+                <strong>{tE('marker.numberOfChefs')}: </strong>
                 {location.signedUpChefs ?? nullValueText} /{' '}
                 {location.numberOfCooks ?? nullValueText}
               </div>
               <div className="flex gap-2">
                 <IconDeliveryBike width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                <strong>Broj Dostavljaca: </strong>
+                <strong>{tE('marker.numberOfDeliverer')}: </strong>
                 {location.signedUpDeliverer ?? nullValueText} /{' '}
                 {location.numberOfDeliveryPerson ?? nullValueText}
               </div>
               <div className="flex gap-2">
                 <IconUser width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                <strong>Broj Ljudi na terenu: </strong>
+                <strong>{tE('marker.numberOfFieldWorkers')}: </strong>
                 {location.signedUpFieldWorkers ?? nullValueText} /{' '}
                 {location.numberOfFieldWorkers ?? nullValueText}
               </div>
@@ -106,13 +115,13 @@ export const EventLocationMarker = ({
                   data-number={totalAvailableRoleForSignUp}
                   data-signed-up-count={availableRoleForSignUp}
                   data-signed-up-key={signedUpKey}
-                  data-sign-action={toggleSignText ? 'sign-out' : 'sign-in'}
+                  data-sign-action={
+                    isUserSignedInToLocation ? 'sign-out' : 'sign-in'
+                  }
                   disabled={shouldDisableButton}
                 >
                   {/* If button is disabled I want to show "sign-in" */}
-                  {!shouldDisableButton && toggleSignText
-                    ? 'Odjavi se'
-                    : 'Prijavi se'}
+                  {isUserSignedInToLocation ? 'Odjavi se' : 'Prijavi se'}
                 </Button>
               )}
             </div>

@@ -1,8 +1,6 @@
 import { FormEventHandler, ReactNode } from 'react';
-// form
-import { FormProvider, UseFormReturn } from 'react-hook-form';
 
-// ----------------------------------------------------------------------
+import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 type Props = {
   children: ReactNode;

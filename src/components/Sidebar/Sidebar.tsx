@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { sidebarItems } from './sidebarList';
+import { useSidebarList } from './sidebarList';
 import { useUser } from '@/lib/auth';
 
 export const Sidebar = () => {
@@ -10,6 +10,8 @@ export const Sidebar = () => {
   const [activeTab, setActiveTab] = useState(
     location.pathname === '/' ? 'home' : tabName,
   );
+
+  const sidebarItems = useSidebarList();
 
   const { data: user } = useUser();
 

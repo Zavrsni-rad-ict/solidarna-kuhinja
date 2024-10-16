@@ -1,10 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { axios } from '@/lib/api-client';
-import {
-  MUTATION_KEYS,
-  QUERY_KEYS,
-  REDIRECT_AFTER_2_SECONDS,
-} from '@/constants';
+import { MUTATION_KEYS, QUERY_KEYS, REDIRECT_DELAY } from '@/constants';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { queryClient } from '@/lib/react-query';
@@ -46,7 +42,7 @@ export const useCreateUser = () => {
 
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USERS] });
 
-      setTimeout(() => navigate('/users'), REDIRECT_AFTER_2_SECONDS);
+      setTimeout(() => navigate('/users'), REDIRECT_DELAY);
     },
     onError: (err) => {
       // TODO: Obrisi as any da vidis gresku...

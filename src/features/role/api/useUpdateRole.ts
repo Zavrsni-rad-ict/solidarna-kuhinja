@@ -3,11 +3,7 @@ import { RoleRequest } from './useCreateRole';
 import { ActionResponse, RoleName, RoleResponse } from '@/types';
 import { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  MUTATION_KEYS,
-  QUERY_KEYS,
-  REDIRECT_AFTER_2_SECONDS,
-} from '@/constants';
+import { MUTATION_KEYS, QUERY_KEYS, REDIRECT_DELAY } from '@/constants';
 import { useFetchRoles } from './useFetchRoles';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -57,7 +53,7 @@ export const useUpdateRole = () => {
 
       setTimeout(() => {
         navigate('/roles');
-      }, REDIRECT_AFTER_2_SECONDS);
+      }, REDIRECT_DELAY);
     },
   });
 };

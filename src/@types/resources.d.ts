@@ -12,6 +12,12 @@ interface Resources {
     submit: 'Submit';
     chooseDate: 'Choose date';
   };
+  Sidebar: {
+    home: 'Home';
+    users: 'Users';
+    createEvent: 'Create Event';
+    listOfEvents: 'List of Events';
+  };
   Login: {
     password: 'Password';
     errors: {
@@ -78,6 +84,11 @@ interface Resources {
       create: "You've created an event successfully";
       update: "You've updated an event successfully";
       delete: "You've deleted an event successfully";
+    };
+    marker: {
+      numberOfChefs: 'Number of chefs';
+      numberOfDeliverer: 'Number of deliverer';
+      numberOfFieldWorkers: 'Number of Field Workers';
     };
   };
 }

@@ -29,23 +29,41 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
       .required(tGE('required')),
     password: yup
       .string()
-      .required(tGE('required'))
-      .min(
-        MINIMUM_CHARACTERS,
-        tGE('minimumCharacters') + ` ${MINIMUM_CHARACTERS}`,
-      )
-      .max(
-        MAXIMUM_CHARACTERS,
-        tGE('maximumCharacters') + ` ${MAXIMUM_CHARACTERS}`,
-      ),
+      .transform((value) => (value === '' ? undefined : value))
+      .when('$user', (_, schema) => {
+        console.log({ user, schema });
+        return user
+          ? schema
+              .nullable() // Ako postoji user, password je opcion
+              .notRequired()
+              .min(
+                MINIMUM_CHARACTERS,
+                `Password must be at least ${MINIMUM_CHARACTERS} characters`,
+              )
+              .max(
+                MAXIMUM_CHARACTERS,
+                `Password must be at most ${MAXIMUM_CHARACTERS} characters`,
+              )
+              .optional()
+          : schema
+              .required('Password is required') // Ako nema user-a, password je obavezan
+              .min(
+                MINIMUM_CHARACTERS,
+                `Password must be at least ${MINIMUM_CHARACTERS} characters`,
+              )
+              .max(
+                MAXIMUM_CHARACTERS,
+                `Password must be at most ${MAXIMUM_CHARACTERS} characters`,
+              );
+      }),
     firstName: yup
       .string()
       .required(tGE('required'))
-      .matches(/^[A-ZŠĐŽČĆ].*$/, tGE('capitalLetter')),
+      .matches(/^\p{Lu}[\p{Ll}\s]*$/u, tGE('capitalLetter')),
     lastName: yup
       .string()
       .required(tGE('required'))
-      .matches(/^[A-ZŠĐŽČĆ].*$/, tGE('capitalLetter')),
+      .matches(/^\p{Lu}[\p{Ll}\s]*$/u, tGE('capitalLetter')),
     username: yup.string().required(tGE('required')),
     role: yup.number().required(tGE('required')).typeError(tGE('required')),
   });

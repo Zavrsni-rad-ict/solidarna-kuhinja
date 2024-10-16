@@ -12,6 +12,12 @@
     "submit": "Submit",
     "chooseDate": "Izaberi datum"
   },
+  "Sidebar": {
+    "home": "Početna strana",
+    "users": "Korisnici",
+    "createEvent": "Kreiraj događaj",
+    "listOfEvents": "Lista događaja"
+  },
   "Login": {
     "password": "Lozinka",
     "errors": {
@@ -56,7 +62,7 @@
     "calendar": "Kalendar",
     "numberOfCooks": "Broj kuvara",
     "numberOfFieldWorkers": "Broj ljudi na terenu",
-    "numberOfDeliveryPerson": "Broj dostavljaca",
+    "numberOfDeliveryPerson": "Broj dostavljača",
     "mapLocation": "Izaberi lokaciju na mapi"
   },
   "BasicInfo": {
@@ -78,6 +84,11 @@
       "create": "Uspešno ste kreirali događaj",
       "update": "Uspešno ste izmenili događaj",
       "delete": "Uspešno ste obrisali događaj"
+    },
+    "marker": {
+      "numberOfChefs": "Broj kuvara",
+      "numberOfDeliverer": "Broj dostavljača",
+      "numberOfFieldWorkers": "Broj ljudi na terenu"
     }
   }
 }
