@@ -59,11 +59,11 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
     firstName: yup
       .string()
       .required(tGE('required'))
-      .matches(/^[A-ZŠĐŽČĆ].*$/, tGE('capitalLetter')),
+      .matches(/^\p{Lu}[\p{Ll}\s]*$/u, tGE('capitalLetter')),
     lastName: yup
       .string()
       .required(tGE('required'))
-      .matches(/^[A-ZŠĐŽČĆ].*$/, tGE('capitalLetter')),
+      .matches(/^\p{Lu}[\p{Ll}\s]*$/u, tGE('capitalLetter')),
     username: yup.string().required(tGE('required')),
     role: yup.number().required(tGE('required')).typeError(tGE('required')),
   });
