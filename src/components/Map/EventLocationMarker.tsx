@@ -13,6 +13,7 @@ import React, { useMemo } from 'react';
 import { EventLocation, NumberOfRoles, SignedUpRoles } from '@/types';
 import { ICON_SIZE, RoleMap, nullValueText } from '@/constants';
 import { Button } from '../Button';
+import { useTranslation } from 'react-i18next';
 
 export const EventLocationMarker = ({
   eventLocations,
@@ -52,6 +53,8 @@ export const EventLocationMarker = ({
     });
   };
 
+  const { t: tE } = useTranslation('Event');
+
   const isUserSignedInToAnyEvent = useMemo(() => {
     return eventLocations.some((event) =>
       event.signedInUsers.some((signedInUser) => signedInUser.id === user?.id),
@@ -83,19 +86,19 @@ export const EventLocationMarker = ({
             <div className="flex flex-col my-2">
               <div className="flex gap-2">
                 <IconChief width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                <strong>Broj Kuvara: </strong>
+                <strong>{tE('marker.numberOfChefs')}: </strong>
                 {location.signedUpChefs ?? nullValueText} /{' '}
                 {location.numberOfCooks ?? nullValueText}
               </div>
               <div className="flex gap-2">
                 <IconDeliveryBike width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                <strong>Broj Dostavljaca: </strong>
+                <strong>{tE('marker.numberOfDeliverer')}: </strong>
                 {location.signedUpDeliverer ?? nullValueText} /{' '}
                 {location.numberOfDeliveryPerson ?? nullValueText}
               </div>
               <div className="flex gap-2">
                 <IconUser width={ICON_SIZE.sm} height={ICON_SIZE.sm} />
-                <strong>Broj Ljudi na terenu: </strong>
+                <strong>{tE('marker.numberOfFieldWorkers')}: </strong>
                 {location.signedUpFieldWorkers ?? nullValueText} /{' '}
                 {location.numberOfFieldWorkers ?? nullValueText}
               </div>

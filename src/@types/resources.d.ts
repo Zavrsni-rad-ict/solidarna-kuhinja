@@ -85,6 +85,11 @@ interface Resources {
       update: "You've updated an event successfully";
       delete: "You've deleted an event successfully";
     };
+    marker: {
+      numberOfChefs: 'Number of chefs';
+      numberOfDeliverer: 'Number of deliverer';
+      numberOfFieldWorkers: 'Number of Field Workers';
+    };
   };
 }
 
