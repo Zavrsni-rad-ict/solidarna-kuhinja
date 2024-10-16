@@ -12,6 +12,12 @@ interface Resources {
     submit: 'Submit';
     chooseDate: 'Choose date';
   };
+  Sidebar: {
+    home: 'Home';
+    users: 'Users';
+    createEvent: 'Create Event';
+    listOfEvents: 'List of Events';
+  };
   Login: {
     password: 'Password';
     errors: {
