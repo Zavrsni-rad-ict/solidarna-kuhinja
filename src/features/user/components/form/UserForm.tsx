@@ -32,7 +32,6 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
       .string()
       .transform((value) => (value === '' ? undefined : value))
       .when('$user', (_, schema) => {
-        console.log({ user, schema });
         return user
           ? schema
               .nullable() // Ako postoji user, password je opcion
@@ -72,7 +71,11 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
         tGE('capitalLetter'),
       ),
     username: yup.string().required(tGE('required')),
-    role: yup.number().required(tGE('required')).typeError(tGE('required')),
+    role: yup.number().when('$user', (_, schema) => {
+      return user?.role
+        ? schema.required(tGE('required')).typeError(tGE('required'))
+        : schema.notRequired();
+    }),
     participationCount: yup.number().optional(),
   });
 
@@ -107,21 +110,21 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
             <InputGroup
               name="firstName"
               placeholder="First Name"
-              label="First Name"
+              label={tUL('columns.firstName')}
             />
           </div>
           <div className="col-span-6">
             <InputGroup
               name="lastName"
               placeholder="Last Name"
-              label="Last Name"
+              label={tUL('columns.lastName')}
             />
           </div>
           <div className="col-span-4">
             <InputGroup
               name="username"
               placeholder="Username"
-              label="Username"
+              label={tUL('columns.username')}
             />
           </div>
 
@@ -137,29 +140,31 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
             />
           </div>
 
-          <div className="col-span-12">
-            {isLoadingRoles ? (
-              <Spinner />
-            ) : (
-              <Dropdown label="Role" name="role">
-                {data?.roles.map((role) => {
-                  return (
-                    <option value={role.id} key={role.id}>
-                      {role.name}
-                    </option>
-                  );
-                })}
-              </Dropdown>
-            )}
-            {user && (
-              <InputGroup
-                name="participationCount"
-                placeholder="Number"
-                label={tUL('columns.participationCount')}
-                type="text"
-              />
-            )}
-          </div>
+          {user?.role && user.participationCount && (
+            <div className="col-span-12">
+              {isLoadingRoles ? (
+                <Spinner />
+              ) : (
+                <Dropdown label="Role" name="role">
+                  {data?.roles.map((role) => {
+                    return (
+                      <option value={role.id} key={role.id}>
+                        {role.name}
+                      </option>
+                    );
+                  })}
+                </Dropdown>
+              )}
+              {user && (
+                <InputGroup
+                  name="participationCount"
+                  placeholder="Number"
+                  label={tUL('columns.participationCount')}
+                  type="text"
+                />
+              )}
+            </div>
+          )}
 
           <div className="col-start-1 mt-6">
             <Button

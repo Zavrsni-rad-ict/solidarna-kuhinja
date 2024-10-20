@@ -4,13 +4,15 @@
   },
   "General": {
     "sign_in": "Sign In",
+    "sign_out": "Sign out",
     "actions": "Actions",
     "edit": "Edit",
     "delete": "Delete",
     "no_data_available": "No data available",
     "number_input_placeholder": "Enter a number",
     "submit": "Submit",
-    "chooseDate": "Choose date"
+    "chooseDate": "Choose date",
+    "profile": "profile"
   },
   "Sidebar": {
     "home": "Home",
@@ -31,7 +33,7 @@
     "required": "Field is required",
     "minimumCharacters": "Minimum character is",
     "maximumCharacters": "Maximum character is",
-    "capitalLetter": "Field must begin with capital letter"
+    "capitalLetter": "The field must start with a capital letter, and all other letters must be lowercase"
   },
   "UserList": {
     "columns": {

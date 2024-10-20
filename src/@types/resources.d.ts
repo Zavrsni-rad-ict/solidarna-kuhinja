@@ -4,6 +4,7 @@ interface Resources {
   };
   General: {
     sign_in: 'Sign In';
+    sign_out: 'Sign out';
     actions: 'Actions';
     edit: 'Edit';
     delete: 'Delete';
@@ -11,6 +12,7 @@ interface Resources {
     number_input_placeholder: 'Enter a number';
     submit: 'Submit';
     chooseDate: 'Choose date';
+    profile: 'profile';
   };
   Sidebar: {
     home: 'Home';
