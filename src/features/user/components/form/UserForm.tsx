@@ -140,29 +140,31 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
             />
           </div>
 
-          {user?.role && user.participationCount && (
+          {user?.role && (
             <div className="col-span-12">
               {isLoadingRoles ? (
                 <Spinner />
               ) : (
                 <Dropdown label="Role" name="role">
-                  {data?.roles.map((role) => {
-                    return (
-                      <option value={role.id} key={role.id}>
-                        {role.name}
-                      </option>
-                    );
-                  })}
+                  {data?.roles.map((role) => (
+                    <option value={role.id} key={role.id}>
+                      {role.name}
+                    </option>
+                  ))}
                 </Dropdown>
               )}
-              {user && (
-                <InputGroup
-                  name="participationCount"
-                  placeholder="Number"
-                  label={tUL('columns.participationCount')}
-                  type="text"
-                />
-              )}
+            </div>
+          )}
+
+          {/* If participationCount is undefined, it means we didn't pass this value at all, which means the user shouldn't see this input*/}
+          {typeof user?.participationCount === 'number' && (
+            <div className="col-span-12">
+              <InputGroup
+                name="participationCount"
+                placeholder="Number"
+                label={tUL('columns.participationCount')}
+                type="text"
+              />
             </div>
           )}
 

@@ -25,7 +25,7 @@ export const protectedRoutes = [
       { path: '', element: <Home /> },
       { path: '/account', element: <Profile /> },
       { path: '/edit-profile', element: <EditProfile /> },
-      { path: '*', element: <Navigate to="/" /> }, // TODO: This line should probbably be singled out and in the last place
+      { path: '*', element: <Navigate to="/" /> }, // ? TODO: This line should probbably be singled out and in the last place
     ],
   },
 ];

@@ -12,7 +12,7 @@ type Props = {
 
 export const InputGroup = (props: Props) => {
   const { label, placeholder, type = 'text', name, ...inputProps } = props;
-  // TODO ??
+
   // const { control } = useFormContext();
 
   return (
