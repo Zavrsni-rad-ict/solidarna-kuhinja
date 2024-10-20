@@ -36,7 +36,7 @@ export const LoginForm = () => {
   const { handleSubmit, control } = methods;
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { mutate: login, error, status } = useLogin();
+  const { mutate: login, status } = useLogin();
 
   useEffect(() => {
     if (status === 'success') setIsSubmitted(false);
@@ -45,6 +45,7 @@ export const LoginForm = () => {
     login(data);
     setIsSubmitted(true);
   };
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') return handleSubmit(onSubmit);
   };
@@ -57,7 +58,7 @@ export const LoginForm = () => {
     >
       <InputGroup
         label="Email"
-        placeholder="email..."
+        placeholder="Email..."
         control={control}
         name="email"
       />
