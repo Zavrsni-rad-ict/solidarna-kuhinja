@@ -110,21 +110,21 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
             <InputGroup
               name="firstName"
               placeholder="First Name"
-              label="First Name"
+              label={tUL('columns.firstName')}
             />
           </div>
           <div className="col-span-6">
             <InputGroup
               name="lastName"
               placeholder="Last Name"
-              label="Last Name"
+              label={tUL('columns.lastName')}
             />
           </div>
           <div className="col-span-4">
             <InputGroup
               name="username"
               placeholder="Username"
-              label="Username"
+              label={tUL('columns.username')}
             />
           </div>
 

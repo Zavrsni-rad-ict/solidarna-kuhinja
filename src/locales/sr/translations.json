@@ -4,13 +4,15 @@
   },
   "General": {
     "sign_in": "Uloguj se",
+    "sign_out": "Odjavi se",
     "actions": "Akcije",
     "edit": "Izmeni",
     "delete": "Obriši",
     "no_data_available": "Nema dostupnih podataka",
     "number_input_placeholder": "Uneti broj",
     "submit": "Submit",
-    "chooseDate": "Izaberi datum"
+    "chooseDate": "Izaberi datum",
+    "profile": "profil"
   },
   "Sidebar": {
     "home": "Početna strana",

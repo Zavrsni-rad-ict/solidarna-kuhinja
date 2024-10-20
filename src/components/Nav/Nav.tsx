@@ -9,34 +9,27 @@ import {
   MenuItem,
   Avatar,
 } from '@material-tailwind/react';
-import {
-  UserCircleIcon,
-  Cog6ToothIcon,
-  PowerIcon,
-} from '@heroicons/react/24/solid';
+import { Cog6ToothIcon, PowerIcon } from '@heroicons/react/24/solid';
 import { useLogout } from '@/lib/auth';
 import { useNavigate } from 'react-router-dom';
 
 import logoPath from '@/assets/logo-white.png';
 import { ICON_SIZE } from '@/constants';
-
-// profile menu component
-const profileMenuItems = [
-  {
-    label: 'My Profile',
-    icon: UserCircleIcon,
-  },
-  {
-    label: 'Edit Profile',
-    icon: Cog6ToothIcon,
-  },
-  {
-    label: 'Sign Out',
-    icon: PowerIcon,
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 function ProfileMenu() {
+  const { t } = useTranslation('General');
+  const profileMenuItems = [
+    {
+      label: `${t('edit')} ${t('profile')}`,
+      icon: Cog6ToothIcon,
+    },
+    {
+      label: t('sign_out'),
+      icon: PowerIcon,
+    },
+  ];
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
