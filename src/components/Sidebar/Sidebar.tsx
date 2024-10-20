@@ -23,7 +23,7 @@ export const Sidebar = () => {
   return (
     <aside
       id="logo-sidebar"
-      className={`absolute sm:relative z-[999999] bg-white sm:block w-64 min-h-screen-with-header transition-transform -translate-x-full bg-blue-gray-200 border-r border-gray-200 ${
+      className={`absolute sm:relative z-[99999] bg-white sm:block w-64 min-h-screen-with-header transition-transform -translate-x-full bg-blue-gray-200 border-r border-gray-200 ${
         isSidebarActive ? '' : 'translate-x-0'
       } sm:-translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
       aria-label="Sidebar"
