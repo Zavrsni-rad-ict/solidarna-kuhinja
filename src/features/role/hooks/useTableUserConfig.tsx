@@ -96,15 +96,11 @@ export const useTableUserConfig = () => {
                   setSelectedUserId(user.id);
                 }}
                 className={`${
-                  user.username === 'admin' || String(user.id) === '2'
-                    ? variants.disabled
-                    : variants.red
+                  user.role.type === 'admin' ? variants.disabled : variants.red
                 }`}
-                disabled={user.username === 'admin' || String(user.id) === '2'}
+                disabled={user.role.type === 'admin'}
                 title={
-                  user.username === 'admin' || String(user.id) === '2'
-                    ? 'Cannot delete admin'
-                    : undefined
+                  user.role.type === 'admin' ? 'Cannot delete admin' : undefined
                 }
               >
                 {tG('delete')}
