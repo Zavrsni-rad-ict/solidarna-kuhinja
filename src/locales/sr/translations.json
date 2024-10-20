@@ -31,7 +31,7 @@
     "required": "Polje je obavezno",
     "minimumCharacters": "Minimalan broj karaktera je",
     "maximumCharacters": "Maksimalan broj karaktera je",
-    "capitalLetter": "Polje mora da počne sa velikim slovom"
+    "capitalLetter": "Polje mora da počne sa velikim slovom i ostala slova moraju biti mala!"
   },
   "UserList": {
     "columns": {
