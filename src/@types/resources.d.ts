@@ -4,6 +4,7 @@ interface Resources {
   };
   General: {
     sign_in: 'Sign In';
+    sign_out: 'Sign out';
     actions: 'Actions';
     edit: 'Edit';
     delete: 'Delete';
@@ -11,6 +12,7 @@ interface Resources {
     number_input_placeholder: 'Enter a number';
     submit: 'Submit';
     chooseDate: 'Choose date';
+    profile: 'profile';
   };
   Sidebar: {
     home: 'Home';
@@ -73,6 +75,8 @@ interface Resources {
   Modal: {
     yes: "Yes I'm sure";
     no: 'No, cancel';
+    eventMessage: 'Are you sure you want to delete event?';
+    userMessage: 'Are you sure you want to delete this user?';
   };
   Home: { noAction: 'There is no action with the desired date' };
   EditProfile: {
@@ -84,6 +88,8 @@ interface Resources {
       create: "You've created an event successfully";
       update: "You've updated an event successfully";
       delete: "You've deleted an event successfully";
+      signIn: "You've successfully registered for the event!";
+      signOut: "You've successfully signed out for the event!";
     };
     marker: {
       numberOfChefs: 'Number of chefs';

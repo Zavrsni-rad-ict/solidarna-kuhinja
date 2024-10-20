@@ -36,7 +36,7 @@ export const Modal = ({ children, isOpen, onClose }: Props) => {
     isOpen &&
     createPortal(
       <div
-        className="fixed top-0 left-0 w-screen h-screen bg-slate-950 bg-opacity-55 flex justify-center items-center"
+        className="fixed top-0 left-0 w-screen h-screen bg-slate-950 bg-opacity-55 flex justify-center items-center z-[999999]"
         onClick={onClose}
       >
         <div

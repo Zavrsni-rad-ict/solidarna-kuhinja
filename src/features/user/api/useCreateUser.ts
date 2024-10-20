@@ -11,10 +11,11 @@ import { useTranslation } from 'react-i18next';
 export type UserRequest = {
   email: string;
   username: string;
-  role: number;
+  role?: number;
   firstName: string;
   lastName: string;
   blocked: boolean;
+  participationCount?: number;
 };
 
 const createUser = (user: UserRequest): Promise<User> =>

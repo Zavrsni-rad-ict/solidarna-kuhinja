@@ -7,7 +7,7 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 
 export const BasicInfo = () => {
-  const { data: user, isLoading } = useUser();
+  const { data: user, isLoading, isFetching } = useUser();
 
   const { t: tBI } = useTranslation('BasicInfo');
 
@@ -29,30 +29,39 @@ export const BasicInfo = () => {
         {tBI('welcomeBack')} {user?.firstName} {user?.lastName}
       </DialogHeader>
 
-      <div className="grid gap-3 grid-cols-1 lg:grid-cols-3">
-        <Card className="shadow-md">
-          <CardBody className="flex flex-col gap-y-5">
-            <small className="font-bold">{tBI('participationInAction')}</small>
-            <span className="text-4xl font-bold">
-              {isLoading ? <Spinner /> : user?.participationCount ?? 0}
-            </span>
-          </CardBody>
-        </Card>
-        <Card className="shadow-md">
-          <CardBody className="flex flex-col gap-y-5">
-            <small className="font-bold">{tBI('lastTimeParticipated')}</small>
-            <span className="text-4xl font-bold">
-              {isLoading ? (
-                <Spinner />
-              ) : user?.events?.length === 0 ? (
-                nullValueText
-              ) : (
-                moment(latestEvent).format('D.MM.YYYY')
-              )}
-            </span>
-          </CardBody>
-        </Card>
-      </div>
+      {user?.role?.type !== 'admin' &&
+        (isFetching ? (
+          <CenteredLoadingSpinner />
+        ) : (
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-3">
+            <Card className="shadow-md">
+              <CardBody className="flex flex-col gap-y-5">
+                <small className="font-bold">
+                  {tBI('participationInAction')}
+                </small>
+                <span className="text-4xl font-bold">
+                  {isLoading ? <Spinner /> : user?.events?.length ?? 0}
+                </span>
+              </CardBody>
+            </Card>
+            <Card className="shadow-md">
+              <CardBody className="flex flex-col gap-y-5">
+                <small className="font-bold">
+                  {tBI('lastTimeParticipated')}
+                </small>
+                <span className="text-4xl font-bold">
+                  {isLoading ? (
+                    <Spinner />
+                  ) : user?.events?.length === 0 ? (
+                    nullValueText
+                  ) : (
+                    moment(latestEvent).format('D.MM.YYYY')
+                  )}
+                </span>
+              </CardBody>
+            </Card>
+          </div>
+        ))}
     </div>
   );
 };

@@ -24,6 +24,7 @@ export const EditUser = () => {
         role: user.role.id,
         username: user.username,
         blocked: user.blocked,
+        participationCount: user.participationCount,
       },
     [user],
   );

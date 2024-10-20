@@ -4,13 +4,15 @@
   },
   "General": {
     "sign_in": "Uloguj se",
+    "sign_out": "Odjavi se",
     "actions": "Akcije",
     "edit": "Izmeni",
     "delete": "Obriši",
     "no_data_available": "Nema dostupnih podataka",
     "number_input_placeholder": "Uneti broj",
     "submit": "Submit",
-    "chooseDate": "Izaberi datum"
+    "chooseDate": "Izaberi datum",
+    "profile": "profil"
   },
   "Sidebar": {
     "home": "Početna strana",
@@ -31,7 +33,7 @@
     "required": "Polje je obavezno",
     "minimumCharacters": "Minimalan broj karaktera je",
     "maximumCharacters": "Maksimalan broj karaktera je",
-    "capitalLetter": "Polje mora da počne sa velikim slovom"
+    "capitalLetter": "Polje mora da počne sa velikim slovom i ostala slova moraju biti mala!"
   },
   "UserList": {
     "columns": {
@@ -72,7 +74,9 @@
   },
   "Modal": {
     "yes": "Siguran sam",
-    "no": "Ne, otkaži"
+    "no": "Ne, otkaži",
+    "eventMessage": "Da li ste sigurni da želite da obrišete događaj?",
+    "userMessage": "Da li ste sigurni da želite da obrišete korisnika?"
   },
   "Home": { "noAction": "Nema akcije sa zeljenim datumom" },
   "EditProfile": {
@@ -83,7 +87,9 @@
     "toastSuccess": {
       "create": "Uspešno ste kreirali događaj",
       "update": "Uspešno ste izmenili događaj",
-      "delete": "Uspešno ste obrisali događaj"
+      "delete": "Uspešno ste obrisali događaj",
+      "signIn": "Uspešno ste se prijavili na događaj",
+      "signOut": "Uspešno ste se odjavili sa događaja"
     },
     "marker": {
       "numberOfChefs": "Broj kuvara",

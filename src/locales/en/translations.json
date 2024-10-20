@@ -4,13 +4,15 @@
   },
   "General": {
     "sign_in": "Sign In",
+    "sign_out": "Sign out",
     "actions": "Actions",
     "edit": "Edit",
     "delete": "Delete",
     "no_data_available": "No data available",
     "number_input_placeholder": "Enter a number",
     "submit": "Submit",
-    "chooseDate": "Choose date"
+    "chooseDate": "Choose date",
+    "profile": "profile"
   },
   "Sidebar": {
     "home": "Home",
@@ -31,7 +33,7 @@
     "required": "Field is required",
     "minimumCharacters": "Minimum character is",
     "maximumCharacters": "Maximum character is",
-    "capitalLetter": "Field must begin with capital letter"
+    "capitalLetter": "The field must start with a capital letter, and all other letters must be lowercase"
   },
   "UserList": {
     "columns": {
@@ -72,7 +74,9 @@
   },
   "Modal": {
     "yes": "Yes I'm sure",
-    "no": "No, cancel"
+    "no": "No, cancel",
+    "eventMessage": "Are you sure you want to delete event?",
+    "userMessage": "Are you sure you want to delete this user?"
   },
   "Home": { "noAction": "There is no action with the desired date" },
   "EditProfile": {
@@ -83,7 +87,9 @@
     "toastSuccess": {
       "create": "You've created an event successfully",
       "update": "You've updated an event successfully",
-      "delete": "You've deleted an event successfully"
+      "delete": "You've deleted an event successfully",
+      "signIn": "You've successfully registered for the event!",
+      "signOut": "You've successfully signed out for the event!"
     },
     "marker": {
       "numberOfChefs": "Number of chefs",
