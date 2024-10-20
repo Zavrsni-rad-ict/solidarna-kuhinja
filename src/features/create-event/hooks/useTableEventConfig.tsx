@@ -100,7 +100,10 @@ export const useTableEventConfig = () => {
               </Link>
               <Button
                 type="button"
-                onClick={() => handleDeleteClick(eventId)}
+                onClick={(ev: React.MouseEvent<HTMLButtonElement>) => {
+                  ev.stopPropagation();
+                  handleDeleteClick(eventId);
+                }}
                 className={variants.red}
               >
                 {tG('delete')}
