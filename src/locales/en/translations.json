@@ -83,7 +83,9 @@
     "toastSuccess": {
       "create": "You've created an event successfully",
       "update": "You've updated an event successfully",
-      "delete": "You've deleted an event successfully"
+      "delete": "You've deleted an event successfully",
+      "signIn": "You've successfully registered for the event!",
+      "signOut": "You've successfully signed out for the event!"
     },
     "marker": {
       "numberOfChefs": "Number of chefs",

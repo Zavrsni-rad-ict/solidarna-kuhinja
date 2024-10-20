@@ -83,7 +83,9 @@
     "toastSuccess": {
       "create": "Uspešno ste kreirali događaj",
       "update": "Uspešno ste izmenili događaj",
-      "delete": "Uspešno ste obrisali događaj"
+      "delete": "Uspešno ste obrisali događaj",
+      "signIn": "Uspešno ste se prijavili na događaj",
+      "signOut": "Uspešno ste se odjavili sa događaja"
     },
     "marker": {
       "numberOfChefs": "Broj kuvara",
