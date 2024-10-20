@@ -2,6 +2,7 @@ import { Table as TableProps, flexRender } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { PaginationControl } from '../PaginationControl/PaginationControl';
 import { nullValueText } from '@/constants';
+import { User } from '@/features/user/types';
 
 type Props<T> = {
   table: TableProps<T>;
@@ -82,38 +83,10 @@ export const Table = <T,>({
                     </td>
                   ))}
                 </tr>
-                {expandRow === row.id &&
-                  row.original.attributes?.users?.data.length > 0 && (
-                    <>
-                      {row.original.attributes.users.data.map(
-                        ({ attributes: user }, userIndex) => (
-                          <tr key={userIndex} className="bg-gray-100">
-                            <td className="p-4">
-                              <div>
-                                <strong>Username:</strong> {user.username}
-                              </div>
-                            </td>
-                            <td className="p-4">
-                              <div>
-                                <strong>FirstName:</strong> {user.firstName}
-                              </div>
-                            </td>
-                            <td className="p-4">
-                              <div>
-                                <strong>LastName:</strong> {user.lastName}
-                              </div>
-                            </td>
-                            <td className="p-4" colSpan={4}>
-                              <div>
-                                <strong>Role:</strong>{' '}
-                                {user.role.data.attributes.name}
-                              </div>
-                            </td>
-                          </tr>
-                        ),
-                      )}
-                    </>
-                  )}
+                {expandRow === row.id && (
+                  // @ts-expect-error Property 'attributes' does not exist on type 'T'
+                  <ExpandableRow users={row.original.attributes?.users?.data} />
+                )}
               </>
             ))
           )}
@@ -141,6 +114,36 @@ export const Table = <T,>({
       <PaginationControl table={table} />
     </div>
   );
+};
+
+const ExpandableRow = ({ users }: { users: User[] }) => {
+  return users?.length > 0
+    ? // @ts-expect-error attributes
+      users.map(({ attributes: user }, userIndex) => (
+        <tr key={userIndex} className="bg-gray-100">
+          <td className="p-4">
+            <div>
+              <strong>Username:</strong> {user.username}
+            </div>
+          </td>
+          <td className="p-4">
+            <div>
+              <strong>FirstName:</strong> {user.firstName}
+            </div>
+          </td>
+          <td className="p-4">
+            <div>
+              <strong>LastName:</strong> {user.lastName}
+            </div>
+          </td>
+          <td className="p-4" colSpan={4}>
+            <div>
+              <strong>Role:</strong> {user.role.data.attributes.name}
+            </div>
+          </td>
+        </tr>
+      ))
+    : null;
 };
 
 Table.displayName = 'Table';
