@@ -53,7 +53,6 @@ export const ICON_SIZE = {
 
 export const nullValueText = '\u2014';
 
-// TODO Prepraviti tipove i renamovati key (number -> totalSignedUp)
 export const RoleMap: Record<
   any,
   { signedUp: SignedUpRoles; number: NumberOfRoles }
