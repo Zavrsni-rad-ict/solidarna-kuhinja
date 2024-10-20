@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 
 import { useEffect, useRef } from 'react';
 import { SetViewOnClick } from './SetViewOnClick';
-import { BELGRADE_COORDINATES, ICON_SIZE } from '@/constants';
+import { BELGRADE_COORDINATES } from '@/constants';
 import { Coordinates, EventLocation } from '@/types';
 import { calculateMapCenter } from '@/utils/calculateMapCenter';
 import { DraggableMarker } from './DraggableMarker';
