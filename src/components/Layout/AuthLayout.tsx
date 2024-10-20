@@ -7,9 +7,8 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const hasVisited = localStorage.getItem('hasVisited');
     if (!hasVisited) {
-      // Ako nema unosa u localStorage, ovo je prvi put da korisnik ulazi
       setIsFirstVisit(true);
-      localStorage.setItem('hasVisited', 'true'); // Zabeleži da je korisnik posetio
+      localStorage.setItem('hasVisited', 'true');
     }
   }, []);
 
