@@ -47,8 +47,8 @@ Password: qwe123
 ![Lista kreiranih dogadjaja](https://github.com/user-attachments/assets/ea7a18de-eb35-41bf-b720-a1e50c3a8075)
 
 ### Edit Profile
-![image](https://github.com/user-attachments/assets/7f288d1c-773c-4319-b834-f7b0441e66b7)
 ![image](https://github.com/user-attachments/assets/061ca98f-e808-4b6c-a1b0-ea1393516769)
+![image](https://github.com/user-attachments/assets/51da4520-7b4e-4c1e-946b-2f18e6e49fef)
 
 
 
