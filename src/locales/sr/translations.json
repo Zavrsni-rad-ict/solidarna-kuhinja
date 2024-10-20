@@ -72,7 +72,9 @@
   },
   "Modal": {
     "yes": "Siguran sam",
-    "no": "Ne, otkaži"
+    "no": "Ne, otkaži",
+    "eventMessage": "Da li ste sigurni da želite da obrišete događaj?",
+    "userMessage": "Da li ste sigurni da želite da obrišete korisnika?"
   },
   "Home": { "noAction": "Nema akcije sa zeljenim datumom" },
   "EditProfile": {

@@ -10,6 +10,8 @@ import React from 'react';
 
 export const UserList = () => {
   const { t: tUL } = useTranslation('UserList');
+  const { t: tM } = useTranslation('Modal');
+
   const { mutate: deleteUser } = useDeleteUser();
 
   const {
@@ -39,7 +41,7 @@ export const UserList = () => {
         isOpen={isOpenModal}
         onClose={handleClose}
         onConfirm={handleDelete}
-        message="Are you sure you want to delete this role?"
+        message={tM('userMessage')}
       />
 
       <div className="p-6">

@@ -73,6 +73,8 @@ interface Resources {
   Modal: {
     yes: "Yes I'm sure";
     no: 'No, cancel';
+    eventMessage: 'Are you sure you want to delete event?';
+    userMessage: 'Are you sure you want to delete this user?';
   };
   Home: { noAction: 'There is no action with the desired date' };
   EditProfile: {
