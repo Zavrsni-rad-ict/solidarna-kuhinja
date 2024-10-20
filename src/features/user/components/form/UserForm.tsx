@@ -21,6 +21,7 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
   const { t: tGE } = useTranslation('GlobalError');
   const { t: tL } = useTranslation('Login');
   const { t: tG } = useTranslation('General');
+  const { t: tUL } = useTranslation('UserList');
 
   const schema = yup.object().shape({
     email: yup
@@ -66,6 +67,7 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
       .matches(/^\p{Lu}[\p{Ll}\s]*$/u, tGE('capitalLetter')),
     username: yup.string().required(tGE('required')),
     role: yup.number().required(tGE('required')).typeError(tGE('required')),
+    participationCount: yup.number().optional(),
   });
 
   const methods = useForm({
@@ -143,9 +145,17 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
                 })}
               </Dropdown>
             )}
+            {user && (
+              <InputGroup
+                name="participationCount"
+                placeholder="Number"
+                label={tUL('columns.participationCount')}
+                type="text"
+              />
+            )}
           </div>
 
-          <div className="col-start-1 mt-4">
+          <div className="col-start-1 mt-6">
             <Button
               type="submit"
               variant={isSubmitted ? 'disabled' : 'primary'}
