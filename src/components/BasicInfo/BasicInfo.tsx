@@ -29,7 +29,7 @@ export const BasicInfo = () => {
         {tBI('welcomeBack')} {user?.firstName} {user?.lastName}
       </DialogHeader>
 
-      {user?.role.type !== 'admin' && (
+      {user?.role?.type !== 'admin' && (
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-3">
           <Card className="shadow-md">
             <CardBody className="flex flex-col gap-y-5">

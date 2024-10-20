@@ -2,15 +2,23 @@ import { Table as TableProps, flexRender } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { PaginationControl } from '../PaginationControl/PaginationControl';
 import { nullValueText } from '@/constants';
+import { User } from '@/features/user/types';
 
 type Props<T> = {
   table: TableProps<T>;
   shouldShowFooter?: boolean;
+  expandRow?: string | null;
+  setExpandedRow?: (rowId: string | null) => void;
 };
 
 const PADDING = 'p-5';
 
-export const Table = <T,>({ table, shouldShowFooter = false }: Props<T>) => {
+export const Table = <T,>({
+  table,
+  shouldShowFooter = false,
+  expandRow,
+  setExpandedRow,
+}: Props<T>) => {
   const { t: tG } = useTranslation('General');
 
   return (
@@ -46,25 +54,42 @@ export const Table = <T,>({ table, shouldShowFooter = false }: Props<T>) => {
             </tr>
           ) : (
             table.getRowModel().rows.map((row, i) => (
-              <tr
-                key={row.id}
-                className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 text-gray-900"
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    className={`truncate ${PADDING}`}
-                    title={cell.getValue() as string}
-                  >
-                    {cell.getValue() || cell.column.id === 'actions'
-                      ? flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )
-                      : nullValueText}
-                  </td>
-                ))}
-              </tr>
+              <>
+                <tr
+                  key={row.id}
+                  className={`odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 text-gray-900 ${
+                    typeof setExpandedRow === 'function'
+                      ? 'hover:bg-gray-200 cursor-pointer'
+                      : ''
+                  }`}
+                  onClick={() => {
+                    if (typeof setExpandedRow === 'undefined') return;
+
+                    if (expandRow === row.id) return setExpandedRow(null);
+
+                    setExpandedRow(row.id);
+                  }}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td
+                      key={cell.id}
+                      className={`truncate ${PADDING}`}
+                      title={cell.getValue() as string}
+                    >
+                      {cell.getValue() || cell.column.id === 'actions'
+                        ? flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )
+                        : nullValueText}
+                    </td>
+                  ))}
+                </tr>
+                {expandRow === row.id && (
+                  // @ts-expect-error Property 'attributes' does not exist on type 'T'
+                  <ExpandableRow users={row.original.attributes?.users?.data} />
+                )}
+              </>
             ))
           )}
         </tbody>
@@ -91,6 +116,36 @@ export const Table = <T,>({ table, shouldShowFooter = false }: Props<T>) => {
       <PaginationControl table={table} />
     </div>
   );
+};
+
+const ExpandableRow = ({ users }: { users: User[] }) => {
+  return users?.length > 0
+    ? // @ts-expect-error attributes
+      users.map(({ attributes: user }, userIndex) => (
+        <tr key={userIndex} className="bg-gray-100">
+          <td className="p-4">
+            <div>
+              <strong>Username:</strong> {user.username}
+            </div>
+          </td>
+          <td className="p-4">
+            <div>
+              <strong>FirstName:</strong> {user.firstName}
+            </div>
+          </td>
+          <td className="p-4">
+            <div>
+              <strong>LastName:</strong> {user.lastName}
+            </div>
+          </td>
+          <td className="p-4" colSpan={4}>
+            <div>
+              <strong>Role:</strong> {user.role.data.attributes.name}
+            </div>
+          </td>
+        </tr>
+      ))
+    : null;
 };
 
 Table.displayName = 'Table';
