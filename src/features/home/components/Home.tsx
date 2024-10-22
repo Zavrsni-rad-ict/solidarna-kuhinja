@@ -6,9 +6,10 @@ import { useTranslation } from 'react-i18next';
 
 export const Home = () => {
   const [date, setDate] = useState<string>('');
-  const { data: event, isFetching } = useFetchEventByDate(date, {
+  const { data: event, isLoading } = useFetchEventByDate(date, {
     enabled: !!date,
     refetchOnMount: true,
+    refetchOnWindowFocus: 'always',
   });
 
   const { t: tH } = useTranslation('Home');
@@ -50,7 +51,7 @@ export const Home = () => {
       <Map
         eventLocations={eventLocations}
         isDateEmpty={date === ''}
-        isFetching={isFetching}
+        isFetching={isLoading}
       />
     </>
   );
