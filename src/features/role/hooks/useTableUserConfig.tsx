@@ -155,6 +155,7 @@ export const useTableUserConfig = () => {
     handleFindUser,
     userGroups,
     setCheckedRole,
+    checkedRole,
     totalUsers: totalLength,
   };
 };
