@@ -13,9 +13,15 @@ import { I18nextProvider } from 'react-i18next';
 import i18next from '@/lib/i18n';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { appConfig } from '@/config/appConfig';
+import { PostHogProvider } from 'posthog-js/react';
 
 type AppProviderProps = {
   children: React.ReactNode;
+};
+
+const options = {
+  api_host: appConfig.posthogApiHost,
 };
 
 export const AppProvider = ({ children }: AppProviderProps) => {
@@ -27,33 +33,35 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         </div>
       }
     >
-      <ErrorBoundary FallbackComponent={MainErrorFallback}>
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <I18nextProvider i18n={i18next}>
-              <HelmetProvider>
-                {import.meta.env.DEV && <ReactQueryDevtools />}
+      <PostHogProvider apiKey={appConfig.posthogKey} options={options}>
+        <ErrorBoundary FallbackComponent={MainErrorFallback}>
+          <QueryClientProvider client={queryClient}>
+            <Router>
+              <I18nextProvider i18n={i18next}>
+                <HelmetProvider>
+                  {import.meta.env.DEV && <ReactQueryDevtools />}
 
-                <AuthLoader
-                  renderLoading={() => (
-                    <div className="flex h-screen w-screen items-center justify-center">
-                      <Spinner size="xl" />
-                    </div>
-                  )}
-                >
-                  {children}
-                  <ToastContainer
-                    pauseOnFocusLoss={false}
-                    theme="light"
-                    hideProgressBar
-                    position="bottom-center"
-                  />
-                </AuthLoader>
-              </HelmetProvider>
-            </I18nextProvider>
-          </Router>
-        </QueryClientProvider>
-      </ErrorBoundary>
+                  <AuthLoader
+                    renderLoading={() => (
+                      <div className="flex h-screen w-screen items-center justify-center">
+                        <Spinner size="xl" />
+                      </div>
+                    )}
+                  >
+                    {children}
+                    <ToastContainer
+                      pauseOnFocusLoss={false}
+                      theme="light"
+                      hideProgressBar
+                      position="bottom-center"
+                    />
+                  </AuthLoader>
+                </HelmetProvider>
+              </I18nextProvider>
+            </Router>
+          </QueryClientProvider>
+        </ErrorBoundary>
+      </PostHogProvider>
     </React.Suspense>
   );
 };

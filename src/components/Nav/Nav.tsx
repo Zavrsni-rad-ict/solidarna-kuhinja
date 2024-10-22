@@ -16,6 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import logoPath from '@/assets/logo-white.png';
 import { ICON_SIZE } from '@/constants';
 import { useTranslation } from 'react-i18next';
+import { useFeatureFlags } from '@/hooks';
+import { IconHamburger } from '../IconHamburger/IconHamburger';
 
 function ProfileMenu() {
   const { t } = useTranslation('General');
@@ -39,23 +41,29 @@ function ProfileMenu() {
 
   const handleNavigate = (path: string) => navigate(path);
 
+  const uploadImageFF = useFeatureFlags('uploadImageFF');
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
         <Button
           variant="text"
           color="blue-gray"
-          className="flex items-center gap-1 rounded-full lg:ml-auto w-[64px] h-[64px]"
+          className="flex items-center justify-center gap-1 rounded-full lg:ml-auto w-[64px] h-[64px]"
         >
-          <Avatar
-            width={64}
-            height={64}
-            variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-gray-900 p-0.5 rounded-full"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-          />
+          {uploadImageFF ? (
+            <Avatar
+              width={64}
+              height={64}
+              variant="circular"
+              size="sm"
+              alt="tania andrew"
+              className="border border-gray-900 p-0.5 rounded-full"
+              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            />
+          ) : (
+            <IconHamburger />
+          )}
         </Button>
       </MenuHandler>
       <MenuList className="p-1 z-[100001]">
