@@ -70,7 +70,9 @@ export const EventLocationMarker = ({
     const availableRoleForSignUp = location[signedUpKey];
 
     const shouldDisableButton =
-      isUserSignedInToAnyEvent && !isUserSignedInToLocation;
+      (isUserSignedInToAnyEvent && !isUserSignedInToLocation) ||
+      (!isUserSignedInToLocation &&
+        totalAvailableRoleForSignUp === availableRoleForSignUp);
 
     return (
       <Marker
