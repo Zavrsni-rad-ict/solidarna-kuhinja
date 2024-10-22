@@ -10,6 +10,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { UserRequest } from '../../api';
+import { useFeatureFlags } from '@/hooks';
 
 type Props = {
   user?: UserRequest;
@@ -98,6 +99,8 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
     if (e.key === 'Enter') return handleSubmit(onSubmit);
   };
 
+  const uploadImageFF = useFeatureFlags('uploadImageFF');
+
   return (
     <RHFFormProvider
       onSubmit={handleSubmit(onSubmit)}
@@ -185,9 +188,11 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
             </Button>
           </div>
         </div>
-        <div className="max-w-[600px] w-full bg-red-500 h-96">
-          <h1>Prostor za sliku</h1>
-        </div>
+        {uploadImageFF && (
+          <div className="max-w-[600px] w-full bg-red-500 h-96">
+            <h1>Prostor za sliku</h1>
+          </div>
+        )}
       </div>
     </RHFFormProvider>
   );
