@@ -1,8 +1,8 @@
 import { BasicInfo, Calendar, Map } from '@/components';
 import { useFetchEventByDate } from '../api';
-import { useMemo, useState } from 'react';
-import { Alert } from '@material-tailwind/react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 export const Home = () => {
   const [date, setDate] = useState<string>('');
@@ -35,15 +35,16 @@ export const Home = () => {
     [event],
   );
 
+  useEffect(() => {
+    if (event?.data.length === 0) {
+      toast.warning(tH('noAction'), { position: 'top-center' });
+      return;
+    }
+  }, [event?.data]);
+
   return (
     <>
       <BasicInfo />
-
-      {event?.data.length === 0 && (
-        <Alert color="red" className="w-fit">
-          <span className="font-semibold">{tH('noAction')}</span>
-        </Alert>
-      )}
 
       <div className="my-3">
         <Calendar date={date} setDate={setDate} />
