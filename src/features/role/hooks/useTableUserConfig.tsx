@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, variants } from '@/components';
 import { useModal } from '@/hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFetchAllUsers, useFetchUsersByRole } from '@/features/user/api';
 import { useDebounce } from '@/features/user/hooks';
 import { DEBOUNCE_DELAY } from '@/constants';
@@ -138,6 +138,13 @@ export const useTableUserConfig = () => {
     (sum, array) => sum + array.length,
     0,
   );
+
+  useEffect(() => {
+    setPagination({
+      pageIndex: 0,
+      pageSize: pagination.pageSize,
+    });
+  }, [debouncedSearchTerm]);
 
   return {
     table,
