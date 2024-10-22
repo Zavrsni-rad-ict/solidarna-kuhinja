@@ -77,7 +77,7 @@ export const useTableUserConfig = () => {
       {
         accessorKey: 'participationCount',
         header: () => tUL('columns.participationCount'),
-        accessorFn: (user) => user.participationCount,
+        accessorFn: (user) => user.events?.length,
       },
       {
         accessorKey: 'actions',
