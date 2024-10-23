@@ -35,6 +35,7 @@ export const EditUser = () => {
         user={formData}
         submitHandler={submitHandler}
         isSubmitted={updateUserStatus === 'pending'}
+        shouldShowRoleInput
       />
     )
   );

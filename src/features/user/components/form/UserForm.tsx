@@ -16,9 +16,15 @@ type Props = {
   user?: UserRequest;
   submitHandler: (data: UserRequest) => Promise<void>;
   isSubmitted?: boolean;
+  shouldShowRoleInput?: boolean;
 };
 
-export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
+export const UserForm = ({
+  user,
+  submitHandler,
+  isSubmitted,
+  shouldShowRoleInput,
+}: Props) => {
   const { t: tGE } = useTranslation('GlobalError');
   const { t: tL } = useTranslation('Login');
   const { t: tG } = useTranslation('General');
@@ -143,7 +149,7 @@ export const UserForm = ({ user, submitHandler, isSubmitted }: Props) => {
             />
           </div>
 
-          {user?.role && (
+          {shouldShowRoleInput && (
             <div className="col-span-12">
               {isLoadingRoles ? (
                 <Spinner />

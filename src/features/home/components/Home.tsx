@@ -1,14 +1,15 @@
 import { BasicInfo, Calendar, Map } from '@/components';
 import { useFetchEventByDate } from '../api';
-import { useMemo, useState } from 'react';
-import { Alert } from '@material-tailwind/react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 export const Home = () => {
   const [date, setDate] = useState<string>('');
-  const { data: event, isFetching } = useFetchEventByDate(date, {
+  const { data: event, isLoading } = useFetchEventByDate(date, {
     enabled: !!date,
     refetchOnMount: true,
+    refetchOnWindowFocus: 'always',
   });
 
   const { t: tH } = useTranslation('Home');
@@ -34,15 +35,16 @@ export const Home = () => {
     [event],
   );
 
+  useEffect(() => {
+    if (event?.data.length === 0) {
+      toast.warning(tH('noAction'), { position: 'top-center' });
+      return;
+    }
+  }, [event?.data]);
+
   return (
     <>
       <BasicInfo />
-
-      {event?.data.length === 0 && (
-        <Alert color="red" className="w-fit">
-          <span className="font-semibold">{tH('noAction')}</span>
-        </Alert>
-      )}
 
       <div className="my-3">
         <Calendar date={date} setDate={setDate} />
@@ -50,7 +52,7 @@ export const Home = () => {
       <Map
         eventLocations={eventLocations}
         isDateEmpty={date === ''}
-        isFetching={isFetching}
+        isFetching={isLoading}
       />
     </>
   );

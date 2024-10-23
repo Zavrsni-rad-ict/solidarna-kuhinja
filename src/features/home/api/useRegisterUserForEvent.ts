@@ -4,7 +4,7 @@ import { queryClient } from '@/lib/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
-import { RoleName } from '@/types';
+import { SignedUpRoles } from '@/types';
 import { useTranslation } from 'react-i18next';
 
 const registerUserForEvent = ({
@@ -14,7 +14,7 @@ const registerUserForEvent = ({
 }: {
   eventId: number;
   usersIds: number[];
-  roleName: Lowercase<RoleName>;
+  roleName: SignedUpRoles;
 }) =>
   axios.put(`/event/${eventId}`, {
     data: { users: usersIds, signedKey: roleName },

@@ -12,6 +12,7 @@ export const CreateUser = () => {
     <UserForm
       submitHandler={submitHandler}
       isSubmitted={status === 'pending'}
+      shouldShowRoleInput
     />
   );
 };

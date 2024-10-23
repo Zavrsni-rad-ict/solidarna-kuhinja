@@ -23,6 +23,7 @@ export const UserList = () => {
     handleFindUser,
     userGroups,
     setCheckedRole,
+    checkedRole,
     totalUsers,
   } = useTableUserConfig();
 
@@ -45,11 +46,14 @@ export const UserList = () => {
       />
 
       <div className="p-6">
-        <div className="my-4 flex items-center gap-4 flex-col-reverse sm:flex-row flex-wrap">
+        <div className="my-4 flex gap-4 flex-col-reverse sm:flex-row flex-wrap md:items-center">
           <SearchBar onChange={handleFindUser} />
 
-          <div className="flex gap-2 items-center flex-col sm:flex-row">
-            <>
+          <div className="flex gap-2 flex-col sm:flex-row md:items-start lg:items-center">
+            <div
+              className="flex gap-2 items-center"
+              onClick={() => setCheckedRole(null)}
+            >
               <input
                 id="all"
                 type="radio"
@@ -65,30 +69,32 @@ export const UserList = () => {
               >
                 All ({totalUsers})
               </label>
-            </>
+            </div>
 
             {Object.entries(userGroups).map(([roleName, userList]) => {
               return (
-                <React.Fragment key={roleName}>
+                <div
+                  onClick={() => {
+                    console.log({ roleName });
+                    setCheckedRole(roleName as Lowercase<RoleName>);
+                  }}
+                  key={roleName}
+                  className="flex gap-2 cursor-pointer items-center"
+                >
                   <input
                     id={roleName}
                     type="radio"
                     name="default-radio"
-                    value={roleName}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    onChange={(e) => {
-                      setCheckedRole(
-                        e.currentTarget.value as Lowercase<RoleName>,
-                      );
-                    }}
+                    checked={roleName === checkedRole}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
                   />
                   <label
                     htmlFor={roleName}
-                    className="capitalize text-sm font-medium text-gray-900 dark:text-gray-300"
+                    className="capitalize text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer"
                   >
                     {roleName} ({userList.length})
                   </label>
-                </React.Fragment>
+                </div>
               );
             })}
           </div>
