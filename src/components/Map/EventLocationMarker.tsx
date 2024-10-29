@@ -8,11 +8,12 @@ import { Marker, Popup } from 'react-leaflet';
 import IconChief from '@/assets/chief.svg?react';
 import IconDeliveryBike from '@/assets/deliver-bike-svgrepo-com.svg?react';
 import IconUser from '@/assets/user-svgrepo-com.svg?react';
+import IconGoogleMap from '@/assets/google-maps.svg?react';
 
 import React, { useMemo } from 'react';
 import { EventLocation, NumberOfRoles, SignedUpRoles } from '@/types';
 import { ICON_SIZE, RoleMap, nullValueText } from '@/constants';
-import { Button } from '../Button';
+import { Button, variants } from '../Button';
 import { useTranslation } from 'react-i18next';
 
 export const EventLocationMarker = ({
@@ -106,25 +107,39 @@ export const EventLocationMarker = ({
               </div>
             </div>
 
-            <div className="my-1 w-full flex justify-end">
+            <div className="my-1 w-full flex justify-end gap-2">
               {user?.role?.type !== 'admin' && (
-                <Button
-                  type="button"
-                  variant={shouldDisableButton ? 'disabled' : 'red'}
-                  className="!p-1"
-                  onClick={handleClick}
-                  data-id={location.id}
-                  data-number={totalAvailableRoleForSignUp}
-                  data-signed-up-count={availableRoleForSignUp}
-                  data-signed-up-key={signedUpKey}
-                  data-sign-action={
-                    isUserSignedInToLocation ? 'sign-out' : 'sign-in'
-                  }
-                  disabled={shouldDisableButton}
-                >
-                  {/* If button is disabled I want to show "sign-in" */}
-                  {isUserSignedInToLocation ? 'Odjavi se' : 'Prijavi se'}
-                </Button>
+                <>
+                  <Button
+                    type="button"
+                    variant={shouldDisableButton ? 'disabled' : 'red'}
+                    className="!p-1"
+                    onClick={handleClick}
+                    data-id={location.id}
+                    data-number={totalAvailableRoleForSignUp}
+                    data-signed-up-count={availableRoleForSignUp}
+                    data-signed-up-key={signedUpKey}
+                    data-sign-action={
+                      isUserSignedInToLocation ? 'sign-out' : 'sign-in'
+                    }
+                    disabled={shouldDisableButton}
+                  >
+                    {/* If button is disabled I want to show "sign-in" */}
+                    {isUserSignedInToLocation ? 'Odjavi se' : 'Prijavi se'}
+                  </Button>
+                  {isUserSignedInToLocation && (
+                    <a
+                      href={`http://maps.google.com/maps?q=loc:${location.coordinates.lat},${location.coordinates.lng}`}
+                      target="_blank"
+                      className={
+                        variants.light + ' !px-2 !py-0 !m-0 transition'
+                      }
+                      title="Open in a google map"
+                    >
+                      <IconGoogleMap />
+                    </a>
+                  )}
+                </>
               )}
             </div>
           </div>

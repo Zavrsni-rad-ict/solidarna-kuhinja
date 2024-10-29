@@ -9,7 +9,8 @@ type Variant =
   | 'red'
   | 'yellow'
   | 'purple'
-  | 'disabled';
+  | 'disabled'
+  | 'ghost1';
 
 type Props = {
   variant?: Variant;
@@ -35,6 +36,8 @@ export const variants: Record<Variant, string> = {
     'focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded text-sm px-5 py-2.5 dark:focus:ring-yellow-900',
   disabled:
     'bg-gray-500 text-white py-2 px-4 rounded opacity-50 !cursor-not-allowed text-sm font-medium px-5 py-2.5',
+  ghost1:
+    'py-2 px-4 me-2 mb-2 text-sm font-medium text-black focus:outline-none bg-transparent rounded-lg border border-red-200 hover:bg-red-100 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700',
 };
 
 export const Button = (props: Props) => {
