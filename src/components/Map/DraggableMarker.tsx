@@ -1,18 +1,41 @@
-import { Coordinates } from '@/types';
-import { useState, useMemo, useRef, useEffect } from 'react';
-import { Marker, useMapEvents, useMap } from 'react-leaflet';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Marker, useMap, useMapEvents } from 'react-leaflet';
 
-type Props = {
+interface Props {
   lat: number;
   lng: number;
-  setLocation: ((location: Coordinates) => void) | undefined;
-  center: Coordinates;
-};
+  setLocation: (position: { lat: number; lng: number }) => void;
+  center: { lat: number; lng: number };
+}
 
 export const DraggableMarker = ({ lat, lng, setLocation, center }: Props) => {
   const [position, setPosition] = useState(center);
   const markerRef = useRef<any>(null);
   const changePoisition = useMap();
+
+  // Attach map click event to update marker position
+  useMapEvents({
+    click(e) {
+      setPosition({ lat: e.latlng.lat, lng: e.latlng.lng });
+      setLocation && setLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
+      changePoisition.flyTo(e.latlng, changePoisition.getZoom());
+    },
+  });
+
+  // Memoize event handlers for marker drag
+  const eventHandlers = useMemo(
+    () => ({
+      dragend: (e: any) => {
+        const marker = markerRef.current;
+        if (marker) {
+          const { lat, lng } = marker.getLatLng();
+          setLocation && setLocation({ lat, lng });
+          setPosition({ lat, lng });
+        }
+      },
+    }),
+    [setLocation],
+  );
 
   useEffect(() => {
     if (lat && lng) {
@@ -21,36 +44,12 @@ export const DraggableMarker = ({ lat, lng, setLocation, center }: Props) => {
     }
   }, [lat, lng]);
 
-  const map = useMapEvents({
-    click(e) {
-      setPosition({ lat: e.latlng.lat, lng: e.latlng.lng });
-      setLocation && setLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
-      map.flyTo(e.latlng, map.getZoom());
-    },
-  });
-
-  const eventHandlers = useMemo(
-    () => ({
-      dragend(e: any) {
-        const marker = markerRef.current;
-        if (marker != null) {
-          setLocation &&
-            setLocation({
-              lat: e.target._latlng.lat,
-              lng: e.target._latlng.lng,
-            });
-          setPosition(marker.getLatLng());
-        }
-      },
-    }),
-    [],
-  );
-
   return (
     <Marker
       draggable
-      eventHandlers={eventHandlers}
       position={position}
-    ></Marker>
+      ref={markerRef}
+      eventHandlers={eventHandlers}
+    />
   );
 };

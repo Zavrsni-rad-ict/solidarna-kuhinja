@@ -125,6 +125,11 @@ const ExpandableRow = ({ users }: { users: User[] }) => {
         <tr key={userIndex} className="bg-gray-100">
           <td className="p-4">
             <div>
+              <strong>Index:</strong> {userIndex + 1}
+            </div>
+          </td>
+          <td className="p-4">
+            <div>
               <strong>Username:</strong> {user.username}
             </div>
           </td>
@@ -138,7 +143,7 @@ const ExpandableRow = ({ users }: { users: User[] }) => {
               <strong>LastName:</strong> {user.lastName}
             </div>
           </td>
-          <td className="p-4" colSpan={4}>
+          <td className="p-4" colSpan={3}>
             <div>
               <strong>Role:</strong> {user.role.data.attributes.name}
             </div>

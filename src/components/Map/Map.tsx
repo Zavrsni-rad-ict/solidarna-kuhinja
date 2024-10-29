@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import L from 'leaflet';
 
 import 'react-leaflet-fullscreen/styles.css';
 import 'leaflet/dist/leaflet.css';
@@ -13,6 +14,8 @@ import { DraggableMarker } from './DraggableMarker';
 import { EventLocationMarker } from './EventLocationMarker';
 import { Spinner } from '../ui/spinner';
 import { useTranslation } from 'react-i18next';
+
+import icon from '@/assets/logo-pin-icon64x64.png';
 
 type Props = {
   eventLocations?: EventLocation[];
@@ -37,10 +40,11 @@ const RecenterMap = ({ eventLocations, location, isDateEmpty }: Props) => {
 
       map.flyTo(mapCenter);
       map.fitBounds(bounds, {
-        paddingTopLeft: [0, 30],
+        paddingTopLeft: [0, 40],
+        padding: [0, 25],
       });
     }
-  }, [eventLocations]);
+  }, [eventLocations, map]);
 
   useEffect(() => {
     if (location) {
@@ -99,6 +103,7 @@ export const Map = ({
           <EventLocationMarker eventLocations={eventLocations} />
         )}
 
+        {/* // TODO Draggable marker ne belezi lokaciju */}
         {!eventLocations && (
           <DraggableMarker
             lat={location?.lat ?? BELGRADE_COORDINATES.lat}
@@ -115,3 +120,12 @@ export const Map = ({
 };
 
 Map.displayName = 'Map';
+
+const DefaultIcon = L.icon({
+  iconUrl: icon,
+  iconSize: [64, 64], // Veličina ikonice (širina, visina)
+  iconAnchor: [32, 64], // Tačka gde je vrh ikonice (x, y), obično se postavlja na sredinu dole
+  popupAnchor: [0, -64],
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
