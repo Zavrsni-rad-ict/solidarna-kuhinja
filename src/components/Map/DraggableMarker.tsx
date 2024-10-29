@@ -1,12 +1,13 @@
+import { Coordinates } from '@/types';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Marker, useMap, useMapEvents } from 'react-leaflet';
 
-interface Props {
+type Props = {
   lat: number;
   lng: number;
-  setLocation: (position: { lat: number; lng: number }) => void;
-  center: { lat: number; lng: number };
-}
+  setLocation: ((location: Coordinates) => void) | undefined;
+  center: Coordinates;
+};
 
 export const DraggableMarker = ({ lat, lng, setLocation, center }: Props) => {
   const [position, setPosition] = useState(center);
