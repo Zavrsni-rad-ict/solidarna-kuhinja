@@ -55,7 +55,9 @@ export const Button = (props: Props) => {
   return (
     <button
       type={type}
-      className={`cursor-pointer ${className || ''} ${selectedVariant || ''}`}
+      className={`cursor-pointer ripple ${className || ''} ${
+        selectedVariant || ''
+      }`}
       {...buttonProps}
     >
       {shouldCapitalizeValue && typeof children === 'string'

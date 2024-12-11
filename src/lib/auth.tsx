@@ -84,7 +84,8 @@ const authConfig = {
 
       return user;
     } catch (err: any) {
-      toast.error(err.response.data.error.message);
+      const error = err.message ?? err.response.data.error.message;
+      toast.error(error);
     }
   },
   registerFn: async (data: RegisterInput) => {
