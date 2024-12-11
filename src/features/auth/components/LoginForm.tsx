@@ -73,7 +73,7 @@ export const LoginForm = () => {
         <Button
           variant="red"
           type="submit"
-          className="w-[82px] h-[40px] flex justify-center items-center transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="max-w-28 min-w-24 h-[40px] flex justify-center items-center transition disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={isSubmitted && status === 'pending'}
         >
           {isSubmitted && status === 'pending' ? (
