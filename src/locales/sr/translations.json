@@ -21,6 +21,7 @@
     "listOfEvents": "Lista događaja"
   },
   "Login": {
+    "identifier": "Email ili korisničko ime",
     "password": "Lozinka",
     "errors": {
       "validation": {

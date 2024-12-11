@@ -21,6 +21,7 @@
     "listOfEvents": "List of Events"
   },
   "Login": {
+    "identifier": "Email or username",
     "password": "Password",
     "errors": {
       "validation": {

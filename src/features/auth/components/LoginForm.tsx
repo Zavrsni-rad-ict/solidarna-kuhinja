@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { Spinner } from '@/components/ui/spinner';
 
 type Inputs = {
-  email: string;
+  identifier: string;
   password: string;
 };
 
@@ -20,10 +20,12 @@ export const LoginForm = () => {
   const { t: tG } = useTranslation('General');
 
   const schema = yup.object().shape({
-    email: yup
+    identifier: yup
       .string()
-      .email(tL('errors.validation.email'))
-      .required(tGE('required')),
+      .required(tGE('required'))
+      .test('email_or_username', tL('errors.validation.email'), (value) =>
+        value.includes('@') ? yup.string().email().isValidSync(value) : true,
+      ),
     password: yup.string().required(tGE('required')),
   });
 
@@ -57,10 +59,10 @@ export const LoginForm = () => {
       methods={methods}
     >
       <InputGroup
-        label="Email"
-        placeholder="Email..."
+        label={tL('identifier')}
+        placeholder={`${tL('identifier')}...`}
         control={control}
-        name="email"
+        name="identifier"
       />
       <InputGroup
         label={tL('password')}
