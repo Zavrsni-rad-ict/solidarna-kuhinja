@@ -22,10 +22,12 @@
   },
   "Login": {
     "password": "Password",
+    "emailOrUsername": "Email or Username",
     "errors": {
       "validation": {
         "email": "Email is not valid",
-        "password": "Password is not valid"
+        "password": "Password is not valid",
+        "identifier": "Enter a valid email or username"
       }
     }
   },
