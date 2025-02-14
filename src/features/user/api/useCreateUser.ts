@@ -7,11 +7,13 @@ import { queryClient } from '@/lib/react-query';
 import { AxiosError } from 'axios';
 import { User } from '../types';
 import { useTranslation } from 'react-i18next';
+import { RoleName } from '@/types';
 
 export type UserRequest = {
   email: string;
   username: string;
   role?: number;
+  roleType?: Lowercase<RoleName>;
   firstName: string;
   lastName: string;
   blocked: boolean;
