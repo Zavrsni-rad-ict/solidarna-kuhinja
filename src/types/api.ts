@@ -39,7 +39,7 @@ export type RoleName =
   | 'Authenticated'
   | 'Public'
   | 'Admin'
-  | 'Cook'
+  | 'Chefs'
   | 'Deliverer'
   | 'FieldWorker';
 

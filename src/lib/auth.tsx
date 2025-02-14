@@ -10,6 +10,7 @@ import { LoginInput, loginWithEmailAndPassword, logout } from '@/features/auth';
 import { toast } from 'react-toastify';
 import { User } from '@/features/user/types';
 import { queryClient } from './react-query';
+import { isAxiosError } from 'axios';
 
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features
@@ -84,8 +85,9 @@ const authConfig = {
 
       return user;
     } catch (err: any) {
-      const error = err.message ?? err.response.data.error.message;
-      toast.error(error);
+      toast.error(
+        isAxiosError(err) ? err.response?.data.error.message : err.message,
+      );
     }
   },
   registerFn: async (data: RegisterInput) => {
