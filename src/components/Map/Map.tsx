@@ -103,7 +103,7 @@ export const Map = ({
           <EventLocationMarker eventLocations={eventLocations} />
         )}
 
-        {/* // TODO Draggable marker ne belezi lokaciju */}
+        {/* Tokom pretrage pojavljuje i tokom ucitavanja mape pojavljuje se ovaj defaultni marker, treba da se pojavi samo kada se kreira  */}
         {!eventLocations && (
           <DraggableMarker
             lat={location?.lat ?? BELGRADE_COORDINATES.lat}
