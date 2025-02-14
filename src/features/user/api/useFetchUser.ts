@@ -4,7 +4,7 @@ import { User } from '../types';
 import { axios } from '@/lib/api-client';
 
 const fetchUser = async (id: number): Promise<User> =>
-  await axios.get(`/users/${id}?populate=role`);
+  await axios.get(`/users/${id}?populate=*`);
 
 export const useFetchUser = (
   id: number,
