@@ -25,10 +25,12 @@ function ProfileMenu() {
     {
       label: `${t('edit')} ${t('profile')}`,
       icon: Cog6ToothIcon,
+      path: '/edit-profile',
     },
     {
       label: t('sign_out'),
       icon: PowerIcon,
+      path: '/sign-out',
     },
   ];
 
@@ -67,17 +69,12 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1 z-[100001]">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon, path }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <div
               key={label}
-              onClick={
-                isLastItem
-                  ? logout
-                  : () =>
-                      handleNavigate(label.replaceAll(' ', '-').toLowerCase())
-              }
+              onClick={isLastItem ? logout : () => handleNavigate(path)}
             >
               <MenuItem
                 onClick={closeMenu}
