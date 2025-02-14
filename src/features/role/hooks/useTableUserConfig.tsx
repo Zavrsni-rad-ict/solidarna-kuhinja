@@ -140,10 +140,10 @@ export const useTableUserConfig = () => {
   );
 
   useEffect(() => {
-    setPagination({
-      pageIndex: 0,
+    setPagination((prevPagination) => ({
+      ...prevPagination,
       pageSize: pagination.pageSize,
-    });
+    }));
   }, [debouncedSearchTerm]);
 
   return {
