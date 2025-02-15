@@ -75,7 +75,6 @@ export const UserList = () => {
               return (
                 <div
                   onClick={() => {
-                    console.log({ roleName });
                     setCheckedRole(roleName as Lowercase<RoleName>);
                   }}
                   key={roleName}

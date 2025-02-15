@@ -1,19 +1,22 @@
 import {
   PaginationState,
+  SortingState,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, variants } from '@/components';
 import { useModal } from '@/hooks';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useFetchAllUsers, useFetchUsersByRole } from '@/features/user/api';
 import { useDebounce } from '@/features/user/hooks';
 import { DEBOUNCE_DELAY } from '@/constants';
 import { RoleName } from '@/types';
 
 export const useTableUserConfig = () => {
+  const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 5,
@@ -42,42 +45,54 @@ export const useTableUserConfig = () => {
 
   const { isOpenModal, setIsOpenModal } = useModal();
 
+  const usersMemo = useMemo(() => users?.data ?? [], [users]);
+
   const table = useReactTable({
     columns: [
       {
         accessorKey: 'id',
         header: () => 'ID',
         accessorFn: (user) => user.id,
+        enableSorting: true,
+        sortingFn: (rowA, rowB) => rowA.original.id - rowB.original.id,
       },
       {
         accessorKey: 'firstName',
         header: () => tUL('columns.firstName'),
         accessorFn: (user) => user.firstName,
+        enableSorting: false,
       },
       {
         accessorKey: 'lastName',
         header: () => tUL('columns.lastName'),
         accessorFn: (user) => user.lastName,
+        enableSorting: false,
       },
       {
         accessorKey: 'username',
         header: () => tUL('columns.username'),
         accessorFn: (user) => user.username,
+        enableSorting: false,
       },
       {
         accessorKey: 'role',
         header: () => tUL('columns.role'),
         accessorFn: (user) => user.role.name,
+        enableSorting: false,
       },
       {
         accessorKey: 'email',
         header: () => 'Email',
         accessorFn: (user) => user.email,
+        enableSorting: false,
       },
       {
         accessorKey: 'participationCount',
         header: () => tUL('columns.participationCount'),
-        accessorFn: (user) => user.events?.length,
+        accessorFn: (user) => {
+          return user.participationCount;
+        },
+        enableSorting: true,
       },
       {
         accessorKey: 'actions',
@@ -108,12 +123,14 @@ export const useTableUserConfig = () => {
             </div>
           );
         },
+        enableSorting: false,
       },
     ],
-    data: users?.data ?? [],
+
+    data: usersMemo,
     pageCount: users?.meta.pagination.pageCount,
     manualPagination: true,
-    state: { pagination },
+    state: { pagination, sorting },
     getCoreRowModel: getCoreRowModel(),
     onPaginationChange: (updater) => {
       let newPagination;
@@ -126,6 +143,8 @@ export const useTableUserConfig = () => {
 
       setPagination(newPagination);
     },
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
   });
 
   const handleFindUser = (e: React.FormEvent<HTMLInputElement>) => {
