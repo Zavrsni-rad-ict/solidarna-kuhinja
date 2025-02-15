@@ -22,7 +22,19 @@ export const LoginForm = () => {
   const schema = yup.object().shape({
     email: yup
       .string()
-      .email(tL('errors.validation.email'))
+      .test(
+        'is-email-or-username',
+        // @ts-expect-error // TODO: VANJA Kad sednes na komp odradi npx i18next-resources-for-ts interface -i .\src\locales\en\ -o ./src/@types/resources.d.ts
+        tL('errors.validation.identifier'),
+        (value) => {
+          if (!value) return false; // Ako nema vrednosti, nije validno
+
+          const isEmail = yup.string().email().isValidSync(value);
+          const isUsername = /^[a-zA-Z0-9_]{3,}$/.test(value); // Provera za username
+
+          return isEmail || isUsername;
+        },
+      )
       .required(tGE('required')),
     password: yup.string().required(tGE('required')),
   });
@@ -57,8 +69,9 @@ export const LoginForm = () => {
       methods={methods}
     >
       <InputGroup
-        label="Email"
-        placeholder="Email..."
+        // @ts-expect-error // TODO: VANJA Kad sednes na komp odradi npx i18next-resources-for-ts interface -i .\src\locales\en\ -o ./src/@types/resources.d.ts
+        label={tL('emailOrUsername')}
+        placeholder="Email or Username..."
         control={control}
         name="email"
       />
@@ -73,7 +86,7 @@ export const LoginForm = () => {
         <Button
           variant="red"
           type="submit"
-          className="w-[82px] h-[40px] flex justify-center items-center transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="max-w-28 min-w-24 h-[40px] flex justify-center items-center transition disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={isSubmitted && status === 'pending'}
         >
           {isSubmitted && status === 'pending' ? (

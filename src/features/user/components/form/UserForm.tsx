@@ -165,8 +165,8 @@ export const UserForm = ({
             </div>
           )}
 
-          {/* If participationCount is undefined, it means we didn't pass this value at all, which means the user shouldn't see this input*/}
-          {typeof user?.participationCount === 'number' && (
+          {/* We want to hide this field while is creating new user */}
+          {/* {loggedUser?.role.type === 'admin' && (
             <div className="col-span-12">
               <InputGroup
                 name="participationCount"
@@ -175,7 +175,7 @@ export const UserForm = ({
                 type="text"
               />
             </div>
-          )}
+          )} */}
 
           <div className="col-start-1 mt-6">
             <Button

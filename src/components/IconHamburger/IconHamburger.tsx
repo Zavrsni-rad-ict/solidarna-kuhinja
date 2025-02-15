@@ -1,5 +1,3 @@
-import { Button } from '@material-tailwind/react';
-
 export const IconHamburger = () => {
   return (
     <div className="relative  flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all ring-0 ring-gray-300 hover:ring-8 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md">

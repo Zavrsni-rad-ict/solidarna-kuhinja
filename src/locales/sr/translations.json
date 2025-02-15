@@ -22,10 +22,12 @@
   },
   "Login": {
     "password": "Lozinka",
+    "emailOrUsername": "Email ili Korisničko ime",
     "errors": {
       "validation": {
         "email": "Email nije ispravan",
-        "password": "Lozinka nije ispravna"
+        "password": "Lozinka nije ispravna",
+        "identifier": "Email ili Korisničko ime nije ispravno"
       }
     }
   },
