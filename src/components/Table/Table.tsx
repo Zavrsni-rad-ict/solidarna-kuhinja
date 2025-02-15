@@ -1,7 +1,7 @@
 import { Table as TableProps, flexRender } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { PaginationControl } from '../PaginationControl/PaginationControl';
-import { nullValueText } from '@/constants';
+import { SORT_ASC_SYMBOL, SORT_DESC_SYMBOL, nullValueText } from '@/constants';
 import { User } from '@/features/user/types';
 
 type Props<T> = {
@@ -30,9 +30,14 @@ export const Table = <T,>({
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className={`py-3 gap-3 text-left truncate ${PADDING}`}
+                  className={`py-3 gap-3 text-left truncate ${PADDING} ${
+                    header.column.getCanSort()
+                      ? 'cursor-pointer select-none'
+                      : ''
+                  }`}
                   title={header.id}
                   scope="col"
+                  onClick={header.column.getToggleSortingHandler()}
                 >
                   {header.isPlaceholder
                     ? null
@@ -40,6 +45,17 @@ export const Table = <T,>({
                         header.column.columnDef.header,
                         header.getContext(),
                       )}
+
+                  {header.column.getCanSort() && (
+                    <span className="ml-2">
+                      {header.column.getIsSorted() === 'asc'
+                        ? SORT_ASC_SYMBOL
+                        : ''}
+                      {header.column.getIsSorted() === 'desc'
+                        ? SORT_DESC_SYMBOL
+                        : ''}
+                    </span>
+                  )}
                 </th>
               ))}
             </tr>

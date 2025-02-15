@@ -52,6 +52,8 @@ export const ICON_SIZE = {
 } as const;
 
 export const nullValueText = '\u2014';
+export const SORT_ASC_SYMBOL = '\u25B2';
+export const SORT_DESC_SYMBOL = '\u25BC';
 
 export const RoleMap: Record<
   any,
