@@ -24,7 +24,6 @@ export const LoginForm = () => {
       .string()
       .test(
         'is-email-or-username',
-        // @ts-expect-error // TODO: VANJA Kad sednes na komp odradi npx i18next-resources-for-ts interface -i .\src\locales\en\ -o ./src/@types/resources.d.ts
         tL('errors.validation.identifier'),
         (value) => {
           if (!value) return false; // Ako nema vrednosti, nije validno
@@ -69,7 +68,6 @@ export const LoginForm = () => {
       methods={methods}
     >
       <InputGroup
-        // @ts-expect-error // TODO: VANJA Kad sednes na komp odradi npx i18next-resources-for-ts interface -i .\src\locales\en\ -o ./src/@types/resources.d.ts
         label={tL('emailOrUsername')}
         placeholder="Email or Username..."
         control={control}
