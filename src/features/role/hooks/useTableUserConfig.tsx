@@ -14,6 +14,7 @@ import { useFetchAllUsers, useFetchUsersByRole } from '@/features/user/api';
 import { useDebounce } from '@/features/user/hooks';
 import { DEBOUNCE_DELAY } from '@/constants';
 import { RoleName } from '@/types';
+import { generateSerbianPhoneNumber } from '@/utils';
 
 export const useTableUserConfig = () => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -66,6 +67,12 @@ export const useTableUserConfig = () => {
         accessorKey: 'lastName',
         header: () => tUL('columns.lastName'),
         accessorFn: (user) => user.lastName,
+        enableSorting: false,
+      },
+      {
+        accessorKey: 'mobileNumber',
+        header: () => tUL('columns.mobileNumber'),
+        accessorFn: () => generateSerbianPhoneNumber(),
         enableSorting: false,
       },
       {
