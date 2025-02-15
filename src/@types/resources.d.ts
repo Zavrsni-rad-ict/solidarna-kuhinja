@@ -42,6 +42,7 @@ interface Resources {
       username: 'Username';
       firstName: 'First Name';
       lastName: 'Last name';
+      mobileNumber: 'Mobile Number';
       role: 'Role';
       participationCount: 'Participation Count';
     };
