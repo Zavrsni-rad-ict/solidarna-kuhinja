@@ -22,10 +22,12 @@ interface Resources {
   };
   Login: {
     password: 'Password';
+    emailOrUsername: 'Email or Username';
     errors: {
       validation: {
         email: 'Email is not valid';
         password: 'Password is not valid';
+        identifier: 'Enter a valid email or username';
       };
     };
   };
@@ -33,7 +35,7 @@ interface Resources {
     required: 'Field is required';
     minimumCharacters: 'Minimum character is';
     maximumCharacters: 'Maximum character is';
-    capitalLetter: 'Field must begin with capital letter';
+    capitalLetter: 'The field must start with a capital letter, and all other letters must be lowercase';
   };
   UserList: {
     columns: {
@@ -78,7 +80,9 @@ interface Resources {
     eventMessage: 'Are you sure you want to delete event?';
     userMessage: 'Are you sure you want to delete this user?';
   };
-  Home: { noAction: 'There is no action with the desired date' };
+  Home: {
+    noAction: 'There is no action with the desired date';
+  };
   EditProfile: {
     languageChangeSuccess: 'You have successfully changed a language';
     chooseLanguage: 'Choose language';
