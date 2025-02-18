@@ -13,6 +13,7 @@ export const EventList = () => {
     isOpenModal,
     setIsOpenModal,
     selectedEventId,
+    isFetchingEvents,
   } = useTableEventConfig();
 
   const { mutate: deleteEvent } = useDeleteEvent();
@@ -42,6 +43,7 @@ export const EventList = () => {
         table={table}
         expandRow={expandRow}
         setExpandedRow={setExpandedRow}
+        isFetching={isFetchingEvents}
       />
     </>
   );
