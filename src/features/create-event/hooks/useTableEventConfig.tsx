@@ -18,7 +18,11 @@ export const useTableEventConfig = () => {
     pageSize: 5,
   });
 
-  const { data: events, isLoading: isLoadingEvents } = useFetchEvents({
+  const {
+    data: events,
+    isLoading: isLoadingEvents,
+    isFetching: isFetchingEvents,
+  } = useFetchEvents({
     refetchOnMount: 'always',
   });
   const { t: tG } = useTranslation('General');
@@ -138,5 +142,6 @@ export const useTableEventConfig = () => {
     isOpenModal,
     setIsOpenModal,
     selectedEventId,
+    isFetchingEvents,
   };
 };

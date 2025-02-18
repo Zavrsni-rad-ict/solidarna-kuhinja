@@ -30,7 +30,11 @@ export const useTableUserConfig = () => {
     null,
   );
 
-  const { data: users, isLoading: isLoadingUsers } = useFetchAllUsers({
+  const {
+    data: users,
+    isLoading: isLoadingUsers,
+    isFetching: isFetchingUser,
+  } = useFetchAllUsers({
     pageNumber: pagination.pageIndex + 1, // Because for endpoint doesn't exist pageNumber 0
     pageSize: pagination.pageSize,
     search: debouncedSearchTerm,
@@ -178,6 +182,7 @@ export const useTableUserConfig = () => {
     setIsOpenModal,
     selectedUserId,
     isLoadingUsers,
+    isFetchingUser,
     handleFindUser,
     userGroups,
     setCheckedRole,

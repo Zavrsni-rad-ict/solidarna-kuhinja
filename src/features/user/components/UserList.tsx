@@ -25,6 +25,7 @@ export const UserList = () => {
     setCheckedRole,
     checkedRole,
     totalUsers,
+    isFetchingUser,
   } = useTableUserConfig();
 
   const handleClose = () => setIsOpenModal(false);
@@ -98,7 +99,7 @@ export const UserList = () => {
             })}
           </div>
         </div>
-        <Table table={table} />
+        <Table table={table} isFetching={isFetchingUser} />
 
         <div className="my-4 flex justify-end">
           <Link to="/users/create" className={variants.primary}>
