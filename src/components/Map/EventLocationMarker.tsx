@@ -55,6 +55,7 @@ export const EventLocationMarker = ({
   };
 
   const { t: tE } = useTranslation('Event');
+  const { t: tG } = useTranslation('General');
 
   const isUserSignedInToAnyEvent = useMemo(() => {
     return eventLocations.some((event) =>
@@ -125,7 +126,7 @@ export const EventLocationMarker = ({
                     disabled={shouldDisableButton}
                   >
                     {/* If button is disabled I want to show "sign-in" */}
-                    {isUserSignedInToLocation ? 'Odjavi se' : 'Prijavi se'}
+                    {isUserSignedInToLocation ? tG('sign_out') : tG('sign_up')}
                   </Button>
                   {isUserSignedInToLocation && (
                     <a
