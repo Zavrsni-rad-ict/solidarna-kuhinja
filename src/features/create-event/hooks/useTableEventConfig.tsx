@@ -22,9 +22,12 @@ export const useTableEventConfig = () => {
     data: events,
     isLoading: isLoadingEvents,
     isFetching: isFetchingEvents,
-  } = useFetchEvents({
-    refetchOnMount: 'always',
-  });
+  } = useFetchEvents(
+    { pageNumber: pagination.pageIndex + 1, pageSize: pagination.pageSize },
+    {
+      refetchOnMount: 'always',
+    },
+  );
   const { t: tG } = useTranslation('General');
 
   const sortEventsByDateAsc = events?.data.toSorted(
@@ -119,9 +122,10 @@ export const useTableEventConfig = () => {
       },
     ],
     data: sortEventsByDateAsc ?? [],
-    pageCount: events?.meta.pageCount,
+    pageCount: events?.meta.pagination.pageCount,
     manualPagination: true,
     state: { pagination },
+    enableSorting: false,
     getCoreRowModel: getCoreRowModel(),
     onPaginationChange: (updater) => {
       let newPagination;

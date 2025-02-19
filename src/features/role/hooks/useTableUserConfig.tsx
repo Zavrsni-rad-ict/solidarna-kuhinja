@@ -101,7 +101,7 @@ export const useTableUserConfig = () => {
         accessorKey: 'participationCount',
         header: () => tUL('columns.participationCount'),
         accessorFn: (user) => {
-          return user.participationCount;
+          return user.events?.length;
         },
         enableSorting: true,
       },
