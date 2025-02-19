@@ -10,7 +10,7 @@ type Props<T> = {
   shouldShowFooter?: boolean;
   expandRow?: string | null;
   setExpandedRow?: (rowId: string | null) => void;
-  isFetching: boolean;
+  isFetching?: boolean;
 };
 
 const PADDING = 'p-5';
