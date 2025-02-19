@@ -1,6 +1,6 @@
-import { EventData, Pagination } from '@/types';
+import { EventData, Meta } from '@/types';
 
 export type EventResponse = {
   data: EventData[];
-  meta: Pagination;
+  meta: Meta;
 };

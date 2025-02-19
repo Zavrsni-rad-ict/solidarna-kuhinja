@@ -9,7 +9,11 @@ import {
   MenuItem,
   Avatar,
 } from '@material-tailwind/react';
-import { Cog6ToothIcon, PowerIcon } from '@heroicons/react/24/solid';
+import {
+  ChevronUpIcon,
+  Cog6ToothIcon,
+  PowerIcon,
+} from '@heroicons/react/24/solid';
 import { useLogout } from '@/lib/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +22,8 @@ import { ICON_SIZE } from '@/constants';
 import { useTranslation } from 'react-i18next';
 import { useFeatureFlags } from '@/hooks';
 import { IconHamburger } from '../IconHamburger/IconHamburger';
+import { useFetchLanguages } from '@/api/useFetchLanguages';
+import { toast } from 'react-toastify';
 
 function ProfileMenu() {
   const { t } = useTranslation('General');
@@ -45,8 +51,22 @@ function ProfileMenu() {
 
   const uploadImageFF = useFeatureFlags('uploadImageFF');
 
+  // Language btn
+  const { data: languages } = useFetchLanguages();
+  const { t: tEP } = useTranslation('EditProfile');
+
+  const { i18n } = useTranslation();
+  const handleChangeLanguage = (
+    e: React.MouseEvent<HTMLButtonElement> & React.MouseEvent<HTMLLIElement>,
+  ) => {
+    i18n.changeLanguage(e.currentTarget.value);
+    localStorage.setItem('language', e.currentTarget.value);
+
+    toast.success(tEP('languageChangeSuccess'));
+  };
+
   return (
-    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+    <Menu placement="bottom-end">
       <MenuHandler>
         <Button
           variant="text"
@@ -69,6 +89,44 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1 z-[100001]">
+        <Menu
+          placement="right-start"
+          open={isMenuOpen}
+          handler={setIsMenuOpen}
+          allowHover
+          offset={15}
+        >
+          <MenuHandler className="flex items-center justify-between gap-2 py-2 w-auto">
+            <MenuItem>
+              <ChevronUpIcon
+                strokeWidth={2}
+                className={`h-4 w-4 transition-transform ${
+                  isMenuOpen ? '-rotate-90' : ''
+                }`}
+              />
+              <Typography
+                as="span"
+                variant="small"
+                className="font-normal"
+                color={'inherit'}
+              >
+                {tEP('chooseLanguage')}
+              </Typography>
+            </MenuItem>
+          </MenuHandler>
+          <MenuList>
+            {languages?.map((language) => (
+              <MenuItem
+                value={language.code}
+                key={language.id}
+                className="hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                onClick={handleChangeLanguage}
+              >
+                {language.name}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
         {profileMenuItems.map(({ label, icon, path }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (

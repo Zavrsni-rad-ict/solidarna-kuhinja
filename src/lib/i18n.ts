@@ -11,7 +11,7 @@ i18next
   .use(initReactI18next)
   .init({
     interpolation: { escapeValue: false }, // React already does escaping
-    lng: appConfig.lang, // language to use,
+    lng: localStorage.getItem('language') ?? appConfig.lang, // language to use,
     fallbackLng: appConfig.lang,
     // debug: true,
     resources: {

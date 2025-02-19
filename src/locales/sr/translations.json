@@ -43,6 +43,7 @@
       "firstName": "Ime",
       "lastName": "Prezime",
       "role": "Uloga",
+      "mobileNumber": "Mobilni telefon",
       "participationCount": "Učešće"
     },
     "createButton": "Kreiraj korisnika"

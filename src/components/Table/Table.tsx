@@ -1,14 +1,16 @@
 import { Table as TableProps, flexRender } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { PaginationControl } from '../PaginationControl/PaginationControl';
-import { nullValueText } from '@/constants';
+import { SORT_ASC_SYMBOL, SORT_DESC_SYMBOL, nullValueText } from '@/constants';
 import { User } from '@/features/user/types';
+import { generateSerbianPhoneNumber } from '@/utils';
 
 type Props<T> = {
   table: TableProps<T>;
   shouldShowFooter?: boolean;
   expandRow?: string | null;
   setExpandedRow?: (rowId: string | null) => void;
+  isFetching: boolean;
 };
 
 const PADDING = 'p-5';
@@ -18,6 +20,7 @@ export const Table = <T,>({
   shouldShowFooter = false,
   expandRow,
   setExpandedRow,
+  isFetching,
 }: Props<T>) => {
   const { t: tG } = useTranslation('General');
 
@@ -30,9 +33,14 @@ export const Table = <T,>({
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className={`py-3 gap-3 text-left truncate ${PADDING}`}
+                  className={`py-3 gap-3 text-left truncate ${PADDING} ${
+                    header.column.getCanSort()
+                      ? 'cursor-pointer select-none'
+                      : ''
+                  }`}
                   title={header.id}
                   scope="col"
+                  onClick={header.column.getToggleSortingHandler()}
                 >
                   {header.isPlaceholder
                     ? null
@@ -40,6 +48,17 @@ export const Table = <T,>({
                         header.column.columnDef.header,
                         header.getContext(),
                       )}
+
+                  {header.column.getCanSort() && (
+                    <span className="ml-2">
+                      {header.column.getIsSorted() === 'asc'
+                        ? SORT_ASC_SYMBOL
+                        : ''}
+                      {header.column.getIsSorted() === 'desc'
+                        ? SORT_DESC_SYMBOL
+                        : ''}
+                    </span>
+                  )}
                 </th>
               ))}
             </tr>
@@ -76,12 +95,18 @@ export const Table = <T,>({
                       className={`truncate ${PADDING}`}
                       title={cell.getValue() as string}
                     >
-                      {cell.getValue() || cell.column.id === 'actions'
-                        ? flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )
-                        : nullValueText}
+                      {isFetching ? (
+                        <div role="status" className="max-w-sm animate-pulse">
+                          <div className="h-5 bg-gray-300 rounded w-48"></div>
+                        </div>
+                      ) : cell.getValue() || cell.column.id === 'actions' ? (
+                        flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )
+                      ) : (
+                        nullValueText
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -141,6 +166,11 @@ const ExpandableRow = ({ users }: { users: User[] }) => {
           <td className="p-4">
             <div>
               <strong>LastName:</strong> {user.lastName}
+            </div>
+          </td>
+          <td className="p-4">
+            <div>
+              <strong>Phone number:</strong> {generateSerbianPhoneNumber()}
             </div>
           </td>
           <td className="p-4" colSpan={3}>

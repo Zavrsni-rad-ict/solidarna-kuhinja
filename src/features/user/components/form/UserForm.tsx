@@ -155,11 +155,18 @@ export const UserForm = ({
                 <Spinner />
               ) : (
                 <Dropdown label="Role" name="role">
-                  {data?.roles.map((role) => (
-                    <option value={role.id} key={role.id}>
-                      {role.name}
-                    </option>
-                  ))}
+                  {data?.roles
+                    // ? This solution is only valid on the Strapi service because initially, they have 2 more roles (public and authenticated).
+                    .filter((role) =>
+                      ['admin', 'chefs', 'deliverer', 'fieldworker'].includes(
+                        role.type,
+                      ),
+                    )
+                    .map((role) => (
+                      <option value={role.id} key={role.id}>
+                        {role.name}
+                      </option>
+                    ))}
                 </Dropdown>
               )}
             </div>
