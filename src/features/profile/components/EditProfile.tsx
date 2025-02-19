@@ -27,6 +27,8 @@ export const EditProfile = () => {
     e: React.MouseEvent<HTMLButtonElement> & React.MouseEvent<HTMLLIElement>,
   ) => {
     i18n.changeLanguage(e.currentTarget.value);
+    localStorage.setItem('language', e.currentTarget.value);
+
     toast.success(t('languageChangeSuccess'));
   };
 
