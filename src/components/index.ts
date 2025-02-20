@@ -13,3 +13,4 @@ export * from './SearchBar/SearchBar';
 export * from './Calendar/Calendar';
 export * from './BasicInfo/BasicInfo';
 export * from './IconHamburger/IconHamburger';
+export * from './Skeleton/Skeleton';
