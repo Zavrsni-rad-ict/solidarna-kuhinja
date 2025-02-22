@@ -1,11 +1,9 @@
 import IconMagnifyingGlass from '@/assets/magnifying-glass.svg?react';
-import { ChangeEventHandler } from 'react';
+import { InputHTMLAttributes } from 'react';
 
 export const SearchBar = ({
   onChange,
-}: {
-  onChange: ChangeEventHandler<HTMLInputElement>;
-}) => {
+}: InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <div className="relative w-full sm:w-auto md:max-w-[320px]">
       <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
