@@ -39,8 +39,8 @@ export enum MUTATION_KEYS {
   DELETE_EVENT = 'DELETE_EVENT',
 }
 
-export type Size = 'xs' | 'sm' | 'm' | 'l' | 'xl' | '2xl' | '3xl';
-export const ICON_SIZE = {
+type Size = 'xs' | 'sm' | 'm' | 'l' | 'xl' | '2xl' | '3xl' | '4xl';
+export const ICON_SIZE: Record<Size, number> = {
   xs: 8,
   sm: 16,
   m: 24,
@@ -72,3 +72,5 @@ export const RoleMap: Record<
     number: 'numberOfFieldWorkers',
   },
 };
+
+export const DEFAULT_PAGE_SIZE = 5;

@@ -8,19 +8,30 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, variants } from '@/components';
-import { useModal } from '@/hooks';
+import { useModal, useQueryParams } from '@/hooks';
 import { useEffect, useMemo, useState } from 'react';
 import { useFetchAllUsers, useFetchUsersByRole } from '@/features/user/api';
 import { useDebounce } from '@/features/user/hooks';
-import { DEBOUNCE_DELAY } from '@/constants';
+import { DEBOUNCE_DELAY, DEFAULT_PAGE_SIZE } from '@/constants';
 import { RoleName } from '@/types';
 import { generateSerbianPhoneNumber } from '@/utils';
 
+const DEFAULT_QUERY_PARAMS = {
+  page: '1',
+  pageSize: '5',
+} as const;
+
 export const useTableUserConfig = () => {
+  const { setQueryParam, getQueryParamByKey } = useQueryParams<
+    keyof typeof DEFAULT_QUERY_PARAMS
+  >({
+    defaultParams: DEFAULT_QUERY_PARAMS,
+  });
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 5,
+    pageIndex: Number(getQueryParamByKey('page')) - 1 ?? 0,
+    pageSize: Number(getQueryParamByKey('pageSize')) ?? DEFAULT_PAGE_SIZE,
   });
 
   const [searchState, setSearchState] = useState('');
@@ -153,6 +164,7 @@ export const useTableUserConfig = () => {
       }
 
       setPagination(newPagination);
+      setQueryParam('page', String(newPagination.pageIndex + 1));
     },
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
@@ -174,6 +186,10 @@ export const useTableUserConfig = () => {
       pageSize: pagination.pageSize,
     }));
   }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    setQueryParam('pageSize', String(pagination.pageSize));
+  }, [pagination.pageSize]);
 
   return {
     table,
