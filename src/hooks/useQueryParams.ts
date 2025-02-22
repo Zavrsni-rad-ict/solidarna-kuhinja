@@ -18,7 +18,12 @@ export const useQueryParams = <T>({ defaultParams }: Props) => {
   );
 
   useEffect(() => {
-    if(searchParams.)
+    if (
+      JSON.stringify(Object.fromEntries(searchParams)) !==
+      JSON.stringify(defaultParams)
+    )
+      return;
+
     setSearchParams(defaultParams);
   }, []);
 
@@ -26,9 +31,9 @@ export const useQueryParams = <T>({ defaultParams }: Props) => {
     setAllQueryParams(Object.fromEntries(searchParams));
   }, [searchParams]);
 
-  const getQueryParamByKey = (key: string) => {
+  const getQueryParamByKey = (key: T) => {
     const params = new URLSearchParams(location.search);
-    return params.get(key) || '';
+    return params.get(key as string) || '';
   };
 
   const setQueryParam = (key: T, value: string) => {
