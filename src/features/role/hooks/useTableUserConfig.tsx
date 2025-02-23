@@ -16,25 +16,20 @@ import { DEBOUNCE_DELAY, DEFAULT_PAGE_SIZE } from '@/constants';
 import { RoleName } from '@/types';
 import { generateSerbianPhoneNumber } from '@/utils';
 
-const DEFAULT_QUERY_PARAMS = {
-  page: '1',
-  pageSize: '5',
-} as const;
-
 export const useTableUserConfig = () => {
-  const { setQueryParam, getQueryParamByKey } = useQueryParams<
-    keyof typeof DEFAULT_QUERY_PARAMS
-  >({
-    defaultParams: DEFAULT_QUERY_PARAMS,
-  });
+  const { setQueryParam, allQueryParams, removeQueryParamByKey } =
+    useQueryParams();
+
+  const pageIndex = Number(allQueryParams.page) - 1;
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
-    pageIndex: Number(getQueryParamByKey('page')) - 1 ?? 0,
-    pageSize: Number(getQueryParamByKey('pageSize')) ?? DEFAULT_PAGE_SIZE,
+    pageIndex: allQueryParams.page ? pageIndex : 0,
+    pageSize: DEFAULT_PAGE_SIZE,
   });
 
-  const [searchState, setSearchState] = useState('');
+  const [searchState, setSearchState] = useState(allQueryParams.search);
+
   const debouncedSearchTerm = useDebounce(searchState, DEBOUNCE_DELAY);
 
   const [checkedRole, setCheckedRole] = useState<null | Lowercase<RoleName>>(
@@ -171,8 +166,17 @@ export const useTableUserConfig = () => {
   });
 
   const handleFindUser = (e: React.FormEvent<HTMLInputElement>) => {
-    const newValue = e.currentTarget.value.toLowerCase();
-    setSearchState(newValue);
+    const newValue = e.currentTarget.value;
+
+    setSearchState(() => {
+      if (newValue.trim().length === 0) {
+        removeQueryParamByKey('search');
+      } else {
+        setQueryParam('search', newValue);
+      }
+
+      return newValue.toLowerCase();
+    });
   };
 
   const totalLength = Object.values(userGroups).reduce(
@@ -186,10 +190,6 @@ export const useTableUserConfig = () => {
       pageSize: pagination.pageSize,
     }));
   }, [debouncedSearchTerm]);
-
-  useEffect(() => {
-    setQueryParam('pageSize', String(pagination.pageSize));
-  }, [pagination.pageSize]);
 
   return {
     table,

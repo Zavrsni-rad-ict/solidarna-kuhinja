@@ -1,31 +1,24 @@
 import { useEffect, useState } from 'react';
-import {
-  URLSearchParamsInit,
-  useLocation,
-  useSearchParams,
-} from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
-type Props = { defaultParams?: URLSearchParamsInit };
+const INITIAL_QUERY_PARAMS = {
+  page: '1',
+  search: '',
+  role: '',
+};
 
-export const useQueryParams = <T>({ defaultParams }: Props) => {
+export type DEFAULT_QUERY_PARAMS = keyof typeof INITIAL_QUERY_PARAMS;
+
+export const useQueryParams = <T = DEFAULT_QUERY_PARAMS>() => {
   const location = useLocation();
 
   const [searchParams, setSearchParams] = useSearchParams(
-    location.search ? undefined : defaultParams,
-  );
-  const [allQueryParams, setAllQueryParams] = useState(
-    Object.fromEntries(searchParams),
+    location.search ? undefined : INITIAL_QUERY_PARAMS,
   );
 
-  useEffect(() => {
-    if (
-      JSON.stringify(Object.fromEntries(searchParams)) !==
-      JSON.stringify(defaultParams)
-    )
-      return;
-
-    setSearchParams(defaultParams);
-  }, []);
+  const [allQueryParams, setAllQueryParams] = useState<
+    Partial<typeof INITIAL_QUERY_PARAMS>
+  >(Object.fromEntries(searchParams));
 
   useEffect(() => {
     setAllQueryParams(Object.fromEntries(searchParams));
@@ -42,9 +35,9 @@ export const useQueryParams = <T>({ defaultParams }: Props) => {
     setSearchParams(params.toString());
   };
 
-  const removeQueryParamByKey = (key: string) => {
+  const removeQueryParamByKey = (key: T) => {
     const params = new URLSearchParams(location.search);
-    params.delete(key);
+    params.delete(key as string);
     setSearchParams(params.toString());
   };
 

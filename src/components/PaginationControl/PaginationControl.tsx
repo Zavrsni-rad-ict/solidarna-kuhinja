@@ -1,9 +1,12 @@
+import { useQueryParams } from '@/hooks';
 import { Table } from '@tanstack/react-table';
 
 const disabledClassName = 'cursor-not-allowed bg-gray-200 text-gray-400';
 const enableClassName = 'hover:bg-gray-100';
 
 export const PaginationControl = <T,>({ table }: { table: Table<T> }) => {
+  const { setQueryParam } = useQueryParams();
+
   return (
     <div className="flex flex-wrap items-center gap-2 m-3 justify-between">
       <div className="pagination flex gap-2">
@@ -11,7 +14,10 @@ export const PaginationControl = <T,>({ table }: { table: Table<T> }) => {
           className={`border rounded p-1 ${
             !table.getCanPreviousPage() ? disabledClassName : enableClassName
           }`}
-          onClick={() => table.firstPage()}
+          onClick={() => {
+            table.firstPage();
+            setQueryParam('page', '1');
+          }}
           disabled={!table.getCanPreviousPage()}
         >
           {'<<'}
@@ -29,7 +35,13 @@ export const PaginationControl = <T,>({ table }: { table: Table<T> }) => {
           className={`border rounded p-1 ${
             !table.getCanNextPage() ? disabledClassName : enableClassName
           }`}
-          onClick={() => table.nextPage()}
+          onClick={() => {
+            setQueryParam(
+              'page',
+              (table.getState().pagination.pageIndex + 1).toString(),
+            );
+            table.nextPage();
+          }}
           disabled={!table.getCanNextPage()}
         >
           {'>'}
@@ -38,7 +50,10 @@ export const PaginationControl = <T,>({ table }: { table: Table<T> }) => {
           className={`border rounded p-1 ${
             !table.getCanNextPage() ? disabledClassName : enableClassName
           }`}
-          onClick={() => table.lastPage()}
+          onClick={() => {
+            setQueryParam('page', table.getPageCount().toString());
+            table.lastPage();
+          }}
           disabled={!table.getCanNextPage()}
         >
           {'>>'}
